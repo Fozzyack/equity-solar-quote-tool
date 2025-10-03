@@ -1,103 +1,107 @@
+"use client";
 import Image from "next/image";
+import { useState } from "react";
+
+import { UserChoiceContext } from "@/contexts/UserChoiceContext";
+import Step0 from "./step-0";
+import Step1 from "./step-1";
+import Step2 from "./step-2";
+import Step3 from "./step-3";
+import Step4 from "./step-4";
+import Step5 from "./step-5";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    const [step, setStep] = useState<number>(0);
+    const [solution, setSolution] = useState<string>("");
+    const [priceRange, setPriceRange] = useState<string>("");
+    const [averageBill, setAverageBill] = useState<string>("");
+    const [existingSystem, setExistingSystem] = useState<string>("");
+    const [preferredSystemSize, setPreferredSystemSize] = useState<string>("");
+    const [houseStories, setHouseStories] = useState<string>("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-white px-4 py-12 text-slate-900">
+            <div className="w-full max-w-2xl space-y-10 text-center">
+                <div className="flex flex-col items-center space-y-5">
+                    <div className="relative h-36 w-36 sm:h-48 sm:w-48">
+                        <Image
+                            src="/eqSolarLogo.jpg"
+                            alt="Equity Solar Logo"
+                            fill
+                            priority
+                            className="rounded-3xl object-contain"
+                        />
+                    </div>
+                    <div className="space-y-3">
+                        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-400">
+                            Equity Solar
+                        </p>
+                        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                            Build Your Quote
+                        </h1>
+                        <p className="mx-auto max-w-sm text-sm font-medium text-slate-500">
+                            Pick your system to get started.
+                        </p>
+                    </div>
+                </div>
+
+                <UserChoiceContext.Provider
+                    value={{
+                        step,
+                        setStep,
+                        solution,
+                        setSolution,
+                        priceRange,
+                        setPriceRange,
+                        averageBill,
+                        setAverageBill,
+                        existingSystem,
+                        setExistingSystem,
+                        preferredSystemSize,
+                        setPreferredSystemSize,
+                        houseStories,
+                        setHouseStories,
+                    }}
+                >
+                    <main className="space-y-10">
+                        {step === 0 && <Step0 />}
+                        {step === 1 && <Step1 />}
+                        {step === 2 && <Step2 />}
+                        {step === 3 && <Step3 />}
+                        {step === 4 && <Step4 />}
+                        {step === 5 && <Step5 />}
+                        {step === 6 && solution == "battery" ? (
+                            <div></div>
+                        ) : (
+                            step === 6 && (
+                                <section className="space-y-6 rounded-3xl border-2 border-slate-200 bg-slate-50 px-8 py-10 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.4)]">
+                                    <h2 className="text-2xl font-bold">
+                                        Configurator coming soon
+                                    </h2>
+                                    <p className="mx-auto max-w-xl text-sm font-semibold text-slate-500">
+                                        We are polishing this step right now.
+                                    </p>
+                                    <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                                        <button
+                                            type="button"
+                                            onClick={() => setStep(0)}
+                                            className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
+                                        >
+                                            Back to systems
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-700"
+                                        >
+                                            Download overview
+                                        </button>
+                                    </div>
+                                </section>
+                            )
+                        )}
+                    </main>
+                </UserChoiceContext.Provider>
+            </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }

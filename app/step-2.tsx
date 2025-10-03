@@ -1,0 +1,66 @@
+import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
+
+const averageBillOptions = [
+    { id: "under-500", label: "$500" },
+    { id: "500-750", label: "$500-$750" },
+    { id: "750-1000", label: "$750-$1,000" },
+    { id: "1000-plus", label: "$1,000+" },
+];
+
+const Step2 = () => {
+    const { solution, averageBill, setAverageBill, setStep } =
+        useUserChoiceContext();
+    const cameFromBatteryStep = solution === "battery" || solution === "combo";
+
+    return (
+        <section className="space-y-6">
+            <div className="space-y-1">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                    Step 2
+                </p>
+                <h2 className="text-2xl font-bold">Average electricity bill</h2>
+                <p className="text-sm text-slate-500">
+                    Help us dial in your usage by picking the closest monthly total.
+                </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+                {averageBillOptions.map((option) => {
+                    const selected = averageBill === option.id;
+                    return (
+                        <button
+                            key={option.id}
+                            type="button"
+                            onClick={() => setAverageBill(option.id)}
+                            className={`flex h-full flex-col items-center gap-3 rounded-2xl border-2 px-5 py-6 text-sm font-bold uppercase tracking-wide transition ${
+                                selected
+                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-[0_16px_30px_-18px_rgba(234,179,8,0.6)]"
+                                    : "border-slate-200 bg-white text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
+                            }`}
+                        >
+                            <span>{option.label}</span>
+                        </button>
+                    );
+                })}
+            </div>
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <button
+                    type="button"
+                    onClick={() => setStep(cameFromBatteryStep ? 1 : 0)}
+                    className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
+                >
+                    Back
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setStep(3)}
+                    disabled={!averageBill}
+                    className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-9 py-3 text-sm font-bold uppercase tracking-wide text-slate-900 transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
+                >
+                    Continue
+                </button>
+            </div>
+        </section>
+    );
+};
+
+export default Step2;
