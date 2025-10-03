@@ -1,36 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Equity Solar Quote Tool
+
+A modern, multi-step configurator for generating solar panel and battery storage quotes. Built with Next.js 15, React 19, and TypeScript.
+
+## Features
+
+- **Interactive Quote Wizard**: Step-by-step flow guides customers through system configuration
+- **Flexible Solutions**: Supports solar panels, battery storage, and combination systems
+- **Tiered Pricing**: Value, mid-range, and premium battery options
+- **Responsive Design**: Mobile-first UI built with Tailwind CSS 4
+- **Type-Safe**: Full TypeScript coverage with strict type checking
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Runtime**: React 19
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **Build Tool**: Turbopack
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+ recommended
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the configurator.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+### Code Formatting
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx prettier --write .
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/
+├── page.tsx              # Main wizard container
+├── step-0.tsx            # System type selection
+├── step-1.tsx            # Battery tier selection
+├── step-2.tsx            # Average bill input
+├── step-3.tsx            # Existing system check
+├── step-4.tsx            # System size preferences
+├── step-5.tsx            # House stories
+└── step-6.tsx            # Final configurator
 
-## Deploy on Vercel
+components/
+└── StepContainer.tsx     # Reusable step wrapper
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+contexts/
+└── UserChoiceContext.tsx # Global wizard state
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+constants/
+├── Batteries.ts          # Battery product catalog
+└── BatteryCombos.ts      # Solar + battery combinations
+
+other/
+└── SolarCSV.csv          # Source data (read-only)
+```
+
+## How It Works
+
+### Wizard Flow
+
+1. **Step 0**: Choose between solar panels, combo system, or battery only
+2. **Step 1**: Select price tier (value/mid-range/premium)
+3. **Steps 2-5**: Answer configuration questions (bill amount, existing system, size, stories)
+4. **Step 6**: View final quote and system recommendations
+
+### State Management
+
+The `UserChoiceContext` manages all user selections throughout the wizard:
+
+```typescript
+{
+  step: number              // Current step (0-6)
+  solution: string          // "solar-panels" | "combo" | "battery"
+  priceRange: string        // "value" | "mid-range" | "premium"
+  averageBill: string       // User's average electricity bill
+  existingSystem: string    // Whether they have solar already
+  preferredSystemSize: string
+  houseStories: string
+}
+```
+
+### Product Data
+
+Battery and solar products are defined in `constants/Batteries.ts` with structured types:
+
+```typescript
+{
+  brand: string
+  series: string
+  sizeKwh: number
+  inverter: string
+  systemType: string
+  module: string
+  phase: string
+  price: number
+  rebate: number
+  netPrice: number
+  tier: "value" | "medium" | "premium"
+  notes?: string
+}
+```
+
+## Development Guidelines
+
+- Use the `@/*` path alias for imports (e.g., `@/components/StepContainer`)
+- Step components live in `app/` directory
+- Follow 4-space indentation
+- Yellow accent color (#EAB308) for primary actions
+- All components must use `useUserChoiceContext()` for state access
+
+## Contributing
+
+1. Run `npm run build` to ensure your changes compile
+2. Format code with `npx prettier --write .` before committing
+3. Follow existing patterns in step components
+
+## License
+
+Private project for Equity Solar.
