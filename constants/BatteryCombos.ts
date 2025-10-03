@@ -1041,4 +1041,4 @@ export const BatteryComboList: BatteryComboProduct[] = [
         notes: "Upgrade to 3p: +$1000",
         tier: "premium",
     },
-*** End Patch
+]
