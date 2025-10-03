@@ -1,3 +1,4 @@
+import { BatteryProduct } from "@/constants/Batteries";
 import { createContext, SetStateAction, useContext } from "react";
 
 interface ChoiceContext {
@@ -5,8 +6,8 @@ interface ChoiceContext {
     setStep: React.Dispatch<SetStateAction<number>>;
     solution: string;
     setSolution: React.Dispatch<SetStateAction<string>>;
-    priceRange: string;
-    setPriceRange: React.Dispatch<SetStateAction<string>>;
+    tier: string;
+    setTier: React.Dispatch<SetStateAction<string>>;
     averageBill: string;
     setAverageBill: React.Dispatch<SetStateAction<string>>;
     existingSystem: string;
@@ -15,6 +16,8 @@ interface ChoiceContext {
     setPreferredSystemSize: React.Dispatch<SetStateAction<string>>;
     houseStories: string;
     setHouseStories: React.Dispatch<SetStateAction<string>>;
+    battery: BatteryProduct | undefined;
+    setBattery: React.Dispatch<SetStateAction<BatteryProduct | undefined>>;
 }
 export const UserChoiceContext = createContext<ChoiceContext | undefined>(
     undefined,

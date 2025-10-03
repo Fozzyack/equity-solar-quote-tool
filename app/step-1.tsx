@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 
 import { MidRangeIcon, PremiumIcon, ValueIcon } from "@/constants/Icons";
@@ -10,7 +11,7 @@ const batteryPriceRanges = [
         icon: <ValueIcon />,
     },
     {
-        id: "mid-range",
+        id: "medium",
         label: "Mid Range",
         icon: <MidRangeIcon />,
     },
@@ -22,8 +23,7 @@ const batteryPriceRanges = [
 ];
 
 const Step1 = () => {
-    const { solution, setStep, priceRange, setPriceRange } =
-        useUserChoiceContext();
+    const { solution, setStep, tier, setTier } = useUserChoiceContext();
 
     const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -50,15 +50,15 @@ const Step1 = () => {
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
                 {batteryPriceRanges.map((option) => {
-                    const selected = priceRange === option.id;
+                    const selected = tier === option.id;
                     return (
                         <button
                             key={option.id}
                             type="button"
-                            onClick={() => setPriceRange(option.id)}
+                            onClick={() => setTier(option.id)}
                             className={`flex h-full flex-col items-center gap-4 rounded-3xl border-2 px-6 py-7 text-sm font-bold uppercase tracking-wide transition ${
                                 selected
-                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-[0_18px_36px_-20px_rgba(234,179,8,0.6)]"
+                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
                                     : "border-slate-200 bg-white text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
                             }`}
                         >
@@ -74,7 +74,7 @@ const Step1 = () => {
                 <button
                     type="button"
                     onClick={() => {
-                        setPriceRange("");
+                        setTier("");
                         setStep(0);
                     }}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
@@ -84,7 +84,7 @@ const Step1 = () => {
                 <button
                     type="button"
                     onClick={handleContinue}
-                    disabled={!priceRange}
+                    disabled={!tier}
                     className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-9 py-3 text-sm font-bold uppercase tracking-wide text-slate-900 transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
                 >
                     Continue

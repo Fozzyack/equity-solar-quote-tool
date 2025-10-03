@@ -1,3 +1,4 @@
+"use client";
 import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
 
 const averageBillOptions = [
@@ -20,7 +21,8 @@ const Step2 = () => {
                 </p>
                 <h2 className="text-2xl font-bold">Average electricity bill</h2>
                 <p className="text-sm text-slate-500">
-                    Help us dial in your usage by picking the closest monthly total.
+                    Help us dial in your usage by picking the closest monthly
+                    total.
                 </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -33,7 +35,7 @@ const Step2 = () => {
                             onClick={() => setAverageBill(option.id)}
                             className={`flex h-full flex-col items-center gap-3 rounded-2xl border-2 px-5 py-6 text-sm font-bold uppercase tracking-wide transition ${
                                 selected
-                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-[0_16px_30px_-18px_rgba(234,179,8,0.6)]"
+                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
                                     : "border-slate-200 bg-white text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
                             }`}
                         >

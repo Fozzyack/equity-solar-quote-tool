@@ -9,19 +9,26 @@ import Step2 from "./step-2";
 import Step3 from "./step-3";
 import Step4 from "./step-4";
 import Step5 from "./step-5";
+import Batteries from "./step-6-battery";
+import Step7Battery from "./step-7-battery";
+import Link from "next/link";
+import { BatteryProduct } from "@/constants/Batteries";
 
 export default function Home() {
     const [step, setStep] = useState<number>(0);
     const [solution, setSolution] = useState<string>("");
-    const [priceRange, setPriceRange] = useState<string>("");
+    const [tier, setTier] = useState<string>("");
     const [averageBill, setAverageBill] = useState<string>("");
     const [existingSystem, setExistingSystem] = useState<string>("");
     const [preferredSystemSize, setPreferredSystemSize] = useState<string>("");
     const [houseStories, setHouseStories] = useState<string>("");
+    const [battery, setBattery] = useState<BatteryProduct | undefined>();
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-white px-4 py-12 text-slate-900">
-            <div className="w-full max-w-2xl space-y-10 text-center">
+            <div
+                className={`w-full md:px-20 lg:px-40 space-y-10 text-center ${step >= 6 ? "max-w-7xl" : "max-w-6xl"}`}
+            >
                 <div className="flex flex-col items-center space-y-5">
                     <div className="relative h-36 w-36 sm:h-48 sm:w-48">
                         <Image
@@ -51,8 +58,8 @@ export default function Home() {
                         setStep,
                         solution,
                         setSolution,
-                        priceRange,
-                        setPriceRange,
+                        tier,
+                        setTier,
                         averageBill,
                         setAverageBill,
                         existingSystem,
@@ -61,6 +68,8 @@ export default function Home() {
                         setPreferredSystemSize,
                         houseStories,
                         setHouseStories,
+                        battery,
+                        setBattery,
                     }}
                 >
                     <main className="space-y-10">
@@ -70,37 +79,49 @@ export default function Home() {
                         {step === 3 && <Step3 />}
                         {step === 4 && <Step4 />}
                         {step === 5 && <Step5 />}
-                        {step === 6 && solution == "battery" ? (
-                            <div></div>
-                        ) : (
-                            step === 6 && (
-                                <section className="space-y-6 rounded-3xl border-2 border-slate-200 bg-slate-50 px-8 py-10 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.4)]">
-                                    <h2 className="text-2xl font-bold">
-                                        Configurator coming soon
-                                    </h2>
-                                    <p className="mx-auto max-w-xl text-sm font-semibold text-slate-500">
-                                        We are polishing this step right now.
-                                    </p>
-                                    <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                                        <button
-                                            type="button"
-                                            onClick={() => setStep(0)}
-                                            className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-                                        >
-                                            Back to systems
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-700"
-                                        >
-                                            Download overview
-                                        </button>
-                                    </div>
-                                </section>
-                            )
+                        {step === 6 && solution === "battery" && <Batteries />}
+                        {step === 6 && solution !== "battery" && (
+                            <section className="space-y-6 rounded-3xl border-2 border-slate-200 bg-slate-50 px-8 py-10 shadow-md">
+                                <h2 className="text-2xl font-bold">
+                                    Configurator coming soon
+                                </h2>
+                                <p className="mx-auto max-w-xl text-sm font-semibold text-slate-500">
+                                    We are polishing this step right now.
+                                </p>
+                                <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                                    <button
+                                        type="button"
+                                        onClick={() => setStep(0)}
+                                        className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
+                                    >
+                                        Back to systems
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-700"
+                                    >
+                                        Download overview
+                                    </button>
+                                </div>
+                            </section>
+                        )}
+                        {step === 7 && solution === "battery" && (
+                            <Step7Battery />
                         )}
                     </main>
                 </UserChoiceContext.Provider>
+                <div className="flex items-center justify-center">
+                    <Link href="https://equitysolar.com.au">
+                        <div className="px-4 py-2 rounded-full hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500 border border-slate-300 group transition-all duration-150 ease-in-out">
+                            <p className="font-bold">
+                                Go Back to{" "}
+                                <span className="text-yellow-500">
+                                    Equity Solar
+                                </span>
+                            </p>
+                        </div>
+                    </Link>
+                </div>
             </div>
         </div>
     );

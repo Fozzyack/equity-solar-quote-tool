@@ -1,3 +1,4 @@
+"use client";
 import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
 
 const houseStoriesOptions = [
@@ -30,7 +31,7 @@ const Step5 = () => {
                             onClick={() => setHouseStories(option.id)}
                             className={`flex h-full flex-col items-center gap-3 rounded-2xl border-2 px-5 py-6 text-sm font-bold uppercase tracking-wide text-center transition ${
                                 selected
-                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-[0_16px_30px_-18px_rgba(234,179,8,0.6)]"
+                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
                                     : "border-slate-200 bg-white text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
                             }`}
                         >

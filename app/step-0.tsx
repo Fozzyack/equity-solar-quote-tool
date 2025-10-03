@@ -1,3 +1,4 @@
+"use client";
 import { SystemCard } from "@/components/SystemCard";
 import { SolarPanelsIcon, ComboIcon, BatteryIcon } from "@/constants/Icons";
 import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
@@ -25,20 +26,22 @@ const Step0 = () => {
         solution,
         setSolution,
         setStep,
-        setPriceRange,
+        setTier,
         setAverageBill,
         setExistingSystem,
         setPreferredSystemSize,
         setHouseStories,
+        setBattery,
     } = useUserChoiceContext();
 
     const handleSelectSolution = (id: string) => {
         setSolution(id);
-        setPriceRange("");
+        setTier("");
         setAverageBill("");
         setExistingSystem("");
         setPreferredSystemSize("");
         setHouseStories("");
+        setBattery(undefined);
     };
 
     const handleContinue = () => {
@@ -71,11 +74,12 @@ const Step0 = () => {
                     type="button"
                     onClick={() => {
                         setSolution("");
-                        setPriceRange("");
+                        setTier("");
                         setAverageBill("");
                         setExistingSystem("");
                         setPreferredSystemSize("");
                         setHouseStories("");
+                        setBattery(undefined);
                     }}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
