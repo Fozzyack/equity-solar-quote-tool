@@ -1,5 +1,6 @@
 "use client";
 import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
+import { SimpleCard } from "@/components/SimpleCard";
 
 const existingSystemOptions = [
     { id: "no-solar", label: "Don't have solar" },
@@ -24,23 +25,14 @@ const Step3 = () => {
                 </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
-                {existingSystemOptions.map((option) => {
-                    const selected = existingSystem === option.id;
-                    return (
-                        <button
-                            key={option.id}
-                            type="button"
-                            onClick={() => setExistingSystem(option.id)}
-                            className={`flex h-full flex-col items-center gap-3 rounded-2xl border-2 px-5 py-6 text-sm font-bold uppercase tracking-wide text-center transition ${
-                                selected
-                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
-                                    : "border-slate-200 bg-white text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
-                            }`}
-                        >
-                            <span>{option.label}</span>
-                        </button>
-                    );
-                })}
+                {existingSystemOptions.map((option) => (
+                    <SimpleCard
+                        key={option.id}
+                        selected={existingSystem === option.id}
+                        onClick={() => setExistingSystem(option.id)}
+                        label={option.label}
+                    />
+                ))}
             </div>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <button

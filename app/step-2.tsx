@@ -1,5 +1,6 @@
 "use client";
 import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
+import { SimpleCard } from "@/components/SimpleCard";
 
 const averageBillOptions = [
     { id: "under-500", label: "$500" },
@@ -26,23 +27,14 @@ const Step2 = () => {
                 </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-                {averageBillOptions.map((option) => {
-                    const selected = averageBill === option.id;
-                    return (
-                        <button
-                            key={option.id}
-                            type="button"
-                            onClick={() => setAverageBill(option.id)}
-                            className={`flex h-full flex-col items-center gap-3 rounded-2xl border-2 px-5 py-6 text-sm font-bold uppercase tracking-wide transition ${
-                                selected
-                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
-                                    : "border-slate-200 bg-white text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
-                            }`}
-                        >
-                            <span>{option.label}</span>
-                        </button>
-                    );
-                })}
+                {averageBillOptions.map((option) => (
+                    <SimpleCard
+                        key={option.id}
+                        selected={averageBill === option.id}
+                        onClick={() => setAverageBill(option.id)}
+                        label={option.label}
+                    />
+                ))}
             </div>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <button

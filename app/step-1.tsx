@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import { MidRangeIcon, PremiumIcon, ValueIcon } from "@/constants/Icons";
 import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
+import { OptionCard } from "@/components/OptionCard";
 
 const batteryPriceRanges = [
     {
@@ -49,26 +50,15 @@ const Step1 = () => {
                 </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
-                {batteryPriceRanges.map((option) => {
-                    const selected = tier === option.id;
-                    return (
-                        <button
-                            key={option.id}
-                            type="button"
-                            onClick={() => setTier(option.id)}
-                            className={`flex h-full flex-col items-center gap-4 rounded-3xl border-2 px-6 py-7 text-sm font-bold uppercase tracking-wide transition ${
-                                selected
-                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
-                                    : "border-slate-200 bg-white text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
-                            }`}
-                        >
-                            <span className="transition-colors text-current">
-                                {option.icon}
-                            </span>
-                            <span>{option.label}</span>
-                        </button>
-                    );
-                })}
+                {batteryPriceRanges.map((option) => (
+                    <OptionCard
+                        key={option.id}
+                        selected={tier === option.id}
+                        onClick={() => setTier(option.id)}
+                        icon={option.icon}
+                        label={option.label}
+                    />
+                ))}
             </div>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <button

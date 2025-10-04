@@ -14,10 +14,10 @@ export function SystemCard({
     onClick,
 }: SystemCardProps) {
     const baseClasses =
-        "group relative flex w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 px-4 py-5 text-center transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400";
+        "group relative flex  w-full flex-col items-center justify-center hover:cursor-pointer gap-3 rounded-2xl border-2 px-4 py-5 text-center transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400";
     const stateClasses = selected
         ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
-        : "border-slate-200 bg-white text-slate-900 shadow-sm hover:border-yellow-300 hover:bg-yellow-50";
+        : "border-slate-200 bg-slate-50 text-slate-900 shadow-sm hover:border-yellow-300 hover:bg-yellow-50";
     const iconClasses = selected ? "text-slate-900" : "text-slate-600";
 
     return (

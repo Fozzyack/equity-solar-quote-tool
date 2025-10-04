@@ -1,5 +1,6 @@
 "use client";
 import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
+import { SimpleCard } from "@/components/SimpleCard";
 
 const houseStoriesOptions = [
     { id: "single", label: "Single" },
@@ -22,23 +23,14 @@ const Step5 = () => {
                 </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
-                {houseStoriesOptions.map((option) => {
-                    const selected = houseStories === option.id;
-                    return (
-                        <button
-                            key={option.id}
-                            type="button"
-                            onClick={() => setHouseStories(option.id)}
-                            className={`flex h-full flex-col items-center gap-3 rounded-2xl border-2 px-5 py-6 text-sm font-bold uppercase tracking-wide text-center transition ${
-                                selected
-                                    ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
-                                    : "border-slate-200 bg-white text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
-                            }`}
-                        >
-                            <span>{option.label}</span>
-                        </button>
-                    );
-                })}
+                {houseStoriesOptions.map((option) => (
+                    <SimpleCard
+                        key={option.id}
+                        selected={houseStories === option.id}
+                        onClick={() => setHouseStories(option.id)}
+                        label={option.label}
+                    />
+                ))}
             </div>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <button
