@@ -125,7 +125,6 @@ const Step7Battery = () => {
                                     alt={battery.module}
                                     className="h-full w-full object-contain"
                                 />
-                                a
                             </div>
                         )}
                     </div>
