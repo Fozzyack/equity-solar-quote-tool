@@ -44,7 +44,7 @@ export default function Home() {
                             Equity Solar
                         </p>
                         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-                            Build Your Quote
+                            Solar Cost Estimator
                         </h1>
                         <p className="mx-auto max-w-sm text-sm font-medium text-slate-500">
                             Pick your system to get started.

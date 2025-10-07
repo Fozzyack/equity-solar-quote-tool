@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Equity Solar - Quote Tool",
+  title: "Equity Solar - Solar Estimator",
   description: "Making Installing Solar Easy",
 };
 
