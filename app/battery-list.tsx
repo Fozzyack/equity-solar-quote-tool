@@ -1,18 +1,32 @@
 "use client";
 
+import { useState } from "react";
 import { BatteryList, BatteryProduct } from "@/constants/Batteries";
 import { BatteryCard } from "@/components/BatteryCard";
+import { useUpdateParams } from "@/lib/useUpdateParams";
+import { useSearchParams } from "next/navigation";
 
-interface BatteriesProps {
-    tier: string;
-    battery: BatteryProduct | undefined;
-    updateParams: (updates: Record<string, string | number | undefined>) => void;
-}
+const Batteries = () => {
+    const searchParams = useSearchParams();
+    const updateParams = useUpdateParams();
+    const tier = searchParams.get("tier") || "";
+    const batteryId = searchParams.get("battery") || "";
 
-const Batteries = ({ tier, battery, updateParams }: BatteriesProps) => {
+    // Use local state for battery selection, initialized from URL
+    const [selectedBattery, setSelectedBattery] = useState<BatteryProduct | undefined>(
+        batteryId ? BatteryList.find(b => b.id === batteryId) : undefined
+    );
+
     const filteredBatteries = BatteryList.filter(
         (batteryItem) => batteryItem.tier === tier,
     );
+
+    const handleContinue = () => {
+        if (selectedBattery) {
+            updateParams({ battery: selectedBattery.id, step: 7 });
+        }
+    };
+
     return (
         <div>
             <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -20,8 +34,8 @@ const Batteries = ({ tier, battery, updateParams }: BatteriesProps) => {
                     <BatteryCard
                         key={item.id}
                         battery={item}
-                        selected={battery?.id === item.id}
-                        onClick={() => updateParams({ battery: item.id })}
+                        selected={selectedBattery?.id === item.id}
+                        onClick={() => setSelectedBattery(item)}
                     />
                 ))}
             </div>
@@ -35,8 +49,8 @@ const Batteries = ({ tier, battery, updateParams }: BatteriesProps) => {
                 </button>
                 <button
                     type="button"
-                    onClick={() => updateParams({ step: 7 })}
-                    disabled={!battery}
+                    onClick={handleContinue}
+                    disabled={!selectedBattery}
                     className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-9 py-3 text-sm font-bold uppercase tracking-wide text-slate-900 transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
                 >
                     Continue

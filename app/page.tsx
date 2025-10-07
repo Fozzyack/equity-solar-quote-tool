@@ -8,7 +8,6 @@ import Step1 from "./step-1";
 import Batteries from "./battery-list";
 import BatteryFinal from "./battery-final";
 import Link from "next/link";
-import { BatteryProduct, BatteryList } from "@/constants/Batteries";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 
 function HomeContent() {
@@ -18,9 +17,6 @@ function HomeContent() {
     // Read state from URL params
     const step = parseInt(searchParams.get("step") || "0");
     const solution = searchParams.get("solution") || "";
-    const tier = searchParams.get("tier") || "";
-    const batteryId = searchParams.get("battery") || "";
-    const battery = batteryId ? BatteryList.find(b => b.id === batteryId) : undefined;
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-white px-4 py-12 text-slate-900">
@@ -51,26 +47,9 @@ function HomeContent() {
                 </div>
 
                 <main className="space-y-10">
-                    {step === 0 && (
-                        <Step0
-                            solution={solution}
-                            updateParams={updateParams}
-                        />
-                    )}
-                    {step === 1 && solution === "battery" && (
-                        <Step1
-                            solution={solution}
-                            tier={tier}
-                            updateParams={updateParams}
-                        />
-                    )}
-                    {step === 6 && solution === "battery" && (
-                        <Batteries
-                            tier={tier}
-                            battery={battery}
-                            updateParams={updateParams}
-                        />
-                    )}
+                    {step === 0 && <Step0 />}
+                    {step === 1 && solution === "battery" && <Step1 />}
+                    {step === 6 && solution === "battery" && <Batteries />}
                     {step === 6 && solution !== "battery" && (
                         <section className="space-y-6 rounded-3xl border-2 border-slate-200 bg-slate-50 px-8 py-10 shadow-md">
                             <h2 className="text-2xl font-bold">
@@ -96,12 +75,7 @@ function HomeContent() {
                             </div>
                         </section>
                     )}
-                    {step === 7 && solution === "battery" && (
-                        <BatteryFinal
-                            battery={battery}
-                            updateParams={updateParams}
-                        />
-                    )}
+                    {step === 7 && solution === "battery" && <BatteryFinal />}
                 </main>
                 <div className="flex items-center justify-center">
                     <Link href="https://equitysolar.com.au">

@@ -1,6 +1,8 @@
 "use client";
 import { SystemCard } from "@/components/SystemCard";
 import { SolarPanelsIcon, ComboIcon, BatteryIcon } from "@/constants/Icons";
+import { useUpdateParams } from "@/lib/useUpdateParams";
+import { useSearchParams } from "next/navigation";
 
 const solutions = [
     {
@@ -20,12 +22,10 @@ const solutions = [
     },
 ];
 
-interface Step0Props {
-    solution: string;
-    updateParams: (updates: Record<string, string | number | undefined>) => void;
-}
-
-const Step0 = ({ solution, updateParams }: Step0Props) => {
+const Step0 = () => {
+    const searchParams = useSearchParams();
+    const updateParams = useUpdateParams();
+    const solution = searchParams.get("solution") || "";
     const handleSelectSolution = (id: string) => {
         updateParams({
             solution: id,

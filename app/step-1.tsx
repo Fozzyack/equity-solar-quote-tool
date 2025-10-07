@@ -2,6 +2,8 @@
 
 import { MidRangeIcon, PremiumIcon, ValueIcon } from "@/constants/Icons";
 import { OptionCard } from "@/components/OptionCard";
+import { useUpdateParams } from "@/lib/useUpdateParams";
+import { useSearchParams } from "next/navigation";
 
 const batteryPriceRanges = [
     {
@@ -21,13 +23,11 @@ const batteryPriceRanges = [
     },
 ];
 
-interface Step1Props {
-    solution: string;
-    tier: string;
-    updateParams: (updates: Record<string, string | number | undefined>) => void;
-}
-
-const Step1 = ({ solution, tier, updateParams }: Step1Props) => {
+const Step1 = () => {
+    const searchParams = useSearchParams();
+    const updateParams = useUpdateParams();
+    const solution = searchParams.get("solution") || "";
+    const tier = searchParams.get("tier") || "";
     const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (solution == "battery") {

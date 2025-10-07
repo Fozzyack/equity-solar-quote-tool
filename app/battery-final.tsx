@@ -1,8 +1,10 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
-import { sendEmail } from "@/lib/emailjs";
-import { BatteryProduct } from "@/constants/Batteries";
+import { useMemo, useState } from "react";
+import { BatteryProduct, BatteryList } from "@/constants/Batteries";
+import { useUpdateParams } from "@/lib/useUpdateParams";
+import { useSearchParams } from "next/navigation";
+import Email from "./email";
 
 const currencyFormatter = new Intl.NumberFormat("en-AU", {
     style: "currency",
@@ -10,15 +12,12 @@ const currencyFormatter = new Intl.NumberFormat("en-AU", {
     maximumFractionDigits: 0,
 });
 
-interface BatteryFinalProps {
-    battery: BatteryProduct | undefined;
-    updateParams: (updates: Record<string, string | number | undefined>) => void;
-}
-
-const BatteryFinal = ({ battery, updateParams }: BatteryFinalProps) => {
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
-    const [submitted, setSubmitted] = useState(false);
+const BatteryFinal = () => {
+    const searchParams = useSearchParams();
+    const updateParams = useUpdateParams();
+    const batteryId = searchParams.get("battery") || "";
+    const battery = batteryId ? BatteryList.find(b => b.id === batteryId) : undefined;
+    const [emailSubmitted, setEmailSubmitted] = useState(false);
 
     const batteryDetails = useMemo(() => {
         if (!battery) {
@@ -74,24 +73,38 @@ const BatteryFinal = ({ battery, updateParams }: BatteryFinalProps) => {
         );
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const lookingAt =
-            "Battery: " +
-            battery.brand +
-            " " +
-            battery.sizeKwh +
-            "kWh " +
-            battery.module +
-            battery.sizeKwh;
-        console.log(lookingAt);
+    // Show email form first, battery details only after submission
+    if (!emailSubmitted) {
+        return (
+            <section className="space-y-8">
+                <div className="space-y-1 text-center">
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                        Step 7
+                    </p>
+                    <h2 className="text-2xl font-bold">Submit your details</h2>
+                    <p className="mx-auto max-w-xl text-sm text-slate-500">
+                        Enter your email to view detailed pricing and specifications for your selected battery. We'll send you a personalized quote.
+                    </p>
+                </div>
 
-        sendEmail(email, message, lookingAt);
-        setSubmitted(true);
-        setEmail("");
-        setMessage("");
-    };
+                <div className="mx-auto max-w-md">
+                    <Email battery={battery} onSubmitSuccess={() => setEmailSubmitted(true)} />
+                </div>
 
+                <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                    <button
+                        type="button"
+                        onClick={() => updateParams({ step: 6 })}
+                        className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
+                    >
+                        Back to batteries
+                    </button>
+                </div>
+            </section>
+        );
+    }
+
+    // After email submission, show battery details
     return (
         <section className="space-y-8">
             <div className="space-y-1 text-left">
@@ -100,9 +113,7 @@ const BatteryFinal = ({ battery, updateParams }: BatteryFinalProps) => {
                 </p>
                 <h2 className="text-2xl font-bold">Battery summary</h2>
                 <p className="text-sm text-slate-500">
-                    Review the details for your selected battery. We will follow
-                    up shortly, or drop your email below if you need a hand
-                    sooner.
+                    Here are the details for your selected battery. A specialist will be in touch shortly.
                 </p>
             </div>
             <div className="grid w-full gap-8 md:grid-cols-2 lg:gap-12">
@@ -149,59 +160,15 @@ const BatteryFinal = ({ battery, updateParams }: BatteryFinalProps) => {
                     </div>
                 </div>
 
-                <div className="flex h-full flex-col gap-6 rounded-3xl bg-yellow-400 px-6 py-6 text-left shadow-lg md:px-8 md:py-8">
-                    <div className="space-y-2 text-slate-900">
-                        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-900/70">
-                            Need help?
+                <div className="flex h-full flex-col gap-6 rounded-3xl border border-slate-200 bg-slate-50 px-6 py-7 text-left shadow-md md:px-8 md:py-9">
+                    <div className="space-y-2">
+                        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                            What's next?
                         </p>
-                        <h3 className="text-xl font-extrabold">
-                            Leave your email
-                        </h3>
-                        <p className="text-sm font-semibold text-slate-900/80">
-                            Share your email and we will reach out with tailored
-                            advice or next steps.
+                        <h3 className="text-xl font-bold text-slate-900">We'll be in touch soon</h3>
+                        <p className="text-sm text-slate-600">
+                            A specialist from Equity Solar will reach out with a detailed quote and answer any questions you have about this battery system.
                         </p>
-                    </div>
-                    <div className="text-slate-900">
-                        {submitted ? (
-                            <div className="rounded-2xl bg-white/85 px-4 py-3 text-sm font-bold text-slate-900 shadow-inner">
-                                Thanks! A specialist will be in touch soon.
-                            </div>
-                        ) : (
-                            <form className="space-y-4" onSubmit={handleSubmit}>
-                                <label className="block text-left text-sm font-extrabold uppercase tracking-wide">
-                                    Email address
-                                    <input
-                                        type="email"
-                                        required
-                                        value={email}
-                                        onChange={(event) =>
-                                            setEmail(event.target.value)
-                                        }
-                                        placeholder="you@example.com"
-                                        className="mt-2 w-full rounded-xl border border-transparent bg-white/90 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/30"
-                                    />
-                                </label>
-                                <label className="block text-left text-sm font-extrabold uppercase tracking-wide">
-                                    Optional message
-                                    <textarea
-                                        value={message}
-                                        onChange={(event) =>
-                                            setMessage(event.target.value)
-                                        }
-                                        placeholder="Let us know how we can help"
-                                        rows={3}
-                                        className="mt-2 w-full rounded-xl border border-transparent bg-white/90 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/30"
-                                    />
-                                </label>
-                                <button
-                                    type="submit"
-                                    className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-800"
-                                >
-                                    Request help
-                                </button>
-                            </form>
-                        )}
                     </div>
                 </div>
             </div>
