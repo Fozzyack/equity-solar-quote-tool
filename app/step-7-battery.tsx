@@ -2,6 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
+import { sendEmail } from "@/lib/emailjs";
 
 const currencyFormatter = new Intl.NumberFormat("en-AU", {
     style: "currency",
@@ -50,7 +51,9 @@ const Step7Battery = () => {
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
                         Step 7
                     </p>
-                    <h2 className="text-2xl font-bold">Battery summary unavailable</h2>
+                    <h2 className="text-2xl font-bold">
+                        Battery summary unavailable
+                    </h2>
                     <p className="text-sm text-slate-500">
                         Please head back and choose a battery to see its full
                         details.
@@ -67,8 +70,19 @@ const Step7Battery = () => {
         );
     }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const lookingAt =
+            "Battery: " +
+            battery.brand +
+            " " +
+            battery.sizeKwh +
+            "kWh " +
+            battery.module +
+            battery.sizeKwh;
+        console.log(lookingAt);
+
+        sendEmail(email, message, lookingAt);
         setSubmitted(true);
         setEmail("");
         setMessage("");
@@ -82,9 +96,9 @@ const Step7Battery = () => {
                 </p>
                 <h2 className="text-2xl font-bold">Battery summary</h2>
                 <p className="text-sm text-slate-500">
-                    Review the details for your selected battery. We will
-                    follow up shortly, or drop your email below if you need a
-                    hand sooner.
+                    Review the details for your selected battery. We will follow
+                    up shortly, or drop your email below if you need a hand
+                    sooner.
                 </p>
             </div>
             <div className="grid w-full gap-8 md:grid-cols-2 lg:gap-12">
@@ -99,7 +113,9 @@ const Step7Battery = () => {
                             </h3>
                             <p className="text-sm font-semibold text-slate-500">
                                 {battery.brand}
-                                {battery.series ? ` • ${battery.series} series` : ""}
+                                {battery.series
+                                    ? ` • ${battery.series} series`
+                                    : ""}
                             </p>
                         </div>
                         {battery.image && (
@@ -109,6 +125,7 @@ const Step7Battery = () => {
                                     alt={battery.module}
                                     className="h-full w-full object-contain"
                                 />
+                                a
                             </div>
                         )}
                     </div>
@@ -128,7 +145,7 @@ const Step7Battery = () => {
                         ))}
                     </div>
                 </div>
-                        
+
                 <div className="flex h-full flex-col gap-6 rounded-3xl bg-yellow-400 px-6 py-6 text-left shadow-lg md:px-8 md:py-8">
                     <div className="space-y-2 text-slate-900">
                         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-900/70">
