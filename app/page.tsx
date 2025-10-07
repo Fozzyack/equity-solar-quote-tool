@@ -1,28 +1,26 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-import { UserChoiceContext } from "@/contexts/UserChoiceContext";
 import Step0 from "./step-0";
 import Step1 from "./step-1";
-import Step2 from "./step-2";
-import Step3 from "./step-3";
-import Step4 from "./step-4";
-import Step5 from "./step-5";
-import Batteries from "./step-6-battery";
-import Step7Battery from "./step-7-battery";
+import Batteries from "./battery-list";
+import BatteryFinal from "./battery-final";
 import Link from "next/link";
-import { BatteryProduct } from "@/constants/Batteries";
+import { BatteryProduct, BatteryList } from "@/constants/Batteries";
+import { useUpdateParams } from "@/lib/useUpdateParams";
 
-export default function Home() {
-    const [step, setStep] = useState<number>(0);
-    const [solution, setSolution] = useState<string>("");
-    const [tier, setTier] = useState<string>("");
-    const [averageBill, setAverageBill] = useState<string>("");
-    const [existingSystem, setExistingSystem] = useState<string>("");
-    const [preferredSystemSize, setPreferredSystemSize] = useState<string>("");
-    const [houseStories, setHouseStories] = useState<string>("");
-    const [battery, setBattery] = useState<BatteryProduct | undefined>();
+function HomeContent() {
+    const searchParams = useSearchParams();
+    const updateParams = useUpdateParams();
+
+    // Read state from URL params
+    const step = parseInt(searchParams.get("step") || "0");
+    const solution = searchParams.get("solution") || "";
+    const tier = searchParams.get("tier") || "";
+    const batteryId = searchParams.get("battery") || "";
+    const battery = batteryId ? BatteryList.find(b => b.id === batteryId) : undefined;
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-white px-4 py-12 text-slate-900">
@@ -52,64 +50,59 @@ export default function Home() {
                     </div>
                 </div>
 
-                <UserChoiceContext.Provider
-                    value={{
-                        step,
-                        setStep,
-                        solution,
-                        setSolution,
-                        tier,
-                        setTier,
-                        averageBill,
-                        setAverageBill,
-                        existingSystem,
-                        setExistingSystem,
-                        preferredSystemSize,
-                        setPreferredSystemSize,
-                        houseStories,
-                        setHouseStories,
-                        battery,
-                        setBattery,
-                    }}
-                >
-                    <main className="space-y-10">
-                        {step === 0 && <Step0 />}
-                        {step === 1 && <Step1 />}
-                        {step === 2 && <Step2 />}
-                        {step === 3 && <Step3 />}
-                        {step === 4 && <Step4 />}
-                        {step === 5 && <Step5 />}
-                        {step === 6 && solution === "battery" && <Batteries />}
-                        {step === 6 && solution !== "battery" && (
-                            <section className="space-y-6 rounded-3xl border-2 border-slate-200 bg-slate-50 px-8 py-10 shadow-md">
-                                <h2 className="text-2xl font-bold">
-                                    Configurator coming soon
-                                </h2>
-                                <p className="mx-auto max-w-xl text-sm font-semibold text-slate-500">
-                                    We are polishing this step right now.
-                                </p>
-                                <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                                    <button
-                                        type="button"
-                                        onClick={() => setStep(0)}
-                                        className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-                                    >
-                                        Back to systems
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-700"
-                                    >
-                                        Download overview
-                                    </button>
-                                </div>
-                            </section>
-                        )}
-                        {step === 7 && solution === "battery" && (
-                            <Step7Battery />
-                        )}
-                    </main>
-                </UserChoiceContext.Provider>
+                <main className="space-y-10">
+                    {step === 0 && (
+                        <Step0
+                            solution={solution}
+                            updateParams={updateParams}
+                        />
+                    )}
+                    {step === 1 && solution === "battery" && (
+                        <Step1
+                            solution={solution}
+                            tier={tier}
+                            updateParams={updateParams}
+                        />
+                    )}
+                    {step === 6 && solution === "battery" && (
+                        <Batteries
+                            tier={tier}
+                            battery={battery}
+                            updateParams={updateParams}
+                        />
+                    )}
+                    {step === 6 && solution !== "battery" && (
+                        <section className="space-y-6 rounded-3xl border-2 border-slate-200 bg-slate-50 px-8 py-10 shadow-md">
+                            <h2 className="text-2xl font-bold">
+                                Configurator coming soon
+                            </h2>
+                            <p className="mx-auto max-w-xl text-sm font-semibold text-slate-500">
+                                We are polishing this step right now.
+                            </p>
+                            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                                <button
+                                    type="button"
+                                    onClick={() => updateParams({ step: 0 })}
+                                    className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
+                                >
+                                    Back to systems
+                                </button>
+                                <button
+                                    type="button"
+                                    className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-700"
+                                >
+                                    Download overview
+                                </button>
+                            </div>
+                        </section>
+                    )}
+                    {step === 7 && solution === "battery" && (
+                        <BatteryFinal
+                            battery={battery}
+                            updateParams={updateParams}
+                        />
+                    )}
+                </main>
                 <div className="flex items-center justify-center">
                     <Link href="https://equitysolar.com.au">
                         <div className="px-4 py-2 rounded-full hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500 border border-slate-300 group transition-all duration-150 ease-in-out">
@@ -124,5 +117,13 @@ export default function Home() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function Home() {
+    return (
+        <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-white">Loading...</div>}>
+            <HomeContent />
+        </Suspense>
     );
 }

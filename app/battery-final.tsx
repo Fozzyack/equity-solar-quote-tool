@@ -1,8 +1,8 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
 import { sendEmail } from "@/lib/emailjs";
+import { BatteryProduct } from "@/constants/Batteries";
 
 const currencyFormatter = new Intl.NumberFormat("en-AU", {
     style: "currency",
@@ -10,8 +10,12 @@ const currencyFormatter = new Intl.NumberFormat("en-AU", {
     maximumFractionDigits: 0,
 });
 
-const Step7Battery = () => {
-    const { battery, setBattery, setStep } = useUserChoiceContext();
+interface BatteryFinalProps {
+    battery: BatteryProduct | undefined;
+    updateParams: (updates: Record<string, string | number | undefined>) => void;
+}
+
+const BatteryFinal = ({ battery, updateParams }: BatteryFinalProps) => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [submitted, setSubmitted] = useState(false);
@@ -61,7 +65,7 @@ const Step7Battery = () => {
                 </div>
                 <button
                     type="button"
-                    onClick={() => setStep(6)}
+                    onClick={() => updateParams({ step: 6 })}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
                     Back to batteries
@@ -205,7 +209,7 @@ const Step7Battery = () => {
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <button
                     type="button"
-                    onClick={() => setStep(6)}
+                    onClick={() => updateParams({ step: 6 })}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
                     Back to batteries
@@ -213,8 +217,7 @@ const Step7Battery = () => {
                 <button
                     type="button"
                     onClick={() => {
-                        setBattery(undefined);
-                        setStep(0);
+                        updateParams({ battery: "", step: 0 });
                     }}
                     className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-700"
                 >
@@ -225,4 +228,4 @@ const Step7Battery = () => {
     );
 };
 
-export default Step7Battery;
+export default BatteryFinal;

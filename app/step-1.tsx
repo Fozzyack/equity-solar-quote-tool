@@ -1,8 +1,6 @@
 "use client";
-import { useEffect } from "react";
 
 import { MidRangeIcon, PremiumIcon, ValueIcon } from "@/constants/Icons";
-import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
 import { OptionCard } from "@/components/OptionCard";
 
 const batteryPriceRanges = [
@@ -23,15 +21,19 @@ const batteryPriceRanges = [
     },
 ];
 
-const Step1 = () => {
-    const { solution, setStep, tier, setTier } = useUserChoiceContext();
+interface Step1Props {
+    solution: string;
+    tier: string;
+    updateParams: (updates: Record<string, string | number | undefined>) => void;
+}
 
+const Step1 = ({ solution, tier, updateParams }: Step1Props) => {
     const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (solution == "battery") {
-            setStep(6);
+            updateParams({ step: 6 });
         } else {
-            setStep(2);
+            updateParams({ step: 2 });
         }
     };
 
@@ -54,7 +56,7 @@ const Step1 = () => {
                     <OptionCard
                         key={option.id}
                         selected={tier === option.id}
-                        onClick={() => setTier(option.id)}
+                        onClick={() => updateParams({ tier: option.id })}
                         icon={option.icon}
                         label={option.label}
                     />
@@ -64,8 +66,7 @@ const Step1 = () => {
                 <button
                     type="button"
                     onClick={() => {
-                        setTier("");
-                        setStep(0);
+                        updateParams({ tier: "", step: 0 });
                     }}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >

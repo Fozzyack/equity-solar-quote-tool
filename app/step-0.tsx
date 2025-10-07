@@ -1,17 +1,16 @@
 "use client";
 import { SystemCard } from "@/components/SystemCard";
 import { SolarPanelsIcon, ComboIcon, BatteryIcon } from "@/constants/Icons";
-import { useUserChoiceContext } from "@/contexts/UserChoiceContext";
 
 const solutions = [
     {
         id: "solar-panels",
-        title: "Solar Panels",
+        title: "Solar Only",
         icon: <SolarPanelsIcon />,
     },
     {
         id: "combo",
-        title: "Panel + Battery Combo",
+        title: "Solar + Battery Combo",
         icon: <ComboIcon />,
     },
     {
@@ -21,34 +20,25 @@ const solutions = [
     },
 ];
 
-const Step0 = () => {
-    const {
-        solution,
-        setSolution,
-        setStep,
-        setTier,
-        setAverageBill,
-        setExistingSystem,
-        setPreferredSystemSize,
-        setHouseStories,
-        setBattery,
-    } = useUserChoiceContext();
+interface Step0Props {
+    solution: string;
+    updateParams: (updates: Record<string, string | number | undefined>) => void;
+}
 
+const Step0 = ({ solution, updateParams }: Step0Props) => {
     const handleSelectSolution = (id: string) => {
-        setSolution(id);
-        setTier("");
-        setAverageBill("");
-        setExistingSystem("");
-        setPreferredSystemSize("");
-        setHouseStories("");
-        setBattery(undefined);
+        updateParams({
+            solution: id,
+            tier: "",
+            battery: "",
+        });
     };
 
     const handleContinue = () => {
         if (!solution) {
             return;
         }
-        setStep(1);
+        updateParams({ step: 1 });
     };
     return (
         <section className="space-y-6">
@@ -73,13 +63,11 @@ const Step0 = () => {
                 <button
                     type="button"
                     onClick={() => {
-                        setSolution("");
-                        setTier("");
-                        setAverageBill("");
-                        setExistingSystem("");
-                        setPreferredSystemSize("");
-                        setHouseStories("");
-                        setBattery(undefined);
+                        updateParams({
+                            solution: "",
+                            tier: "",
+                            battery: "",
+                        });
                     }}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
