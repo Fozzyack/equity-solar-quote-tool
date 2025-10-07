@@ -57,23 +57,27 @@ npx prettier --write .
 ```
 app/
 ├── page.tsx              # Main wizard container
-├── step-0.tsx            # System type selection
-├── step-1.tsx            # Battery tier selection
-├── step-2.tsx            # Average bill input
-├── step-3.tsx            # Existing system check
-├── step-4.tsx            # System size preferences
-├── step-5.tsx            # House stories
-└── step-6.tsx            # Final configurator
+├── solution-select.tsx   # Step 0: System type selection
+├── price-range.tsx       # Step 1: Battery tier selection
+├── battery-list.tsx      # Step 2: Battery product selection
+├── battery-final.tsx     # Step 3: Quote summary and email capture
+├── email.tsx             # Email form component
+└── not-found.tsx         # Custom 404 page
 
 components/
-└── StepContainer.tsx     # Reusable step wrapper
+├── BackButton.tsx        # Reusable back navigation button
+├── ContinueButton.tsx    # Reusable continue button
+├── SystemCard.tsx        # System type selection card
+├── OptionCard.tsx        # Generic option card
+└── BatteryCard.tsx       # Battery product display card
 
-contexts/
-└── UserChoiceContext.tsx # Global wizard state
+lib/
+└── useUpdateParams.ts    # Hook for managing URL search params
 
 constants/
 ├── Batteries.ts          # Battery product catalog
-└── BatteryCombos.ts      # Solar + battery combinations
+├── BatteryCombos.ts      # Solar + battery combinations
+└── Icons.tsx             # SVG icon components
 
 other/
 └── SolarCSV.csv          # Source data (read-only)
@@ -83,26 +87,36 @@ other/
 
 ### Wizard Flow
 
-1. **Step 0**: Choose between solar panels, combo system, or battery only
-2. **Step 1**: Select price tier (value/mid-range/premium)
-3. **Steps 2-5**: Answer configuration questions (bill amount, existing system, size, stories)
-4. **Step 6**: View final quote and system recommendations
+1. **Step 0** (`solution-select.tsx`): Choose between solar panels, combo system, or battery only
+2. **Step 1** (`price-range.tsx`): Select price tier (value/mid-range/premium)
+3. **Step 2** (`battery-list.tsx`): Browse and select a specific battery product
+4. **Step 3** (`battery-final.tsx`): Submit email and view detailed quote
 
 ### State Management
 
-The `UserChoiceContext` manages all user selections throughout the wizard:
+State is managed via URL search params using the `useUpdateParams` hook. This allows for easy navigation and shareable URLs:
 
 ```typescript
+// URL params
 {
-  step: number              // Current step (0-6)
-  solution: string          // "solar-panels" | "combo" | "battery"
-  priceRange: string        // "value" | "mid-range" | "premium"
-  averageBill: string       // User's average electricity bill
-  existingSystem: string    // Whether they have solar already
-  preferredSystemSize: string
-  houseStories: string
+  step: string           // Current step (0-3)
+  solution: string       // "solar-panels" | "combo" | "battery"
+  tier: string          // "value" | "medium" | "premium"
+  battery: string       // Selected battery ID
 }
 ```
+
+### Navigation Components
+
+- **BackButton**: Navigates to a target step
+  ```tsx
+  <BackButton target={1} label="Back" />
+  ```
+
+- **ContinueButton**: Navigates to the next step
+  ```tsx
+  <ContinueButton target={2} disabled={!selection} />
+  ```
 
 ### Product Data
 
@@ -127,11 +141,14 @@ Battery and solar products are defined in `constants/Batteries.ts` with structur
 
 ## Development Guidelines
 
-- Use the `@/*` path alias for imports (e.g., `@/components/StepContainer`)
+- Use the `@/*` path alias for imports (e.g., `@/components/BackButton`)
 - Step components live in `app/` directory
+- Reusable UI components live in `components/` directory
 - Follow 4-space indentation
 - Yellow accent color (#EAB308) for primary actions
-- All components must use `useUserChoiceContext()` for state access
+- Use `useUpdateParams()` hook for navigation and state updates
+- Use `BackButton` and `ContinueButton` components for navigation
+- All state is stored in URL search params for easy sharing and navigation
 
 ## Contributing
 

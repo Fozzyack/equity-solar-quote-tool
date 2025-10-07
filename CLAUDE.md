@@ -18,24 +18,31 @@ This is a Next.js 15 app using the App Router, React 19, TypeScript, and Tailwin
 
 ### Core Flow
 
-The app uses a step-based wizard pattern managed by `UserChoiceContext`:
+The app uses a step-based wizard pattern managed by URL search params:
 
-1. **Step 0** (`step-0.tsx`): Choose system type (solar panels, combo, battery only)
-2. **Step 1** (`step-1.tsx`): Select battery price tier (value/mid-range/premium)
-3. **Steps 2-5**: Additional configuration questions (average bill, existing system, system size, house stories)
-4. **Step 6**: Final configurator (in progress)
+1. **Step 0** (`solution-select.tsx`): Choose system type (solar panels, combo, battery only)
+2. **Step 1** (`price-range.tsx`): Select battery price tier (value/mid-range/premium)
+3. **Step 2** (`battery-list.tsx`): Browse and select a specific battery product
+4. **Step 3** (`battery-final.tsx`): Email capture and detailed quote summary
 
-All steps are rendered conditionally in `app/page.tsx` based on `step` state.
+All steps are rendered conditionally in `app/page.tsx` based on `step` URL param.
 
 ### State Management
 
-`contexts/UserChoiceContext` provides shared state across all steps:
-- `step` - Current step number (0-6)
-- `solution` - Selected system type ("solar-panels", "combo", "battery")
-- `priceRange` - Battery tier ("value", "mid-range", "premium")
-- `averageBill`, `existingSystem`, `preferredSystemSize`, `houseStories` - User responses
+State is stored in URL search params for easy navigation and shareable URLs. Use the `useUpdateParams` hook from `lib/useUpdateParams.ts`:
 
-All step components must call `useUserChoiceContext()` to access/update state.
+```typescript
+const updateParams = useUpdateParams();
+updateParams({ step: 1, solution: "battery" });
+```
+
+**URL params:**
+- `step` - Current step number (0-3)
+- `solution` - Selected system type ("solar-panels", "combo", "battery")
+- `tier` - Battery tier ("value", "medium", "premium")
+- `battery` - Selected battery ID
+
+All step components must use `useSearchParams()` to read state and `useUpdateParams()` to update state.
 
 ### Data Structure
 
@@ -54,13 +61,32 @@ All step components must call `useUserChoiceContext()` to access/update state.
 - 4-space indentation in all files
 - Responsive design with mobile-first breakpoints (sm:, md:)
 
+### Navigation Components
+
+Reusable button components in `components/`:
+
+**BackButton** - Navigate to previous steps:
+```tsx
+<BackButton target={1} label="Back" />
+```
+
+**ContinueButton** - Navigate to next step:
+```tsx
+<ContinueButton target={2} disabled={!selection} />
+```
+
+Both components use `useUpdateParams()` internally. For custom navigation logic (e.g., saving data before navigating), create a custom button instead.
+
 ### Path Aliases
 
-TypeScript configured with `@/*` alias mapping to project root - use `@/components/*`, `@/contexts/*`, etc.
+TypeScript configured with `@/*` alias mapping to project root - use `@/components/*`, `@/lib/*`, etc.
 
 ## Important Notes
 
 - Step components live in `app/` directory (not `components/`)
+- Reusable UI components (buttons, cards) live in `components/` directory
+- Use `BackButton` and `ContinueButton` for navigation between steps
+- Custom buttons with additional logic should be implemented separately (not using the reusable components)
 - No test infrastructure yet - manual QA required
 - Source data lives in `other/SolarCSV.csv` - treat as read-only
 - When updating battery data, regenerate the TypeScript constants from CSV
