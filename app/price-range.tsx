@@ -2,6 +2,7 @@
 
 import { MidRangeIcon, PremiumIcon, ValueIcon } from "@/constants/Icons";
 import { OptionCard } from "@/components/OptionCard";
+import { ContinueButton } from "@/components/ContinueButton";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 
@@ -23,19 +24,10 @@ const batteryPriceRanges = [
     },
 ];
 
-const Step1 = () => {
+const PriceRange = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
-    const solution = searchParams.get("solution") || "";
     const tier = searchParams.get("tier") || "";
-    const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        if (solution == "battery") {
-            updateParams({ step: 6 });
-        } else {
-            updateParams({ step: 2 });
-        }
-    };
 
     return (
         <section className="space-y-8">
@@ -72,17 +64,10 @@ const Step1 = () => {
                 >
                     Back
                 </button>
-                <button
-                    type="button"
-                    onClick={handleContinue}
-                    disabled={!tier}
-                    className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-9 py-3 text-sm font-bold uppercase tracking-wide text-slate-900 transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
-                >
-                    Continue
-                </button>
+                <ContinueButton target={2} disabled={!tier} />
             </div>
         </section>
     );
 };
 
-export default Step1;
+export default PriceRange;

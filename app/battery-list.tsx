@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { BatteryList, BatteryProduct } from "@/constants/Batteries";
 import { BatteryCard } from "@/components/BatteryCard";
+import { BackButton } from "@/components/BackButton";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 
@@ -23,7 +24,7 @@ const Batteries = () => {
 
     const handleContinue = () => {
         if (selectedBattery) {
-            updateParams({ battery: selectedBattery.id, step: 7 });
+            updateParams({ battery: selectedBattery.id, step: 3 });
         }
     };
 
@@ -40,13 +41,7 @@ const Batteries = () => {
                 ))}
             </div>
             <div className="flex items-center justify-center gap-5">
-                <button
-                    type="button"
-                    onClick={() => updateParams({ step: 1 })}
-                    className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-                >
-                    Back
-                </button>
+                <BackButton target={1} />
                 <button
                     type="button"
                     onClick={handleContinue}

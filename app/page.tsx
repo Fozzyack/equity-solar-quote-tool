@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-import Step0 from "./step-0";
-import Step1 from "./step-1";
+import SolutionSelect from "./solution-select";
+import PriceRange from "./price-range";
 import Batteries from "./battery-list";
 import BatteryFinal from "./battery-final";
 import Link from "next/link";
@@ -47,10 +47,9 @@ function HomeContent() {
                 </div>
 
                 <main className="space-y-10">
-                    {step === 0 && <Step0 />}
-                    {step === 1 && solution === "battery" && <Step1 />}
-                    {step === 6 && solution === "battery" && <Batteries />}
-                    {step === 6 && solution !== "battery" && (
+                    {step === 0 && <SolutionSelect/>}
+                    {step === 1 && solution === "battery" && <PriceRange />}
+                    {step === 1 && solution !== "battery" && (
                         <section className="space-y-6 rounded-3xl border-2 border-slate-200 bg-slate-50 px-8 py-10 shadow-md">
                             <h2 className="text-2xl font-bold">
                                 Configurator coming soon
@@ -75,7 +74,8 @@ function HomeContent() {
                             </div>
                         </section>
                     )}
-                    {step === 7 && solution === "battery" && <BatteryFinal />}
+                    {step === 2 && solution === "battery" && <Batteries />}
+                    {step === 3 && solution === "battery" && <BatteryFinal />}
                 </main>
                 <div className="flex items-center justify-center">
                     <Link href="https://equitysolar.com.au">

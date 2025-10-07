@@ -1,5 +1,6 @@
 "use client";
 import { SystemCard } from "@/components/SystemCard";
+import { ContinueButton } from "@/components/ContinueButton";
 import { SolarPanelsIcon, ComboIcon, BatteryIcon } from "@/constants/Icons";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
@@ -22,7 +23,7 @@ const solutions = [
     },
 ];
 
-const Step0 = () => {
+const SolutionSelect = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
     const solution = searchParams.get("solution") || "";
@@ -32,13 +33,6 @@ const Step0 = () => {
             tier: "",
             battery: "",
         });
-    };
-
-    const handleContinue = () => {
-        if (!solution) {
-            return;
-        }
-        updateParams({ step: 1 });
     };
     return (
         <section className="space-y-6">
@@ -73,16 +67,9 @@ const Step0 = () => {
                 >
                     Reset
                 </button>
-                <button
-                    type="button"
-                    onClick={handleContinue}
-                    disabled={!solution}
-                    className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-9 py-3 text-sm font-bold uppercase tracking-wide text-slate-900 transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
-                >
-                    Continue
-                </button>
+                <ContinueButton target={1} disabled={!solution} />
             </div>
         </section>
     );
 };
-export default Step0;
+export default SolutionSelect;

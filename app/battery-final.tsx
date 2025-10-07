@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BatteryProduct, BatteryList } from "@/constants/Batteries";
+import {  BatteryList } from "@/constants/Batteries";
+import { BackButton } from "@/components/BackButton";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 import Email from "./email";
@@ -62,13 +63,7 @@ const BatteryFinal = () => {
                         details.
                     </p>
                 </div>
-                <button
-                    type="button"
-                    onClick={() => updateParams({ step: 6 })}
-                    className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-                >
-                    Back to batteries
-                </button>
+                <BackButton target={2} label="Back to batteries" />
             </section>
         );
     }
@@ -79,7 +74,7 @@ const BatteryFinal = () => {
             <section className="space-y-8">
                 <div className="space-y-1 text-center">
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                        Step 7
+                        Step 3
                     </p>
                     <h2 className="text-2xl font-bold">Submit your details</h2>
                     <p className="mx-auto max-w-xl text-sm text-slate-500">
@@ -92,13 +87,7 @@ const BatteryFinal = () => {
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <button
-                        type="button"
-                        onClick={() => updateParams({ step: 6 })}
-                        className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-                    >
-                        Back to batteries
-                    </button>
+                    <BackButton target={2} label="Back to batteries" />
                 </div>
             </section>
         );
@@ -174,13 +163,7 @@ const BatteryFinal = () => {
             </div>
 
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <button
-                    type="button"
-                    onClick={() => updateParams({ step: 6 })}
-                    className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-                >
-                    Back to batteries
-                </button>
+                <BackButton target={2} label="Back to batteries" />
                 <button
                     type="button"
                     onClick={() => {
