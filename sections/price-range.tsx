@@ -3,9 +3,9 @@
 import { MidRangeIcon, PremiumIcon, ValueIcon } from "@/constants/Icons";
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
+import { SectionHeader } from "@/components/SectionHeader";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
-import { parse } from "path";
 
 const batteryPriceRanges = [
     {
@@ -33,18 +33,11 @@ const PriceRange = () => {
 
     return (
         <section className="space-y-8">
-            <div className="space-y-1">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                    Step {currentStep}
-                </p>
-                <h2 className="text-2xl font-bold">
-                    Choose battery price range
-                </h2>
-                <p className="text-sm text-slate-500">
-                    Select the performance tier that best matches your storage
-                    goals.
-                </p>
-            </div>
+            <SectionHeader
+                step={currentStep}
+                title="Choose battery price range"
+                description="Select the performance tier that best matches your storage goals."
+            />
             <div className="grid gap-4 sm:grid-cols-3">
                 {batteryPriceRanges.map((option) => (
                     <OptionCard
