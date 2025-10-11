@@ -32,7 +32,7 @@ const SystemSize = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
     const systemSize = searchParams.get("systemSize") || "";
-    const currentStep = searchParams.get("currentStep") || "";
+    const currentStep = searchParams.get("step") || "";
 
     return (
         <section className="space-y-8">

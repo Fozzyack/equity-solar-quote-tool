@@ -35,7 +35,7 @@ const PriceRange = () => {
         <section className="space-y-8">
             <div className="space-y-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                    Step 1
+                    Step {currentStep}
                 </p>
                 <h2 className="text-2xl font-bold">
                     Choose battery price range
@@ -60,13 +60,19 @@ const PriceRange = () => {
                 <button
                     type="button"
                     onClick={() => {
-                        updateParams({ tier: "", step: parseInt(currentStep) - 1 });
+                        updateParams({
+                            tier: "",
+                            step: parseInt(currentStep) - 1,
+                        });
                     }}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
                     Back
                 </button>
-                <ContinueButton target={parseInt(currentStep) + 1} disabled={!tier} />
+                <ContinueButton
+                    target={parseInt(currentStep) + 1}
+                    disabled={!tier}
+                />
             </div>
         </section>
     );

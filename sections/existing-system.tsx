@@ -27,7 +27,7 @@ const ExistingSystem = () => {
         <section className="space-y-8">
             <div className="space-y-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                    Step 1
+                    Step {currentStep}
                 </p>
                 <h2 className="text-2xl font-bold">
                     Do you have an existing solar system?
@@ -64,7 +64,10 @@ const ExistingSystem = () => {
                 >
                     Back
                 </button>
-                <ContinueButton target={parseInt(currentStep) + 1} disabled={!existingSystem} />
+                <ContinueButton
+                    target={parseInt(currentStep) + 1}
+                    disabled={!existingSystem}
+                />
             </div>
         </section>
     );
