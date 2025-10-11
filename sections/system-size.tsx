@@ -32,12 +32,13 @@ const SystemSize = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
     const systemSize = searchParams.get("systemSize") || "";
+    const currentStep = searchParams.get("currentStep") || "";
 
     return (
         <section className="space-y-8">
             <div className="space-y-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                    Step 2
+                    Step {currentStep}
                 </p>
                 <h2 className="text-2xl font-bold">
                     Which system size are you looking for?
