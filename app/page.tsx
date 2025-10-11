@@ -3,16 +3,17 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
-import SolutionSelect from "./solution-select";
-import PriceRange from "./price-range";
-import Batteries from "./battery-list";
-import BatteryFinal from "./battery-final";
+import SolutionSelect from "@sections/solution-select";
+import PriceRange from "@sections/price-range";
+import Batteries from "@sections/battery-list";
+import BatteryFinal from "@sections/battery-final";
 import Link from "next/link";
-import { useUpdateParams } from "@/lib/useUpdateParams";
+import ComingSoon from "@/components/ComingSoon";
+import ExistingSystem from "@sections/existing-system";
+import SystemSize from "@sections/system-size";
 
 function HomeContent() {
     const searchParams = useSearchParams();
-    const updateParams = useUpdateParams();
 
     // Read state from URL params
     const step = parseInt(searchParams.get("step") || "0");
@@ -47,35 +48,24 @@ function HomeContent() {
                 </div>
 
                 <main className="space-y-10">
-                    {step === 0 && <SolutionSelect/>}
+                    {step === 0 && <SolutionSelect />}
+
+                    {/* SOLAR SECTION */}
+                    {step === 1 && solution === "solar-panels" && <ExistingSystem />}
+                    {step === 2 && solution === "solar-panels" && <SystemSize />}
+                    {step >= 3 && solution === "solar-panels" && <ComingSoon />}
+
+                    {/* COMBO */}
+                    {step === 1 && solution === "combo" && <PriceRange />}
+                    {step === 2 && solution === "combo" && <ExistingSystem />}
+                    {step === 3 && solution === "combo" && <SystemSize />}
+                    {step >= 4 && solution === "combo" && <ComingSoon />}
+
+                    {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}
-                    {step === 1 && solution !== "battery" && (
-                        <section className="space-y-6 rounded-3xl border-2 border-slate-200 bg-slate-50 px-8 py-10 shadow-md">
-                            <h2 className="text-2xl font-bold">
-                                Configurator coming soon
-                            </h2>
-                            <p className="mx-auto max-w-xl text-sm font-semibold text-slate-500">
-                                We are polishing this step right now.
-                            </p>
-                            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                                <button
-                                    type="button"
-                                    onClick={() => updateParams({ step: 0 })}
-                                    className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-                                >
-                                    Back to systems
-                                </button>
-                                <button
-                                    type="button"
-                                    className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-700"
-                                >
-                                    Download overview
-                                </button>
-                            </div>
-                        </section>
-                    )}
                     {step === 2 && solution === "battery" && <Batteries />}
                     {step === 3 && solution === "battery" && <BatteryFinal />}
+                    {step >= 4 && solution === "battery" && <ComingSoon />}
                 </main>
                 <div className="flex items-center justify-center">
                     <Link href="https://equitysolar.com.au">
@@ -96,7 +86,13 @@ function HomeContent() {
 
 export default function Home() {
     return (
-        <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-white">Loading...</div>}>
+        <Suspense
+            fallback={
+                <div className="flex min-h-screen items-center justify-center bg-white">
+                    Loading...
+                </div>
+            }
+        >
             <HomeContent />
         </Suspense>
     );

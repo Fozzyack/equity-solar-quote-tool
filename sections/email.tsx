@@ -6,10 +6,17 @@ import { BatteryProduct } from "@/constants/Batteries";
 
 interface EmailProps {
     battery: BatteryProduct;
+    startLoadingState: () => void;
+    finishLoadingState: () => void;
     onSubmitSuccess?: () => void;
 }
 
-const Email = ({ battery, onSubmitSuccess }: EmailProps) => {
+const Email = ({
+    battery,
+    onSubmitSuccess,
+    startLoadingState,
+    finishLoadingState,
+}: EmailProps) => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [submitted, setSubmitted] = useState(false);
@@ -18,6 +25,7 @@ const Email = ({ battery, onSubmitSuccess }: EmailProps) => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        startLoadingState();
         if (!acceptedTerms) {
             setShowTermsError(true);
             return;
@@ -29,8 +37,7 @@ const Email = ({ battery, onSubmitSuccess }: EmailProps) => {
             " " +
             battery.sizeKwh +
             "kWh " +
-            battery.module +
-            battery.sizeKwh;
+            battery.module;
         console.log(lookingAt);
 
         sendEmail(email, message, lookingAt);
@@ -42,6 +49,7 @@ const Email = ({ battery, onSubmitSuccess }: EmailProps) => {
 
         if (onSubmitSuccess) {
             onSubmitSuccess();
+            finishLoadingState();
         }
     };
 
@@ -55,25 +63,31 @@ const Email = ({ battery, onSubmitSuccess }: EmailProps) => {
                     Unlock your detailed quote
                 </h3>
                 <p className="text-sm font-medium text-slate-900/85">
-                    Share your contact info so we can send full pricing, specs, and
-                    installation guidance for your chosen battery. It’s absolutely free.
+                    Share your contact info so we can send full pricing, specs,
+                    and installation guidance for your chosen battery. It’s
+                    absolutely free.
                 </p>
             </header>
             <div className="mt-2 flex-1">
                 {submitted ? (
                     <div className="flex h-full flex-col justify-center rounded-2xl border border-yellow-200 bg-white/85 px-4 py-6 text-center text-sm font-semibold text-slate-900 shadow-inner">
-                        Thanks! An Equity Solar specialist will reach out with your
-                        detailed quote shortly.
+                        Thanks! An Equity Solar specialist will reach out with
+                        your detailed quote shortly.
                     </div>
                 ) : (
-                    <form className="flex h-full flex-col gap-5" onSubmit={handleSubmit}>
+                    <form
+                        className="flex h-full flex-col gap-5"
+                        onSubmit={handleSubmit}
+                    >
                         <label className="flex flex-col gap-2 text-left text-sm font-bold uppercase tracking-wide">
                             Email address
                             <input
                                 type="email"
                                 required
                                 value={email}
-                                onChange={(event) => setEmail(event.target.value)}
+                                onChange={(event) =>
+                                    setEmail(event.target.value)
+                                }
                                 placeholder="you@example.com"
                                 className="w-full rounded-2xl border border-transparent bg-white/90 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-200"
                             />
@@ -82,7 +96,9 @@ const Email = ({ battery, onSubmitSuccess }: EmailProps) => {
                             Optional message
                             <textarea
                                 value={message}
-                                onChange={(event) => setMessage(event.target.value)}
+                                onChange={(event) =>
+                                    setMessage(event.target.value)
+                                }
                                 placeholder="Let us know how we can help"
                                 rows={3}
                                 className="w-full rounded-2xl border border-transparent bg-white/90 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-200"
@@ -99,9 +115,10 @@ const Email = ({ battery, onSubmitSuccess }: EmailProps) => {
                                 className="mt-1 h-4 w-4 rounded border-slate-700 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/40"
                             />
                             <span>
-                                I agree to Equity Solar’s terms and understand that I may
-                                receive follow-up updates, offers, or educational materials about
-                                solar solutions. I can opt out of marketing at any time.
+                                I agree to Equity Solar’s terms and understand
+                                that I may receive follow-up updates, offers, or
+                                educational materials about solar solutions. I
+                                can opt out of marketing at any time.
                             </span>
                         </label>
                         {showTermsError && (
@@ -117,7 +134,8 @@ const Email = ({ battery, onSubmitSuccess }: EmailProps) => {
                                 View my free quote
                             </button>
                             <p className="text-center text-xs font-semibold text-slate-900/75">
-                                Your quote stays private and always costs $0. No obligation.
+                                Your quote stays private and always costs $0. No
+                                obligation.
                             </p>
                         </div>
                     </form>

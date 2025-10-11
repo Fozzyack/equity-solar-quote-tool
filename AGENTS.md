@@ -1,36 +1,34 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `app/`: Next.js route handlers and client components; key steps live in `step-*.tsx`, with `page.tsx` wiring shared context.
-- `components/`: Reusable UI primitives such as `SystemCard`.
-- `constants/`: Domain data and icons, including `Batteries.ts` and `BatteryCombos.ts` converted from `other/SolarCSV.csv`.
-- `contexts/`: React context providers (`UserChoiceContext`) for multi-step state.
-- `public/`: Static assets (logos, SVGs). Keep new assets optimized.
-- `other/`: Source CSVs and reference material—treat as read-only inputs.
+- `app/` hosts Next.js routes and step components; `page.tsx` wires shared state across `step-*.tsx` screens.
+- Reusable UI lives in `components/`; check here before adding new cards or buttons.
+- Domain constants stay in `constants/` (`Batteries.ts`, `BatteryCombos.ts`) and should mirror `other/SolarCSV.csv`.
+- Multi-step state flows through `contexts/UserChoiceContext`.
+- Static logos and SVGs belong in `public/`; optimize before committing.
+- Co-locate tests under `__tests__/` beside their subjects when added.
 
 ## Build, Test, and Development Commands
-- `npm run dev`: Launches the Next.js dev server with Turbopack. Use during feature work.
-- `npm run build`: Produces a production bundle; run before release branches.
-- `npm run start`: Serves the production build locally for smoke testing.
+- `npm run dev` runs the Turbopack dev server—use during iteration.
+- `npm run build` creates the production bundle and should succeed before release branches.
+- `npm run start` serves the built app for smoke tests at production parity.
 
 ## Coding Style & Naming Conventions
-- Use TypeScript across the repo; keep files `.tsx` for React components.
-- Follow Tailwind utility-first styling; prefer descriptive class groupings over custom CSS.
-- Maintain 4-space indentation already present in TSX files.
-- Data constants should export typed arrays (`BatteryProduct[]`) with camelCase keys.
-- Run a formatter (`npx prettier --write`) before committing; align with existing import ordering.
+- Write TypeScript in `.tsx` files, keeping 4-space indentation already used across the codebase.
+- Favor Tailwind utility groupings; avoid new CSS unless Tailwind cannot express the layout.
+- Export typed data (e.g., `BatteryProduct[]`) with camelCase keys in `constants/`.
+- Format edits with `npx prettier --write`; align imports and whitespace before pushing.
 
 ## Testing Guidelines
-- Automated tests are not yet implemented. When adding tests, co-locate them under `__tests__/` adjacent to source files.
-- Prefer Playwright or React Testing Library for UI flows; name specs `<component>.test.tsx`.
-- Manual QA: run `npm run build && npm run start` and complete the quote flow on desktop and mobile widths.
+- No automated suite yet; when adding tests, prefer Playwright or React Testing Library inside `__tests__/`.
+- Name specs `<Component>.test.tsx`.
+- Manual QA: run `npm run build && npm run start`, then walk the quote wizard on desktop and mobile breakpoints.
 
 ## Commit & Pull Request Guidelines
-- Write commits in imperative mood (e.g., `Add battery combo dataset`). Group related changes together.
-- Include context in PR descriptions: problem, solution, follow-up tasks, and screenshots for UI updates (desktop + mobile).
-- Link to Jira/GitHub issues using `Closes #123` when applicable.
-- Ensure `npm run build` passes before requesting review; flag any known limitations in the PR summary.
+- Use imperative commit subjects (e.g., `Add battery combo dataset`) and group related changes.
+- PRs should state problem, solution, follow-up tasks, and include screenshots for UI updates (desktop + mobile).
+- Link issues with `Closes #123` when applicable, and flag known limitations before requesting review.
 
 ## Agent-Specific Tips
-- When modifying shared data in `constants/`, re-run any dependent steps locally to confirm wizard behavior.
-- Coordinate CSV-to-TS conversions through `other/SolarCSV.csv`; document transformations in PRs for traceability.
+- Treat `other/` as read-only inputs; document any CSV-to-TS conversions.
+- After adjusting `constants/`, rerun the wizard locally to confirm data-driven flows stay intact.
