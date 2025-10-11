@@ -1,18 +1,17 @@
 export type SolarPanel = {
     id: string;
-    brandId: "aiko" | "jinko";
+    brandId: string;
     brandLabel: string;
     modelRange: string;
-    tier: "premium" | "mainstream";
+    tier: string;
     wattageRange: string;
     headline: string;
     strengths: string[];
     considerations: string[];
-    image?: string;
+    image: string;
 };
 
-type SolarPanelBase = Omit<SolarPanel, "id">;
-export const panels: SolarPanelBase[] = [
+const panelData: Array<Omit<SolarPanel, "id">> = [
     {
         brandId: "aiko",
         brandLabel: "Aiko",
@@ -29,6 +28,7 @@ export const panels: SolarPanelBase[] = [
             "Carries a premium price compared with mainstream options",
             "Lead times can stretch in peak season due to demand",
         ],
+        image: "/Aiko/Aiko-Panel.png",
     },
     {
         brandId: "jinko",
@@ -46,6 +46,20 @@ export const panels: SolarPanelBase[] = [
             "Slightly lower peak efficiency than top-tier premium panels",
             "Silver frame aesthetic may not match every roof design",
         ],
+        image: "/Jinko/Jinko-Panel.webp",
     },
 ];
 
+const slugify = (value: string) =>
+    value
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+
+export const SolarPanelList: SolarPanel[] = panelData.map((item) => {
+    const slug = slugify(`${item.brandId}`);
+    return {
+        ...item,
+        id: `${slug}`,
+    };
+});
