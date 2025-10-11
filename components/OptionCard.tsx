@@ -5,9 +5,16 @@ interface OptionCardProps {
     onClick: () => void;
     icon?: ReactNode;
     label: string;
+    description?: string;
 }
 
-export const OptionCard = ({ selected, onClick, icon, label }: OptionCardProps) => {
+export const OptionCard = ({
+    selected,
+    onClick,
+    icon,
+    label,
+    description,
+}: OptionCardProps) => {
     return (
         <button
             type="button"
@@ -40,6 +47,11 @@ export const OptionCard = ({ selected, onClick, icon, label }: OptionCardProps) 
             </span>
             {icon && <span className="transition-colors text-current">{icon}</span>}
             <span>{label}</span>
+            {description && (
+                <span className="text-xs font-semibold normal-case text-slate-600">
+                    {description}
+                </span>
+            )}
         </button>
     );
 };

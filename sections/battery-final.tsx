@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { BatteryList } from "@/constants/Batteries";
 import { BackButton } from "@/components/BackButton";
 import { InTouchHeader } from "@/components/InTouchHeader";
+import { SectionHeader } from "@/components/SectionHeader";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 import Email from "@sections/email";
@@ -55,18 +56,11 @@ const BatteryFinal = () => {
     if (!battery) {
         return (
             <section className="space-y-6">
-                <div className="space-y-1">
-                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                        Step 7
-                    </p>
-                    <h2 className="text-2xl font-bold">
-                        Battery summary unavailable
-                    </h2>
-                    <p className="text-sm text-slate-500">
-                        Please head back and choose a battery to see its full
-                        details.
-                    </p>
-                </div>
+                <SectionHeader
+                    step={7}
+                    title="Battery summary unavailable"
+                    description="Please head back and choose a battery to see its full details."
+                />
                 <BackButton target={2} label="Back to batteries" />
             </section>
         );
@@ -104,16 +98,12 @@ const BatteryFinal = () => {
     if (!emailSubmitted) {
         return (
             <section className="space-y-8">
-                <div className="space-y-1 text-center">
-                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                        Step 3
-                    </p>
-                    <h2 className="text-2xl font-bold">Submit your details</h2>
-                    <p className="mx-auto max-w-xl text-sm text-slate-500">
-                        Enter your email to view detailed pricing and
-                        specifications for your selected battery. We'll send you
-                        a personalized quote.
-                    </p>
+                <div className="text-center">
+                    <SectionHeader
+                        step={3}
+                        title="Submit your details"
+                        description="Enter your email to view detailed pricing and specifications for your selected battery. We'll send you a personalized quote."
+                    />
                 </div>
 
                 <div className="mx-auto max-w-md">

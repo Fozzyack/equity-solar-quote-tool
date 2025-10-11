@@ -18,6 +18,7 @@ const ComingSoon = () => {
                             tier: "",
                             battery: "",
                             existingSystem: "",
+                            panelBrand: "",
                             systemSize: "",
                         })
                     }

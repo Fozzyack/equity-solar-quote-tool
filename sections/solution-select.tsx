@@ -1,6 +1,7 @@
 "use client";
 import { SystemCard } from "@/components/SystemCard";
 import { ContinueButton } from "@/components/ContinueButton";
+import { SectionHeader } from "@/components/SectionHeader";
 import { SolarPanelsIcon, ComboIcon, BatteryIcon } from "@/constants/Icons";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
@@ -33,17 +34,13 @@ const SolutionSelect = () => {
             tier: "",
             battery: "",
             existingSystem: "",
+            panelBrand: "",
             systemSize: "",
         });
     };
     return (
         <section className="space-y-6">
-            <div className="space-y-1">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                    Step 0
-                </p>
-                <h2 className="text-2xl font-bold">Choose your system</h2>
-            </div>
+            <SectionHeader step={0} title="Choose your system" />
             <div className="grid gap-3 sm:grid-cols-3">
                 {solutions.map((item) => (
                     <SystemCard
@@ -64,6 +61,7 @@ const SolutionSelect = () => {
                             tier: "",
                             battery: "",
                             existingSystem: "",
+                            panelBrand: "",
                             systemSize: "",
                         });
                     }}

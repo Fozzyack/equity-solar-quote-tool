@@ -2,16 +2,17 @@
 
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
-import { useUpdateParams } from "@/lib/useUpdateParams";
+import { SectionHeader } from "@/components/SectionHeader";
 import { useSearchParams } from "next/navigation";
+import { useUpdateParams } from "@/lib/useUpdateParams";
 
 const existingSystemOptions = [
     {
-        id: "true",
+        id: "yes",
         label: "Yes, upgrading an existing system",
     },
     {
-        id: "false",
+        id: "no",
         label: "No, starting from scratch",
     },
 ];
@@ -21,21 +22,14 @@ const ExistingSystem = () => {
     const updateParams = useUpdateParams();
 
     const existingSystem = searchParams.get("existingSystem") || "";
-    const currentStep = searchParams.get("step") || "";
 
     return (
         <section className="space-y-8">
-            <div className="space-y-1">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                    Step {currentStep}
-                </p>
-                <h2 className="text-2xl font-bold">
-                    Do you have an existing solar system?
-                </h2>
-                <p className="text-sm text-slate-500">
-                    This helps us tailor the right upgrade or new install path.
-                </p>
-            </div>
+            <SectionHeader
+                step={1}
+                title="Do you have an existing solar system?"
+                description="This helps us tailor the right upgrade or new install path."
+            />
             <div className="grid gap-4 sm:grid-cols-2">
                 {existingSystemOptions.map((option) => (
                     <OptionCard
@@ -56,18 +50,16 @@ const ExistingSystem = () => {
                     onClick={() => {
                         updateParams({
                             existingSystem: "",
+                            panelBrand: "",
                             systemSize: "",
-                            step: parseInt(currentStep) - 1,
+                            step: 0,
                         });
                     }}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
                     Back
                 </button>
-                <ContinueButton
-                    target={parseInt(currentStep) + 1}
-                    disabled={!existingSystem}
-                />
+                <ContinueButton target={2} disabled={!existingSystem} />
             </div>
         </section>
     );

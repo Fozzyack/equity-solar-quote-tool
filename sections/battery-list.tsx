@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { BatteryList, BatteryProduct } from "@/constants/Batteries";
 import { BatteryCard } from "@/components/BatteryCard";
-import { BackButton } from "@/components/BackButton";
+import { NavigationButtons } from "@/components/NavigationButtons";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 
@@ -14,9 +14,9 @@ const Batteries = () => {
     const batteryId = searchParams.get("battery") || "";
 
     // Use local state for battery selection, initialized from URL
-    const [selectedBattery, setSelectedBattery] = useState<BatteryProduct | undefined>(
-        batteryId ? BatteryList.find(b => b.id === batteryId) : undefined
-    );
+    const [selectedBattery, setSelectedBattery] = useState<
+        BatteryProduct | undefined
+    >(batteryId ? BatteryList.find((b) => b.id === batteryId) : undefined);
 
     const filteredBatteries = BatteryList.filter(
         (batteryItem) => batteryItem.tier === tier,
@@ -40,17 +40,11 @@ const Batteries = () => {
                     />
                 ))}
             </div>
-            <div className="flex items-center justify-center gap-5">
-                <BackButton target={1} />
-                <button
-                    type="button"
-                    onClick={handleContinue}
-                    disabled={!selectedBattery}
-                    className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-9 py-3 text-sm font-bold uppercase tracking-wide text-slate-900 transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
-                >
-                    Continue
-                </button>
-            </div>
+            <NavigationButtons
+                backTarget={1}
+                onContinue={handleContinue}
+                continueDisabled={!selectedBattery}
+            />
         </div>
     );
 };
