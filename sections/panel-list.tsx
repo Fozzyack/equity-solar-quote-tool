@@ -6,6 +6,7 @@ import { SolarPanelCard } from "@/components/SolarPanelCard";
 import { NavigationButtons } from "@/components/NavigationButtons";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
+import { SectionHeader } from "@/components/SectionHeader";
 
 const PanelSelect = () => {
     const searchParams = useSearchParams();
@@ -24,7 +25,13 @@ const PanelSelect = () => {
     };
 
     return (
-        <div>
+        <div className="space-y-6">
+            <SectionHeader
+
+                step={parseInt(currentStep)}
+                title="Select Your Panels"
+                description="Have a look at the panels we are currently installing"
+            />
             <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {SolarPanelList.map((item) => (
                     <SolarPanelCard
