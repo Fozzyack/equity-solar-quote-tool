@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { SolarPanelList } from "@/constants/SolarPanels";
 import { ProductCard } from "@/components/ProductCard";
 import { NavigationButtons } from "@/components/NavigationButtons";
 import { useUpdateParams } from "@/lib/useUpdateParams";
@@ -29,7 +28,7 @@ const InverterSelect = () => {
     const handleContinue = () => {
         if (selectedInverter) {
             updateParams({
-                panelBrand: selectedInverter.id,
+                inverterBrand: selectedInverter.id,
                 step: parseInt(currentStep) + 1,
             });
         }
