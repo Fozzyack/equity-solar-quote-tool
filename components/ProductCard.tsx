@@ -1,16 +1,16 @@
 import { SolarPanel } from "@/constants/SolarPanels";
 
-interface SolarPanelCardProps {
+interface ProductCardProps {
     panel: SolarPanel;
     selected: boolean;
     onClick: () => void;
 }
 
-export const SolarPanelCard = ({
+export const ProductCard = ({
     panel,
     selected,
     onClick,
-}: SolarPanelCardProps) => {
+}: ProductCardProps) => {
     return (
         <div className="group relative h-full">
             <button

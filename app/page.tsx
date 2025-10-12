@@ -12,6 +12,7 @@ import ComingSoon from "@/components/ComingSoon";
 import ExistingSystem from "@sections/existing-system";
 import SystemSize from "@sections/system-size";
 import PanelSelect from "@/sections/panel-list";
+import InverterSelect from "@/sections/inverter-list";
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -53,15 +54,17 @@ function HomeContent() {
 
                     {/* SOLAR SECTION */}
                     {step === 1 && solution === "solar-panels" && <ExistingSystem />}
-                    {step === 2 && solution === "solar-panels" && <PanelSelect/>}
-                    {step === 3 && solution === "solar-panels" && <SystemSize />}
-                    {step >= 4 && solution === "solar-panels" && <ComingSoon />}
+                    {step === 2 && solution === "solar-panels" && <SystemSize />}
+                    {step === 3 && solution === "solar-panels" && <PanelSelect/>}
+                    {step === 4 && solution === "solar-panels" && <InverterSelect/>}
+                    {step >= 5 && solution === "solar-panels" && <ComingSoon />}
 
                     {/* COMBO */}
                     {step === 1 && solution === "combo" && <ExistingSystem />}
-                    {step === 2 && solution === "combo" && <PanelSelect />}
-                    {step === 3 && solution === "combo" && <SystemSize />}
-                    {step >= 4 && solution === "combo" && <ComingSoon />}
+                    {step === 2 && solution === "combo" && <SystemSize />}
+                    {step === 3 && solution === "combo" && <PanelSelect />}
+                    {step === 4 && solution === "combo" && <InverterSelect/>}
+                    {step >= 5 && solution === "combo" && <ComingSoon />}
 
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}

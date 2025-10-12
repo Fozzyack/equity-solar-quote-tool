@@ -7,7 +7,7 @@ import { NavigationButtons } from "@/components/NavigationButtons";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 
-const PanelSelect = () => {
+const InverterSelect = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
     const panelId = searchParams.get("panelBrand") || "";
@@ -44,4 +44,4 @@ const PanelSelect = () => {
     );
 };
 
-export default PanelSelect;
+export default InverterSelect;
