@@ -56,15 +56,16 @@ function HomeContent() {
                     {step === 1 && solution === "solar-panels" && <ExistingSystem />}
                     {step === 2 && solution === "solar-panels" && <SystemSize />}
                     {step === 3 && solution === "solar-panels" && <PanelSelect/>}
-                    {step === 4 && solution === "solar-panels" && <InverterSelect/>}
+                    {step === 4 && solution === "solar-panels" && <InverterSelect />}
                     {step >= 5 && solution === "solar-panels" && <ComingSoon />}
 
                     {/* COMBO */}
-                    {step === 1 && solution === "combo" && <ExistingSystem />}
-                    {step === 2 && solution === "combo" && <SystemSize />}
-                    {step === 3 && solution === "combo" && <PanelSelect />}
-                    {step === 4 && solution === "combo" && <InverterSelect/>}
-                    {step >= 5 && solution === "combo" && <ComingSoon />}
+                    {step === 1 && solution === "combo" && <PriceRange />}
+                    {step === 2 && solution === "combo" && <ExistingSystem />}
+                    {step === 3 && solution === "combo" && <SystemSize />}
+                    {step === 4 && solution === "combo" && <PanelSelect />}
+                    {step === 5 && solution === "combo" && <InverterSelect />}
+                    {step >= 6 && solution === "combo" && <ComingSoon />}
 
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}
