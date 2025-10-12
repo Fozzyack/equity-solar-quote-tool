@@ -22,7 +22,14 @@
 ## Project Structure
 - `app/`: Next.js 15 routes, `page.tsx` orchestrates multi-step wizard via URL params
 - `components/`: Reusable UI (cards, buttons); check before adding new components
-- `constants/`: Domain data (`Batteries.ts`, `SolarPanels.ts`); must mirror `other/SolarCSV.csv`
+- `constants/`: Domain data (`Batteries.ts`, `SolarPanels.ts`, `Inverters.ts`, `Pricing.ts`); must mirror `other/SolarCSV.csv`
 - `sections/`: Step-specific screens (e.g., `battery-list.tsx`, `solution-select.tsx`)
 - `lib/`: Hooks and utilities (e.g., `useUpdateParams.ts` for URL state management)
 - `public/`: Static assets (images, logos); optimize before committing
+
+## Product Filtering & Pricing
+- **Solar Panels**: Include `compatibleSizes` array (e.g., `["6.6", "7.65", "10.2", "13.2"]`)
+- **Inverters**: Include `compatibleSizes` and `compatiblePanels` arrays for filtering
+- **Pricing**: Use pricing matrix in `Pricing.ts` with key format `${systemSize}-${panelId}-${inverterId}`
+- **Filtering**: Components filter by URL params (`systemSize`, `panelBrand`) using `.filter()` before rendering
+- **Price Lookup**: Use `getSolarPrice(systemSize, panelId, inverterId)` helper function
