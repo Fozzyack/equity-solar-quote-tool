@@ -58,10 +58,11 @@ function HomeContent() {
                     {step >= 4 && solution === "solar-panels" && <ComingSoon />}
 
                     {/* COMBO */}
-                    {step === 1 && solution === "combo" && <ExistingSystem />}
-                    {step === 2 && solution === "combo" && <PanelSelect />}
-                    {step === 3 && solution === "combo" && <SystemSize />}
-                    {step >= 4 && solution === "combo" && <ComingSoon />}
+                    {step === 1 && solution === "combo" && <PriceRange />}
+                    {step === 2 && solution === "combo" && <ExistingSystem />}
+                    {step === 3 && solution === "combo" && <PanelSelect />}
+                    {step === 4 && solution === "combo" && <SystemSize />}
+                    {step >= 5 && solution === "combo" && <ComingSoon />}
 
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}

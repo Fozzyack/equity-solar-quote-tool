@@ -22,11 +22,12 @@ const ExistingSystem = () => {
     const updateParams = useUpdateParams();
 
     const existingSystem = searchParams.get("existingSystem") || "";
+    const currentStep = searchParams.get("step") || "";
 
     return (
         <section className="space-y-8">
             <SectionHeader
-                step={1}
+                step={parseInt(currentStep)}
                 title="Do you have an existing solar system?"
                 description="This helps us tailor the right upgrade or new install path."
             />
@@ -52,14 +53,14 @@ const ExistingSystem = () => {
                             existingSystem: "",
                             panelBrand: "",
                             systemSize: "",
-                            step: 0,
+                            step: parseInt(currentStep) - 1,
                         });
                     }}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
                     Back
                 </button>
-                <ContinueButton target={2} disabled={!existingSystem} />
+                <ContinueButton target={parseInt(currentStep) + 1} disabled={!existingSystem} />
             </div>
         </section>
     );
