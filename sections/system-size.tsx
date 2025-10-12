@@ -65,14 +65,14 @@ const SystemSize = () => {
                     type="button"
                     onClick={() => {
                         updateParams({
-                            step: 2,
+                            step: parseInt(currentStep) - 1,
                         });
                     }}
                     className="inline-flex items-center justify-center rounded-full border-2 border-slate-200 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
                     Back
                 </button>
-                <ContinueButton target={4} disabled={!systemSize} />
+                <ContinueButton target={parseInt(currentStep) + 1} disabled={!systemSize} />
             </div>
         </section>
     );

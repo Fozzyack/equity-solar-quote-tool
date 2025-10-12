@@ -1,44 +1,56 @@
 "use client";
 
 import { useState } from "react";
-import { SolarPanelList, SolarPanel } from "@/constants/SolarPanels";
+import { SolarPanelList } from "@/constants/SolarPanels";
 import { ProductCard } from "@/components/ProductCard";
 import { NavigationButtons } from "@/components/NavigationButtons";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
+import { Inverter, InverterList } from "@/constants/Inverters";
 
 const InverterSelect = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
+    const size = searchParams.get("systemSize") || "";
     const panelId = searchParams.get("panelBrand") || "";
+    const inverterId = searchParams.get("inverterId") || "";
     const currentStep = searchParams.get("step") || "";
 
-    const [selectedPanel, setSelectedPanel] = useState<SolarPanel | undefined>(
-        panelId ? SolarPanelList.find((p) => p.id === panelId) : undefined,
+    const inverters = InverterList.filter(
+        (inverter) =>
+            inverter.compatibleSizes.includes(size) &&
+            inverter.compatiblePanels.includes(panelId),
     );
 
+    const [selectedInverter, setSelectedInverter] = useState<
+        Inverter | undefined
+    >(inverterId ? inverters.find((i) => i.id == inverterId) : undefined);
+
     const handleContinue = () => {
-        if (selectedPanel) {
-            updateParams({ panelBrand: selectedPanel.id, step: parseInt(currentStep) + 1 });
+        if (selectedInverter) {
+            updateParams({
+                panelBrand: selectedInverter.id,
+                step: parseInt(currentStep) + 1,
+            });
         }
     };
 
     return (
         <div>
             <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {SolarPanelList.map((item) => (
-                <ProductCard
-                    key={item.id}
-                    panel={item}
-                    selected={selectedPanel?.id === item.id}
-                    onClick={() => setSelectedPanel(item)}
-                />
+                {inverters.map((item) => (
+                    <ProductCard
+                        key={item.id}
+                        panel={item}
+                        selected={selectedInverter?.id === item.id}
+                        onClick={() => setSelectedInverter(item)}
+                    />
                 ))}
             </div>
             <NavigationButtons
                 backTarget={parseInt(currentStep) - 1}
                 onContinue={handleContinue}
-                continueDisabled={!selectedPanel}
+                continueDisabled={!selectedInverter}
             />
         </div>
     );

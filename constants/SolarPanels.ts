@@ -9,6 +9,7 @@ export type SolarPanel = {
     strengths: string[];
     considerations: string[];
     image: string;
+    compatibleSizes: string[];
 };
 
 type SolarPanelBase = Omit<SolarPanel, "id">
@@ -30,6 +31,7 @@ const panelData: SolarPanelBase[] = [
             "Lead times can stretch in peak season due to demand",
         ],
         image: "/Aiko/Aiko-Panel.png",
+        compatibleSizes: [ "6.6", "7.65", "10.2", "13.2"],
     },
     {
         brandId: "jinko",
@@ -48,6 +50,7 @@ const panelData: SolarPanelBase[] = [
             "Silver frame aesthetic may not match every roof design",
         ],
         image: "/Jinko/Jinko-Panel.webp",
+        compatibleSizes: ["6.6", "7.65", "10.2", "13.2"],
     },
 ];
 

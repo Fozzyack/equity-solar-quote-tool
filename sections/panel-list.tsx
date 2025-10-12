@@ -14,6 +14,15 @@ const PanelSelect = () => {
     const panelId = searchParams.get("panelBrand") || "";
     const currentStep = searchParams.get("step") || "";
 
+    const systemSize = searchParams.get("systemSize") || "";
+
+    var panels = SolarPanelList;
+    if (systemSize != "" && systemSize != "unknown") {
+        panels = panels.filter(item => item.compatibleSizes.includes(systemSize));
+    }
+    console.log(systemSize);
+    console.log(panels)
+
     const [selectedPanel, setSelectedPanel] = useState<SolarPanel | undefined>(
         panelId ? SolarPanelList.find((p) => p.id === panelId) : undefined,
     );
@@ -33,7 +42,7 @@ const PanelSelect = () => {
                 description="Have a look at the panels we are currently installing"
             />
             <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {SolarPanelList.map((item) => (
+                {panels.map((item) => (
                 <ProductCard
                     key={item.id}
                     panel={item}
