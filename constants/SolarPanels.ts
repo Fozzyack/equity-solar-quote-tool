@@ -11,7 +11,8 @@ export type SolarPanel = {
     image: string;
 };
 
-const panelData: Array<Omit<SolarPanel, "id">> = [
+type SolarPanelBase = Omit<SolarPanel, "id">
+const panelData: SolarPanelBase[] = [
     {
         brandId: "aiko",
         brandLabel: "Aiko",
