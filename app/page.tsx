@@ -65,7 +65,8 @@ function HomeContent() {
                     {step === 3 && solution === "combo" && <SystemSize />}
                     {step === 4 && solution === "combo" && <PanelSelect />}
                     {step === 5 && solution === "combo" && <InverterSelect />}
-                    {step >= 6 && solution === "combo" && <ComingSoon />}
+                    {step === 6 && solution === "battery" && <Batteries />}
+                    {step >= 7 && solution === "combo" && <ComingSoon />}
 
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}
