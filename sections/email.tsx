@@ -3,9 +3,15 @@
 import { FormEvent, useState } from "react";
 import { sendEmail } from "@/lib/emailjs";
 import { BatteryProduct } from "@/constants/Batteries";
+import { SolarPanel } from "@/constants/SolarPanels";
+import { Inverter } from "@/constants/Inverters";
 
 interface EmailProps {
-    battery: BatteryProduct;
+    battery?: BatteryProduct;
+    panel?: SolarPanel;
+    inverter?: Inverter;
+    systemSize?: string;
+    price?: number;
     startLoadingState: () => void;
     finishLoadingState: () => void;
     onSubmitSuccess?: () => void;
@@ -13,6 +19,10 @@ interface EmailProps {
 
 const Email = ({
     battery,
+    panel,
+    inverter,
+    systemSize,
+    price,
     onSubmitSuccess,
     startLoadingState,
     finishLoadingState,
@@ -31,13 +41,29 @@ const Email = ({
             return;
         }
 
-        const lookingAt =
-            "Battery: " +
-            battery.brand +
-            " " +
-            battery.sizeKwh +
-            "kWh " +
-            battery.module;
+        let lookingAt = "";
+        if (battery) {
+            lookingAt =
+                "Battery: " +
+                battery.brand +
+                " " +
+                battery.sizeKwh +
+                "kWh " +
+                battery.module;
+        } else if (panel && inverter && systemSize) {
+            lookingAt =
+                "Solar System: " +
+                systemSize +
+                "kW with " +
+                panel.brandLabel +
+                " " +
+                panel.modelRange +
+                " and " +
+                inverter.brandLabel +
+                " " +
+                inverter.modelRange +
+                (price ? " - $" + price : "");
+        }
         console.log(lookingAt);
 
         sendEmail(email, message, lookingAt);

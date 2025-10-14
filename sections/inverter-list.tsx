@@ -17,7 +17,7 @@ const InverterSelect = () => {
 
     const inverters = InverterList.filter(
         (inverter) =>
-            inverter.compatibleSizes.includes(size) &&
+            (inverter.compatibleSizes.includes(size) || size === "unknown") &&
             inverter.compatiblePanels.includes(panelId),
     );
 
