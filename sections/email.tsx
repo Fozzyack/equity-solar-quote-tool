@@ -153,12 +153,21 @@ const Email = ({
                             </p>
                         )}
                         <div className="mt-auto space-y-3">
-                            <button
-                                type="submit"
-                                className="inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-yellow-200 transition hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-700/40"
-                            >
-                                View my free quote
-                            </button>
+                            {acceptedTerms ? (
+                                <button
+                                    type="submit"
+                                    className="inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-yellow-200 transition hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-700/40"
+                                >
+                                    View my free quote
+                                </button>
+                            ) : (
+                                <button
+                                    disabled
+                                    className="inline-flex w-full items-center justify-center rounded-full bg-slate-900/60 px-9 py-3 text-sm font-bold uppercase tracking-wide text-yellow-400 transition focus:outline-none focus:ring-4 focus:ring-slate-700/40"
+                                >
+                                    View my free quote
+                                </button>
+                            )}
                             <p className="text-center text-xs font-semibold text-slate-900/75">
                                 Your quote stays private and always costs $0. No
                                 obligation.
