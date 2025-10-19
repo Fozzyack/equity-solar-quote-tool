@@ -16,7 +16,7 @@ export const sendEmail = (
     };
 
     (emailjs
-        .send("service_7qmz2mm", "template_qg03z8u", templateParams, {
+        .send("service_2ne33wk", "template_qg03z8u", templateParams, {
             publicKey: emailJsPublicKey,
         })
         .then((res) => {
