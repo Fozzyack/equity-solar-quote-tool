@@ -31,8 +31,8 @@ const inverterData: InverterBase[] = [
             "Premium pricing compared to string-only inverters",
             "Requires professional installation and configuration",
         ],
-        image: "",
-        compatibleSizes: ["6.6", "7.65"],
+        image: "/Sungrow/Inverter.png",
+        compatibleSizes: ["6.6", "7.65", "10.2", "13.2"],
         compatiblePanels: ["aiko", "jinko"],
     },
     {
@@ -51,8 +51,8 @@ const inverterData: InverterBase[] = [
             "Slightly lower efficiency than premium brands",
             "Limited advanced features compared to high-end models",
         ],
-        image: "",
-        compatibleSizes: ["6.6", "7.65"],
+        image: "/GoodWe/Inverter.png",
+        compatibleSizes: ["6.6", "7.65", "10.2", "13.2"],
         compatiblePanels: ["aiko", "jinko"],
     },
 ];

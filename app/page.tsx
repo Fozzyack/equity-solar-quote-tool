@@ -13,6 +13,7 @@ import ExistingSystem from "@sections/existing-system";
 import SystemSize from "@sections/system-size";
 import PanelSelect from "@/sections/panel-list";
 import InverterSelect from "@/sections/inverter-list";
+import PanelFinal from "@/sections/panel-final";
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -57,7 +58,8 @@ function HomeContent() {
                     {step === 2 && solution === "solar-panels" && <SystemSize />}
                     {step === 3 && solution === "solar-panels" && <PanelSelect/>}
                     {step === 4 && solution === "solar-panels" && <InverterSelect />}
-                    {step >= 5 && solution === "solar-panels" && <ComingSoon />}
+                    {step === 5 && solution === "solar-panels" && <PanelFinal/>}
+                    {step >= 6 && solution === "solar-panels" && <ComingSoon />}
 
                     {/* COMBO */}
                     {step === 1 && solution === "combo" && <PriceRange />}
