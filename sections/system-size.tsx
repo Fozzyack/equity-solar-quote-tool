@@ -4,29 +4,7 @@ import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { useSearchParams } from "next/navigation";
 import { useUpdateParams } from "@/lib/useUpdateParams";
-
-const systemSizeOptions = [
-    {
-        id: "6.6",
-        label: "6.6 kW",
-    },
-    {
-        id: "7.65",
-        label: "7.65 kW",
-    },
-    {
-        id: "10.2",
-        label: "10.2 kW",
-    },
-    {
-        id: "13.2",
-        label: "13.2 kW",
-    },
-    {
-        id: "unknown",
-        label: "Not sure yet",
-    },
-];
+import { systemSizeOptions } from "@/constants/Common";
 
 const SystemSize = () => {
     const searchParams = useSearchParams();
@@ -37,7 +15,6 @@ const SystemSize = () => {
     return (
         <section className="space-y-8">
             <SectionHeader
-                step={currentStep}
                 title="Which system size are you looking for?"
                 description="Pick the array that best matches your household usage. Not sure is okay too."
             />
@@ -72,7 +49,10 @@ const SystemSize = () => {
                 >
                     Back
                 </button>
-                <ContinueButton target={parseInt(currentStep) + 1} disabled={!systemSize} />
+                <ContinueButton
+                    target={parseInt(currentStep) + 1}
+                    disabled={!systemSize}
+                />
             </div>
         </section>
     );

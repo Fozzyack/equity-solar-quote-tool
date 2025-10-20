@@ -27,7 +27,6 @@ const ExistingSystem = () => {
     return (
         <section className="space-y-8">
             <SectionHeader
-                step={parseInt(currentStep)}
                 title="Do you have an existing solar system?"
                 description="This helps us tailor the right upgrade or new install path."
             />

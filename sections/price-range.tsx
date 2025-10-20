@@ -34,7 +34,6 @@ const PriceRange = () => {
     return (
         <section className="space-y-8">
             <SectionHeader
-                step={currentStep}
                 title="Choose battery price range"
                 description="Select the performance tier that best matches your storage goals."
             />

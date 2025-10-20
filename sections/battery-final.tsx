@@ -53,7 +53,6 @@ const BatteryFinal = () => {
         return (
             <section className="space-y-6">
                 <SectionHeader
-                    step={7}
                     title="Battery summary unavailable"
                     description="Please head back and choose a battery to see its full details."
                 />
@@ -72,7 +71,6 @@ const BatteryFinal = () => {
             <section className="space-y-8">
                 <div className="text-center">
                     <SectionHeader
-                        step={3}
                         title="Submit your details"
                         description="Enter your email to view detailed pricing and specifications for your selected battery. We'll send you a personalized quote."
                     />

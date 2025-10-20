@@ -36,8 +36,6 @@ const PanelSelect = () => {
     return (
         <div className="space-y-6">
             <SectionHeader
-
-                step={parseInt(currentStep)}
                 title="Select Your Panels"
                 description="Have a look at the panels we are currently installing"
             />

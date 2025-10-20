@@ -2,27 +2,9 @@
 import { SystemCard } from "@/components/SystemCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
-import { SolarPanelsIcon, ComboIcon, BatteryIcon } from "@/constants/Icons";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
-
-const solutions = [
-    {
-        id: "solar-panels",
-        title: "Solar Only",
-        icon: <SolarPanelsIcon />,
-    },
-    {
-        id: "combo",
-        title: "Solar + Battery Combo",
-        icon: <ComboIcon />,
-    },
-    {
-        id: "battery",
-        title: "Battery Only",
-        icon: <BatteryIcon />,
-    },
-];
+import { solutions } from "@/constants/Common";
 
 const SolutionSelect = () => {
     const searchParams = useSearchParams();
@@ -40,7 +22,7 @@ const SolutionSelect = () => {
     };
     return (
         <section className="space-y-6">
-            <SectionHeader step={0} title="Choose your system" />
+            <SectionHeader title="Choose your system" />
             <div className="grid gap-3 sm:grid-cols-3">
                 {solutions.map((item) => (
                     <SystemCard
