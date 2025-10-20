@@ -86,7 +86,11 @@ const BatteryFinal = () => {
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <BackButton target={2} label="Back to batteries" />
+                <BackButton
+                    target={2}
+                    label="Back to batteries"
+                    clearParams={["battery"]}
+                />
                 </div>
             </section>
         );

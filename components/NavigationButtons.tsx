@@ -6,6 +6,7 @@ interface NavigationButtonsProps {
     onContinue: () => void;
     continueDisabled?: boolean;
     continueLabel?: string;
+    clearParams?: string[];
 }
 
 export const NavigationButtons = ({
@@ -14,10 +15,15 @@ export const NavigationButtons = ({
     onContinue,
     continueDisabled,
     continueLabel = "Continue",
+    clearParams = [],
 }: NavigationButtonsProps) => {
     return (
         <div className="flex items-center justify-center gap-5">
-            <BackButton target={backTarget} label={backLabel} />
+            <BackButton
+                target={backTarget}
+                label={backLabel}
+                clearParams={clearParams}
+            />
             <button
                 type="button"
                 onClick={onContinue}

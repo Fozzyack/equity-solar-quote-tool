@@ -45,6 +45,7 @@ const Batteries = () => {
                 backTarget={parseInt(currentStep) - 1}
                 onContinue={handleContinue}
                 continueDisabled={!selectedBattery}
+                clearParams={["battery"]}
             />
         </div>
     );

@@ -50,6 +50,7 @@ const InverterSelect = () => {
                 backTarget={parseInt(currentStep) - 1}
                 onContinue={handleContinue}
                 continueDisabled={!selectedInverter}
+                clearParams={["inverterBrand"]}
             />
         </div>
     );

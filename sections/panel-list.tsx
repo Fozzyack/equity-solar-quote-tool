@@ -53,6 +53,7 @@ const PanelSelect = () => {
                 backTarget={parseInt(currentStep) - 1}
                 onContinue={handleContinue}
                 continueDisabled={!selectedPanel}
+                clearParams={["panelBrand", "inverterBrand"]}
             />
         </div>
     );

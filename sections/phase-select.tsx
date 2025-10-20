@@ -62,7 +62,6 @@ const PhaseSelect = () => {
 	return (
 		<section className="space-y-8">
 			<SectionHeader
-				step={currentStep}
 				title="Select your electrical phase"
 				description="Choose whether your home has single phase or 3 phase power."
 			/>
