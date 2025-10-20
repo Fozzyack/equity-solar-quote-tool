@@ -17,6 +17,7 @@ import PanelFinal from "@/sections/panel-final";
 import PhaseSelect from "@/sections/phase-select";
 import ComboList from "@/sections/combo-list";
 import BrandSelect from "@/sections/brand-select";
+import ComboFinal from "@/sections/combo-final";
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -67,7 +68,8 @@ function HomeContent() {
                     {step === 1 && solution === "combo" && <PhaseSelect />}
                     {step === 2 && solution === "combo" && <BrandSelect />}
                     {step === 3 && solution === "combo" && <ComboList />}
-                    {step >= 4 && solution === "combo" && <ComingSoon />}
+                    {step === 4 && solution === "combo" && <ComboFinal />}
+                    {step >= 5 && solution === "combo" && <ComingSoon />}
 
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}

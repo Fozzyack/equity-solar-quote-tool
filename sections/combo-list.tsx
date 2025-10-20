@@ -31,18 +31,34 @@ const ComboList = () => {
         }
     };
 
+    const phaseLabel = phase === "single" ? "single phase" : "three phase";
+
     return (
         <div>
-            <div className="mb-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-                {filteredCombos.map((item) => (
-                    <ComboCard
-                        key={item.id}
-                        combo={item}
-                        selected={selectedCombo?.id === item.id}
-                        onClick={() => setSelectedCombo(item)}
-                    />
-                ))}
-            </div>
+            {filteredCombos.length === 0 ? (
+                <div className="mb-20 flex min-h-[400px] items-center justify-center">
+                    <div className="max-w-md space-y-4 text-center">
+                        <p className="text-lg font-bold text-slate-900">
+                            No combo systems available
+                        </p>
+                        <p className="text-sm font-medium text-slate-600">
+                            There are no batteries for {phaseLabel} systems with {brand}.
+                            Please go back and select a different phase or brand.
+                        </p>
+                    </div>
+                </div>
+            ) : (
+                <div className="mb-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+                    {filteredCombos.map((item) => (
+                        <ComboCard
+                            key={item.id}
+                            combo={item}
+                            selected={selectedCombo?.id === item.id}
+                            onClick={() => setSelectedCombo(item)}
+                        />
+                    ))}
+                </div>
+            )}
             <NavigationButtons
                 backTarget={parseInt(currentStep) - 1}
                 onContinue={handleContinue}

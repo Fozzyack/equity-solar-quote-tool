@@ -5,11 +5,13 @@ import { sendEmail } from "@/lib/emailjs";
 import { BatteryProduct } from "@/constants/Batteries";
 import { SolarPanel } from "@/constants/SolarPanels";
 import { Inverter } from "@/constants/Inverters";
+import { ComboProduct } from "@/constants/ComboList";
 
 interface EmailProps {
     battery?: BatteryProduct;
     panel?: SolarPanel;
     inverter?: Inverter;
+    combo?: ComboProduct;
     systemSize?: string;
     price?: number;
     startLoadingState: () => void;
@@ -21,6 +23,7 @@ const Email = ({
     battery,
     panel,
     inverter,
+    combo,
     systemSize,
     price,
     onSubmitSuccess,
@@ -50,6 +53,22 @@ const Email = ({
                 battery.sizeKwh +
                 "kWh " +
                 battery.module;
+        } else if (combo) {
+            lookingAt =
+                "Combo System: " +
+                combo.brand +
+                " - " +
+                combo.batterySizeKwh +
+                "kWh Battery + " +
+                combo.solarSizeKw +
+                "kW Solar (" +
+                combo.batteryModule +
+                " / " +
+                combo.solarPanel +
+                " / " +
+                combo.inverter +
+                ") - Retail: $" +
+                combo.retailPrice;
         } else if (panel && inverter && systemSize) {
             lookingAt =
                 "Solar System: " +
