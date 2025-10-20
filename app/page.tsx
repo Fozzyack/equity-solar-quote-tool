@@ -31,6 +31,11 @@ function HomeContent() {
                 className={`w-full md:px-20 lg:px-40 space-y-10 text-center ${step >= 6 ? "max-w-7xl" : "max-w-6xl"}`}
             >
                 <div className="flex flex-col items-center space-y-5">
+                <div className="bg-yellow-400 text-slate-800 font-bold px-6 py-4 border-2 border-black rounded-3xl">
+                    <p>
+                        Currently Under Development
+                    </p>
+                </div>
                     <div className="relative h-36 w-36 sm:h-48 sm:w-48">
                         <Image
                             src="/eqSolarLogo.jpg"
