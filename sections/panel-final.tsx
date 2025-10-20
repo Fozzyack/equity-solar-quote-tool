@@ -95,11 +95,11 @@ const PanelFinal = () => {
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <BackButton
-                    target={4}
-                    label="Back to inverters"
-                    clearParams={["inverterBrand"]}
-                />
+                    <BackButton
+                        target={4}
+                        label="Back to inverters"
+                        clearParams={["inverterBrand"]}
+                    />
                 </div>
             </section>
         );

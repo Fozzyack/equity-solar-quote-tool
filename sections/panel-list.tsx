@@ -18,10 +18,12 @@ const PanelSelect = () => {
 
     var panels = SolarPanelList;
     if (systemSize != "" && systemSize != "unknown") {
-        panels = panels.filter(item => item.compatibleSizes.includes(systemSize));
+        panels = panels.filter((item) =>
+            item.compatibleSizes.includes(systemSize),
+        );
     }
     console.log(systemSize);
-    console.log(panels)
+    console.log(panels);
 
     const [selectedPanel, setSelectedPanel] = useState<SolarPanel | undefined>(
         panelId ? SolarPanelList.find((p) => p.id === panelId) : undefined,
@@ -29,7 +31,10 @@ const PanelSelect = () => {
 
     const handleContinue = () => {
         if (selectedPanel) {
-            updateParams({ panelBrand: selectedPanel.id, step: parseInt(currentStep) + 1 });
+            updateParams({
+                panelBrand: selectedPanel.id,
+                step: parseInt(currentStep) + 1,
+            });
         }
     };
 
@@ -41,12 +46,12 @@ const PanelSelect = () => {
             />
             <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {panels.map((item) => (
-                <ProductCard
-                    key={item.id}
-                    panel={item}
-                    selected={selectedPanel?.id === item.id}
-                    onClick={() => setSelectedPanel(item)}
-                />
+                    <ProductCard
+                        key={item.id}
+                        panel={item}
+                        selected={selectedPanel?.id === item.id}
+                        onClick={() => setSelectedPanel(item)}
+                    />
                 ))}
             </div>
             <NavigationButtons
