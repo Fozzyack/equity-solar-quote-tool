@@ -12,6 +12,7 @@ const Batteries = () => {
     const updateParams = useUpdateParams();
     const tier = searchParams.get("tier") || "";
     const batteryId = searchParams.get("battery") || "";
+    const currentStep = searchParams.get("step") || "";
 
     // Use local state for battery selection, initialized from URL
     const [selectedBattery, setSelectedBattery] = useState<
@@ -41,7 +42,7 @@ const Batteries = () => {
                 ))}
             </div>
             <NavigationButtons
-                backTarget={1}
+                backTarget={parseInt(currentStep) - 1}
                 onContinue={handleContinue}
                 continueDisabled={!selectedBattery}
             />
