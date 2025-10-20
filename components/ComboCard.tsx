@@ -7,6 +7,14 @@ interface ComboCardProps {
 }
 
 export const ComboCard = ({ combo, selected, onClick }: ComboCardProps) => {
+    const brandImages: Record<string, string> = {
+        Sungrow: "/brand_images/sungrow.webp",
+        GoodWe: "/brand_images/goodwe.png",
+        Anker: "/brand_images/anker.png",
+        Tesla: "/brand_images/tesla.png",
+        "Sig Energy": "/brand_images/sig-energy.webp",
+    };
+
     return (
         <button
             type="button"
@@ -39,15 +47,21 @@ export const ComboCard = ({ combo, selected, onClick }: ComboCardProps) => {
                 </svg>
             </span>
             <div className="space-y-4">
-                <div className="space-y-2">
-                    <p
-                        className={`text-xs font-bold uppercase tracking-[0.3em] ${selected ? "text-slate-900" : "text-slate-400"}`}
-                    >
-                        {combo.brand}
-                    </p>
-                    <h2 className="text-xl font-extrabold leading-tight">
-                        {combo.batteryModule}
-                    </h2>
+                <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 space-y-2">
+                        <h2 className="text-xl font-extrabold leading-tight">
+                            {combo.batteryModule}
+                        </h2>
+                    </div>
+                    {brandImages[combo.brand] && (
+                        <div className="flex h-12 w-16 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white p-1.5">
+                            <img
+                                src={brandImages[combo.brand]}
+                                alt={combo.brand}
+                                className="h-full w-full object-contain"
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="space-y-2.5 rounded-xl border-2 border-slate-200 bg-slate-50 p-4">
                     <div className="flex items-center justify-between">
