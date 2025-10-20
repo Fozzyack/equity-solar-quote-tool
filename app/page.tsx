@@ -16,6 +16,7 @@ import InverterSelect from "@/sections/inverter-list";
 import PanelFinal from "@/sections/panel-final";
 import PhaseSelect from "@/sections/phase-select";
 import ComboList from "@/sections/combo-list";
+import BrandSelect from "@/sections/brand-select";
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -64,12 +65,10 @@ function HomeContent() {
                     {step >= 6 && solution === "solar-panels" && <ComingSoon />}
 
                     {/* COMBO */}
-                    {step === 1 && solution === "combo" && <PriceRange/>}
-                    {step === 2 && solution === "combo" && <PhaseSelect />}
-                    {step === 3 && solution === "combo" && <ExistingSystem />}
-                    {step === 4 && solution === "combo" && <SystemSize />}
-                    {step === 5 && solution === "combo" && <ComboList />}
-                    {step >= 6 && solution === "combo" && <ComingSoon />}
+                    {step === 1 && solution === "combo" && <PhaseSelect />}
+                    {step === 2 && solution === "combo" && <BrandSelect />}
+                    {step === 3 && solution === "combo" && <ComboList />}
+                    {step >= 4 && solution === "combo" && <ComingSoon />}
 
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}

@@ -11,6 +11,7 @@ const ComboList = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
     const phase = searchParams.get("phase") || "";
+    const brand = searchParams.get("brand") || "";
     const comboId = searchParams.get("combo") || "";
     const currentStep = searchParams.get("step") || "";
 
@@ -21,7 +22,7 @@ const ComboList = () => {
     const phaseNumber = phase === "single" ? 1 : phase === "three" ? 3 : 0;
 
     const filteredCombos = ComboData.filter(
-        (combo) => combo.phase === phaseNumber,
+        (combo) => combo.phase === phaseNumber && combo.brand === brand,
     );
 
     const handleContinue = () => {
