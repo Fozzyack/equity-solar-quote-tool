@@ -59,7 +59,10 @@ const ExistingSystem = () => {
                 >
                     Back
                 </button>
-                <ContinueButton target={parseInt(currentStep) + 1} disabled={!existingSystem} />
+                <ContinueButton
+                    target={parseInt(currentStep) + 1}
+                    disabled={!existingSystem}
+                />
             </div>
         </section>
     );

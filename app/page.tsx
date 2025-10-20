@@ -14,6 +14,7 @@ import SystemSize from "@sections/system-size";
 import PanelSelect from "@/sections/panel-list";
 import InverterSelect from "@/sections/inverter-list";
 import PanelFinal from "@/sections/panel-final";
+import PhaseSelect from "@sections/phase-select";
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -67,7 +68,7 @@ function HomeContent() {
                     {step === 3 && solution === "combo" && <SystemSize />}
                     {step === 4 && solution === "combo" && <PanelSelect />}
                     {step === 5 && solution === "combo" && <InverterSelect />}
-                    {step === 6 && solution === "battery" && <Batteries />}
+                    {step === 6 && solution === "combo" && <Batteries />}
                     {step >= 7 && solution === "combo" && <ComingSoon />}
 
                     {/* BATTERY SECTION */}

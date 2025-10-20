@@ -21,9 +21,11 @@ This is a Next.js 15 app using the App Router, React 19, TypeScript, and Tailwin
 The app uses a step-based wizard pattern managed by URL search params:
 
 1. **Step 0** (`solution-select.tsx`): Choose system type (solar panels, combo, battery only)
-2. **Step 1** (`price-range.tsx`): Select battery price tier (value/mid-range/premium)
-3. **Step 2** (`battery-list.tsx`): Browse and select a specific battery product
-4. **Step 3** (`battery-final.tsx`): Email capture and detailed quote summary
+2. **Step 1** (`phase-select.tsx`): Select electrical phase (single or 3 phase)
+3. **Step 2+** varies by solution type:
+   - **Solar**: Existing system → System size → Panels → Inverters → Summary
+   - **Combo**: Price tier → Existing system → System size → Panels → Inverters → Batteries
+   - **Battery**: Price tier → Batteries → Summary
 
 All steps are rendered conditionally in `app/page.tsx` based on `step` URL param.
 
@@ -37,8 +39,9 @@ updateParams({ step: 1, solution: "battery" });
 ```
 
 **URL params:**
-- `step` - Current step number (0-3)
+- `step` - Current step number (0+)
 - `solution` - Selected system type ("solar-panels", "combo", "battery")
+- `phase` - Electrical phase ("single", "three")
 - `tier` - Battery tier ("value", "medium", "premium")
 - `battery` - Selected battery ID
 
