@@ -24,7 +24,6 @@ function HomeContent() {
     // Read state from URL params
     const step = parseInt(searchParams.get("step") || "0");
     const solution = searchParams.get("solution") || "";
-
     return (
         <div className="flex min-h-screen items-center justify-center bg-white px-4 py-12 text-slate-900">
             <div
