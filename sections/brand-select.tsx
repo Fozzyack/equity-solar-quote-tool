@@ -11,126 +11,27 @@ const brandOptions = [
     {
         id: "Sungrow",
         label: "Sungrow",
-        icon: (
-            <svg
-                className="h-12 w-12"
-                viewBox="0 0 48 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <circle
-                    cx="24"
-                    cy="24"
-                    r="18"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                />
-                <path
-                    d="M24 12v24M18 18l12 12M30 18L18 30"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                />
-            </svg>
-        ),
+        image: "/brand_images/sungrow.webp",
     },
     {
         id: "GoodWe",
         label: "GoodWe",
-        icon: (
-            <svg
-                className="h-12 w-12"
-                viewBox="0 0 48 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <rect
-                    x="8"
-                    y="12"
-                    width="32"
-                    height="24"
-                    rx="4"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                />
-                <path
-                    d="M18 22l4 4 8-8"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                />
-            </svg>
-        ),
+        image: "/brand_images/goodwe.png",
     },
     {
         id: "Anker",
         label: "Anker",
-        icon: (
-            <svg
-                className="h-12 w-12"
-                viewBox="0 0 48 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M24 8L32 16L24 24L16 16L24 8Z"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                />
-                <path
-                    d="M24 24L32 32L24 40L16 32L24 24Z"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                />
-            </svg>
-        ),
+        image: "/brand_images/anker.png",
     },
     {
         id: "Tesla",
         label: "Tesla",
-        icon: (
-            <svg
-                className="h-12 w-12"
-                viewBox="0 0 48 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M12 14h24v20H12V14z"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                />
-                <path
-                    d="M18 24h12M24 18v12"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                />
-            </svg>
-        ),
+        image: "/brand_images/tesla.png",
     },
     {
         id: "Sig Energy",
         label: "Sig Energy",
-        icon: (
-            <svg
-                className="h-12 w-12"
-                viewBox="0 0 48 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M24 10v28M14 20l10-6 10 6M14 28l10 6 10-6"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                />
-            </svg>
-        ),
+        image: "/brand_images/sig-energy.webp",
     },
 ];
 
@@ -152,7 +53,13 @@ const BrandSelect = () => {
                         key={option.id}
                         selected={brand === option.id}
                         onClick={() => updateParams({ brand: option.id })}
-                        icon={option.icon}
+                        icon={
+                            <img
+                                src={option.image}
+                                alt={option.label}
+                                className="h-20 w-full object-contain rounded-2xl border-2 border-slate-200 bg-white p-1"
+                            />
+                        }
                         label={option.label}
                     />
                 ))}
