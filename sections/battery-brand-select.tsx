@@ -62,9 +62,7 @@ const BatteryBrandSelect = () => {
                 title="Select your preferred brand"
                 description="Choose the battery brand that best fits your needs."
             />
-            <div
-                className={`grid gap-4 sm:grid-cols-2 sm:grid-cols-1 lg:grid-cols-${filteredBrands.length}`}
-            >
+            <div className={`flex flex-row items-center justify-center gap-2`}>
                 {filteredBrands.map((option) => (
                     <OptionCard
                         key={option.id}
