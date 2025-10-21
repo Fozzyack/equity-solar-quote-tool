@@ -56,7 +56,7 @@ const ComboList = () => {
                     </div>
                 </div>
             ) : (
-                <div className="mb-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+                <div className="mb-20 grid gap-6 sm:grid-cols-1 md:grid-cols-2">
                     {filteredCombos.map((item) => (
                         <ComboCard
                             key={item.id}
