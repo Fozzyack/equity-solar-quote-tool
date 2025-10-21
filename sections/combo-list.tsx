@@ -12,6 +12,7 @@ const ComboList = () => {
     const updateParams = useUpdateParams();
     const phase = searchParams.get("phase") || "";
     const brand = searchParams.get("brand") || "";
+    const batterySize = searchParams.get("batterySize") || "";
     const comboId = searchParams.get("combo") || "";
     const currentStep = searchParams.get("step") || "";
 
@@ -21,9 +22,31 @@ const ComboList = () => {
 
     const phaseNumber = phase === "single" ? 1 : phase === "three" ? 3 : 0;
 
-    const filteredCombos = ComboData.filter(
+    // Filter combos by brand, phase, and battery size range
+    let filteredCombos = ComboData.filter(
         (combo) => combo.phase === phaseNumber && combo.brand === brand,
     );
+
+    // Apply battery size filtering if selected
+    if (batterySize) {
+        filteredCombos = filteredCombos.filter(combo => {
+            const size = combo.batterySizeKwh;
+            switch (batterySize) {
+                case "small":
+                    return size >= 8 && size <= 12;
+                case "medium":
+                    return size >= 13 && size <= 18;
+                case "large":
+                    return size >= 19 && size <= 25;
+                case "xlarge":
+                    return size >= 26 && size <= 35;
+                case "xxlarge":
+                    return size >= 36;
+                default:
+                    return true;
+            }
+        });
+    }
 
     const handleContinue = () => {
         if (selectedCombo) {

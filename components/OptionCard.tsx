@@ -6,6 +6,7 @@ interface OptionCardProps {
     icon?: ReactNode;
     label: string;
     description?: string;
+    disabled?: boolean;
 }
 
 export const OptionCard = ({
@@ -14,14 +15,18 @@ export const OptionCard = ({
     icon,
     label,
     description,
+    disabled = false,
 }: OptionCardProps) => {
     return (
         <button
             type="button"
-            onClick={onClick}
+            onClick={disabled ? undefined : onClick}
+            disabled={disabled}
             className={`relative flex h-full flex-col items-center gap-4 rounded-3xl border-2 px-6 py-7 text-sm font-bold uppercase tracking-wide transition ${
                 selected
                     ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
+                    : disabled
+                    ? "border-slate-300 bg-slate-100 text-slate-400 cursor-not-allowed"
                     : "border-slate-200 bg-slate-50 text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
             }`}
         >

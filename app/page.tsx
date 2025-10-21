@@ -18,6 +18,7 @@ import PhaseSelect from "@/sections/phase-select";
 import ComboList from "@/sections/combo-list";
 import BrandSelect from "@/sections/brand-select";
 import ComboFinal from "@/sections/combo-final";
+import ComboBatterySizeSelect from "@/sections/combo-battery-size-select";
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -69,12 +70,13 @@ function HomeContent() {
                     {step === 5 && solution === "solar-panels" && <PanelFinal/>}
                     {step >= 6 && solution === "solar-panels" && <ComingSoon />}
 
-                    {/* COMBO */}
-                    {step === 1 && solution === "combo" && <BrandSelect />}
-                    {step === 2 && solution === "combo" && <PhaseSelect />}
-                    {step === 3 && solution === "combo" && <ComboList />}
-                    {step === 4 && solution === "combo" && <ComboFinal />}
-                    {step >= 5 && solution === "combo" && <ComingSoon />}
+                     {/* COMBO */}
+                     {step === 1 && solution === "combo" && <BrandSelect />}
+                     {step === 2 && solution === "combo" && <PhaseSelect />}
+                     {step === 3 && solution === "combo" && <ComboBatterySizeSelect />}
+                     {step === 4 && solution === "combo" && <ComboList />}
+                     {step === 5 && solution === "combo" && <ComboFinal />}
+                     {step >= 6 && solution === "combo" && <ComingSoon />}
 
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}
