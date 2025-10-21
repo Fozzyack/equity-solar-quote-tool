@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
-import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 import { ComboList as ComboData } from "@/constants/ComboList";
 
@@ -63,12 +63,11 @@ const phaseOptions = [
 
 const PhaseSelect = () => {
     const searchParams = useSearchParams();
-    const updateParams = useUpdateParams();
-    const phase = searchParams.get("phase") || "";
+    const urlPhase = searchParams.get("phase") || "";
+    const [selectedPhase, setSelectedPhase] = useState(urlPhase);
     const brand = searchParams.get("brand") || "";
     const currentStep = searchParams.get("step") || "";
 
-    // Check which phases have available combos for the selected brand
     const hasSinglePhaseCombos = ComboData.some(
         (combo) => combo.brand === brand && combo.phase === 1
     );
@@ -88,8 +87,8 @@ const PhaseSelect = () => {
                     return (
                         <OptionCard
                             key={option.id}
-                            selected={phase === option.id}
-                            onClick={() => !isDisabled && updateParams({ phase: option.id })}
+                            selected={selectedPhase === option.id}
+                            onClick={() => !isDisabled && setSelectedPhase(option.id)}
                             icon={option.icon}
                             label={option.label}
                             disabled={isDisabled}
@@ -105,7 +104,8 @@ const PhaseSelect = () => {
                 />
                 <ContinueButton
                     target={parseInt(currentStep) + 1}
-                    disabled={!phase || (phase === "single" && !hasSinglePhaseCombos) || (phase === "three" && !hasThreePhaseCombos)}
+                    disabled={!selectedPhase || (selectedPhase === "single" && !hasSinglePhaseCombos) || (selectedPhase === "three" && !hasThreePhaseCombos)}
+                    params={{ phase: selectedPhase }}
                 />
             </div>
         </section>

@@ -1,11 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { MidRangeIcon, PremiumIcon, ValueIcon } from "@/constants/Icons";
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
-import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 
 const batteryPriceRanges = [
@@ -28,8 +28,8 @@ const batteryPriceRanges = [
 
 const PriceRange = () => {
     const searchParams = useSearchParams();
-    const updateParams = useUpdateParams();
-    const tier = searchParams.get("tier") || "";
+    const urlTier = searchParams.get("tier") || "";
+    const [selectedTier, setSelectedTier] = useState(urlTier);
     const currentStep = searchParams.get("step") || "";
 
     return (
@@ -42,8 +42,8 @@ const PriceRange = () => {
                 {batteryPriceRanges.map((option) => (
                     <OptionCard
                         key={option.id}
-                        selected={tier === option.id}
-                        onClick={() => updateParams({ tier: option.id })}
+                        selected={selectedTier === option.id}
+                        onClick={() => setSelectedTier(option.id)}
                         icon={option.icon}
                         label={option.label}
                     />
@@ -56,7 +56,8 @@ const PriceRange = () => {
                 />
                 <ContinueButton
                     target={parseInt(currentStep) + 1}
-                    disabled={!tier}
+                    disabled={!selectedTier}
+                    params={{ tier: selectedTier }}
                 />
             </div>
         </section>
