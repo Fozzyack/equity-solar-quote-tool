@@ -27,17 +27,14 @@ const BatteryIcon = () => (
 
 // Get unique battery sizes for the selected brand and phase
 const getBatterySizeOptions = (brand: string, phase: string) => {
-    const phaseNumber = phase === "single" ? 1 : phase === "three" ? 3 : 0;
-
     // Filter combos by brand and phase
-    const filteredCombos = ComboData.filter(
-        (combo) => combo.brand === brand && combo.phase === phaseNumber,
-    );
+    const filteredCombos = ComboData.filter((combo) => combo.brand === brand);
 
     // Extract unique battery sizes and count occurrences
     const sizeCounts: { [key: number]: number } = {};
     filteredCombos.forEach((combo) => {
-        sizeCounts[combo.batterySizeKwh] = (sizeCounts[combo.batterySizeKwh] || 0) + 1;
+        sizeCounts[combo.batterySizeKwh] =
+            (sizeCounts[combo.batterySizeKwh] || 0) + 1;
     });
 
     // Sort sizes and create options
@@ -46,8 +43,8 @@ const getBatterySizeOptions = (brand: string, phase: string) => {
         .map(([size, count]) => ({
             id: size.toString(),
             label: `${size} kWh`,
-            description: `${count} option${count > 1 ? 's' : ''} available`,
-            size: parseFloat(size)
+            description: `${count} option${count > 1 ? "s" : ""} available`,
+            size: parseFloat(size),
         }));
 };
 

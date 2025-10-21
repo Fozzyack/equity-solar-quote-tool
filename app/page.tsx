@@ -72,8 +72,8 @@ function HomeContent() {
 
                      {/* COMBO */}
                      {step === 1 && solution === "combo" && <BrandSelect />}
-                     {step === 2 && solution === "combo" && <PhaseSelect />}
-                     {step === 3 && solution === "combo" && <ComboBatterySizeSelect />}
+                     {step === 2 && solution === "combo" && <ComboBatterySizeSelect />}
+                     {step === 3 && solution === "combo" && <PhaseSelect />}
                      {step === 4 && solution === "combo" && <ComboList />}
                      {step === 5 && solution === "combo" && <ComboFinal />}
                      {step >= 6 && solution === "combo" && <ComingSoon />}
