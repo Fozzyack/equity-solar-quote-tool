@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
-import { useSearchParams } from "next/navigation";
+import { BatteryList } from "@/constants/Batteries";
 
 const brandOptions = [
     {
@@ -29,33 +30,39 @@ const brandOptions = [
         image: "/brand_images/tesla.png",
     },
     {
-        id: "Sig Energy",
+        id: "Sigenenergy",
         label: "Sig Energy",
         image: "/brand_images/sig-energy.webp",
     },
+    {
+        id: "Bluetti",
+        label: "Bluetti",
+        image: "/brand_images/goodwe.png",
+    },
 ];
 
-const BrandSelect = ({
-    displayAll = true,
-    brandsToDisplay = [],
-}: {
-    displayAll?: boolean;
-    brandsToDisplay?: Array<string>;
-}) => {
+const BatteryBrandSelect = () => {
     const searchParams = useSearchParams();
     const urlBrand = searchParams.get("brand") || "";
     const [selectedBrand, setSelectedBrand] = useState(urlBrand);
     const currentStep = searchParams.get("step") || "";
+    const tier = searchParams.get("tier") || "";
 
-    const filteredBrands = displayAll
-        ? brandOptions
-        : brandOptions.filter((option) => brandsToDisplay.includes(option.id));
+    const uniqueBrands = Array.from(
+        new Set(
+            BatteryList.filter((b) => b.tier === tier).map((b) => b.brand)
+        )
+    );
+
+    const filteredBrands = brandOptions.filter((option) =>
+        uniqueBrands.includes(option.id)
+    );
 
     return (
         <section className="space-y-8">
             <SectionHeader
                 title="Select your preferred brand"
-                description="Choose the battery and solar brand for your combo system."
+                description="Choose the battery brand that best fits your needs."
             />
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {filteredBrands.map((option) => (
@@ -89,4 +96,4 @@ const BrandSelect = ({
     );
 };
 
-export default BrandSelect;
+export default BatteryBrandSelect;
