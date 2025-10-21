@@ -6,108 +6,49 @@ import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
 import { useUpdateParams } from "@/lib/useUpdateParams";
-import { BatteryComboList } from "@/constants/BatteryCombos";
+import { ComboList as ComboData } from "@/constants/ComboList";
 
 const BatteryIcon = () => (
     <svg
         className="h-12 w-12"
-        viewBox="0 0 48 48"
+        viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <rect
-            x="12"
-            y="16"
-            width="24"
-            height="16"
-            rx="2"
-            stroke="currentColor"
-            strokeWidth="2.5"
-        />
-        <rect
-            x="16"
-            y="20"
-            width="4"
-            height="8"
-            rx="1"
-            fill="currentColor"
-        />
-        <rect
-            x="22"
-            y="18"
-            width="2"
-            height="12"
-            rx="1"
-            fill="currentColor"
-        />
-        <rect
-            x="26"
-            y="20"
-            width="6"
-            height="8"
-            rx="1"
-            fill="currentColor"
+        <path
+            d="M7.5 10V14M11.5 10V14M15.5 10V14M21 13V11M6.2 18H16.8C17.9201 18 18.4802 18 18.908 17.782C19.2843 17.5903 19.5903 17.2843 19.782 16.908C20 16.4802 20 15.9201 20 14.8V9.2C20 8.0799 20 7.51984 19.782 7.09202C19.5903 6.71569 19.2843 6.40973 18.908 6.21799C18.4802 6 17.9201 6 16.8 6H6.2C5.0799 6 4.51984 6 4.09202 6.21799C3.71569 6.40973 3.40973 6.71569 3.21799 7.09202C3 7.51984 3 8.07989 3 9.2V14.8C3 15.9201 3 16.4802 3.21799 16.908C3.40973 17.2843 3.71569 17.5903 4.09202 17.782C4.51984 18 5.07989 18 6.2 18Z"
+            stroke="#000000"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
         />
     </svg>
 );
 
-// Group battery sizes into logical ranges
-const getBatterySizeGroups = (brand: string, phase: string) => {
+// Get unique battery sizes for the selected brand and phase
+const getBatterySizeOptions = (brand: string, phase: string) => {
     const phaseNumber = phase === "single" ? 1 : phase === "three" ? 3 : 0;
 
     // Filter combos by brand and phase
-    const filteredCombos = BatteryComboList.filter(
-        (combo) => combo.brand === brand && combo.phase === (phaseNumber === 1 ? "1/3" : phaseNumber === 3 ? "3" : "")
+    const filteredCombos = ComboData.filter(
+        (combo) => combo.brand === brand && combo.phase === phaseNumber,
     );
 
-    // Extract unique battery sizes and sort them
-    const uniqueSizes = [...new Set(filteredCombos.map(combo => combo.batterySizeKwh))].sort((a, b) => a - b);
-
-    // Group into ranges
-    const groups: { [key: string]: { label: string; sizes: number[]; min: number; max: number } } = {};
-
-    uniqueSizes.forEach(size => {
-        let groupKey = "";
-        let groupLabel = "";
-
-        if (size >= 8 && size <= 12) {
-            groupKey = "small";
-            groupLabel = "Small (8-12 kWh)";
-        } else if (size >= 13 && size <= 18) {
-            groupKey = "medium";
-            groupLabel = "Medium (13-18 kWh)";
-        } else if (size >= 19 && size <= 25) {
-            groupKey = "large";
-            groupLabel = "Large (19-25 kWh)";
-        } else if (size >= 26 && size <= 35) {
-            groupKey = "xlarge";
-            groupLabel = "Extra Large (26-35 kWh)";
-        } else if (size >= 36) {
-            groupKey = "xxlarge";
-            groupLabel = "Very Large (36+ kWh)";
-        }
-
-        if (groupKey) {
-            if (!groups[groupKey]) {
-                groups[groupKey] = {
-                    label: groupLabel,
-                    sizes: [],
-                    min: size,
-                    max: size
-                };
-            }
-            groups[groupKey].sizes.push(size);
-            groups[groupKey].min = Math.min(groups[groupKey].min, size);
-            groups[groupKey].max = Math.max(groups[groupKey].max, size);
-        }
+    // Extract unique battery sizes and count occurrences
+    const sizeCounts: { [key: number]: number } = {};
+    filteredCombos.forEach((combo) => {
+        sizeCounts[combo.batterySizeKwh] = (sizeCounts[combo.batterySizeKwh] || 0) + 1;
     });
 
-    return Object.entries(groups).map(([id, group]) => ({
-        id,
-        label: group.label,
-        description: `${group.sizes.length} option${group.sizes.length > 1 ? 's' : ''} available`,
-        sizes: group.sizes
-    }));
+    // Sort sizes and create options
+    return Object.entries(sizeCounts)
+        .sort(([a], [b]) => parseFloat(a) - parseFloat(b))
+        .map(([size, count]) => ({
+            id: size.toString(),
+            label: `${size} kWh`,
+            description: `${count} option${count > 1 ? 's' : ''} available`,
+            size: parseFloat(size)
+        }));
 };
 
 const ComboBatterySizeSelect = () => {
@@ -118,16 +59,16 @@ const ComboBatterySizeSelect = () => {
     const batterySize = searchParams.get("batterySize") || "";
     const currentStep = searchParams.get("step") || "";
 
-    const batterySizeGroups = getBatterySizeGroups(brand, phase);
+    const batterySizeOptions = getBatterySizeOptions(brand, phase);
 
     return (
         <section className="space-y-8">
             <SectionHeader
-                title="Select battery size range"
-                description="Choose the battery capacity range that best fits your energy needs."
+                title="Select battery size"
+                description="Choose the battery capacity that best fits your energy needs."
             />
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-                {batterySizeGroups.map((option) => (
+                {batterySizeOptions.map((option) => (
                     <OptionCard
                         key={option.id}
                         selected={batterySize === option.id}

@@ -29,23 +29,8 @@ const ComboList = () => {
 
     // Apply battery size filtering if selected
     if (batterySize) {
-        filteredCombos = filteredCombos.filter(combo => {
-            const size = combo.batterySizeKwh;
-            switch (batterySize) {
-                case "small":
-                    return size >= 8 && size <= 12;
-                case "medium":
-                    return size >= 13 && size <= 18;
-                case "large":
-                    return size >= 19 && size <= 25;
-                case "xlarge":
-                    return size >= 26 && size <= 35;
-                case "xxlarge":
-                    return size >= 36;
-                default:
-                    return true;
-            }
-        });
+        const selectedSize = parseFloat(batterySize);
+        filteredCombos = filteredCombos.filter(combo => combo.batterySizeKwh === selectedSize);
     }
 
     const handleContinue = () => {

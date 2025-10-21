@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
-import { BatteryComboList } from "@/constants/BatteryCombos";
+import { ComboList as ComboData } from "@/constants/ComboList";
 
 const SinglePhaseIcon = () => (
     <svg
@@ -69,11 +69,11 @@ const PhaseSelect = () => {
     const currentStep = searchParams.get("step") || "";
 
     // Check which phases have available combos for the selected brand
-    const hasSinglePhaseCombos = BatteryComboList.some(
-        (combo) => combo.brand === brand && (combo.phase === "1/3" || combo.phase === "1")
+    const hasSinglePhaseCombos = ComboData.some(
+        (combo) => combo.brand === brand && combo.phase === 1
     );
-    const hasThreePhaseCombos = BatteryComboList.some(
-        (combo) => combo.brand === brand && (combo.phase === "1/3" || combo.phase === "3")
+    const hasThreePhaseCombos = ComboData.some(
+        (combo) => combo.brand === brand && combo.phase === 3
     );
 
     return (
