@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BatteryList, BatteryProduct } from "@/constants/Batteries";
 import { BatteryCard } from "@/components/BatteryCard";
 import { NavigationButtons } from "@/components/NavigationButtons";
+import { SectionHeader } from "@/components/SectionHeader";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 
@@ -15,7 +16,6 @@ const Batteries = () => {
     const batteryId = searchParams.get("battery") || "";
     const currentStep = searchParams.get("step") || "";
 
-    // Use local state for battery selection, initialized from URL
     const [selectedBattery, setSelectedBattery] = useState<
         BatteryProduct | undefined
     >(batteryId ? BatteryList.find((b) => b.id === batteryId) : undefined);
@@ -31,7 +31,11 @@ const Batteries = () => {
     };
 
     return (
-        <div>
+        <div className="space-y-8">
+            <SectionHeader
+                title="Choose your battery system"
+                description="Select the battery capacity and configuration that best matches your energy storage needs."
+            />
             <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filteredBatteries.map((item) => (
                     <BatteryCard
