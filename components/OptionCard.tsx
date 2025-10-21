@@ -22,12 +22,12 @@ export const OptionCard = ({
             type="button"
             onClick={disabled ? undefined : onClick}
             disabled={disabled}
-            className={`relative flex h-full flex-col items-center gap-4 rounded-3xl border-2 px-6 py-7 text-sm font-bold uppercase tracking-wide transition ${
+            className={`relative flex h-full w-full flex-col items-center gap-4 rounded-3xl border-2 px-6 py-7 text-sm font-bold uppercase tracking-wide transition ${
                 selected
                     ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
                     : disabled
-                    ? "border-slate-300 bg-slate-100 text-slate-400 cursor-not-allowed"
-                    : "border-slate-200 bg-slate-50 text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
+                      ? "border-slate-300 bg-slate-100 text-slate-400 cursor-not-allowed"
+                      : "border-slate-200 bg-slate-50 text-slate-700 hover:border-yellow-300 hover:bg-yellow-50"
             }`}
         >
             <span
@@ -50,7 +50,9 @@ export const OptionCard = ({
                     />
                 </svg>
             </span>
-            {icon && <span className="transition-colors text-current">{icon}</span>}
+            {icon && (
+                <span className="transition-colors text-current">{icon}</span>
+            )}
             <span>{label}</span>
             {description && (
                 <span className="text-xs font-semibold normal-case text-slate-600">

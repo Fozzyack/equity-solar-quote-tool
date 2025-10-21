@@ -17,6 +17,7 @@ import PanelFinal from "@/sections/panel-final";
 import PhaseSelect from "@/sections/phase-select";
 import ComboList from "@/sections/combo-list";
 import BrandSelect from "@/sections/brand-select";
+import BatteryBrandSelect from "@/sections/battery-brand-select";
 import ComboFinal from "@/sections/combo-final";
 import ComboBatterySizeSelect from "@/sections/combo-battery-size-select";
 
@@ -80,9 +81,10 @@ function HomeContent() {
 
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}
-                    {step === 2 && solution === "battery" && <Batteries />}
-                    {step === 3 && solution === "battery" && <BatteryFinal />}
-                    {step >= 4 && solution === "battery" && <ComingSoon />}
+                    {step === 2 && solution === "battery" && <BatteryBrandSelect />}
+                    {step === 3 && solution === "battery" && <Batteries />}
+                    {step === 4 && solution === "battery" && <BatteryFinal />}
+                    {step >= 5 && solution === "battery" && <ComingSoon />}
                 </main>
                 <div className="flex items-center justify-center">
                     <Link href="https://equitysolar.com.au">

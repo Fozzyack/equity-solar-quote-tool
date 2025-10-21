@@ -11,6 +11,7 @@ const Batteries = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
     const tier = searchParams.get("tier") || "";
+    const brand = searchParams.get("brand") || "";
     const batteryId = searchParams.get("battery") || "";
     const currentStep = searchParams.get("step") || "";
 
@@ -20,12 +21,12 @@ const Batteries = () => {
     >(batteryId ? BatteryList.find((b) => b.id === batteryId) : undefined);
 
     const filteredBatteries = BatteryList.filter(
-        (batteryItem) => batteryItem.tier === tier,
+        (batteryItem) => batteryItem.tier === tier && batteryItem.brand === brand,
     );
 
     const handleContinue = () => {
         if (selectedBattery) {
-            updateParams({ battery: selectedBattery.id, step: 3 });
+            updateParams({ battery: selectedBattery.id, step: 4 });
         }
     };
 
