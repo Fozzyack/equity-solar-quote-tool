@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
-import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 
 const brandOptions = [
@@ -37,8 +37,8 @@ const brandOptions = [
 
 const BrandSelect = () => {
     const searchParams = useSearchParams();
-    const updateParams = useUpdateParams();
-    const brand = searchParams.get("brand") || "";
+    const urlBrand = searchParams.get("brand") || "";
+    const [selectedBrand, setSelectedBrand] = useState(urlBrand);
     const currentStep = searchParams.get("step") || "";
 
     return (
@@ -51,8 +51,8 @@ const BrandSelect = () => {
                 {brandOptions.map((option) => (
                     <OptionCard
                         key={option.id}
-                        selected={brand === option.id}
-                        onClick={() => updateParams({ brand: option.id })}
+                        selected={selectedBrand === option.id}
+                        onClick={() => setSelectedBrand(option.id)}
                         icon={
                             <img
                                 src={option.image}
@@ -71,7 +71,8 @@ const BrandSelect = () => {
                 />
                 <ContinueButton
                     target={parseInt(currentStep) + 1}
-                    disabled={!brand}
+                    disabled={!selectedBrand}
+                    params={{ brand: selectedBrand }}
                 />
             </div>
         </section>

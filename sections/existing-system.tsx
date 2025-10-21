@@ -1,11 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
 import { useSearchParams } from "next/navigation";
-import { useUpdateParams } from "@/lib/useUpdateParams";
 
 const existingSystemOptions = [
     {
@@ -20,9 +20,8 @@ const existingSystemOptions = [
 
 const ExistingSystem = () => {
     const searchParams = useSearchParams();
-    const updateParams = useUpdateParams();
-
-    const existingSystem = searchParams.get("existingSystem") || "";
+    const urlExistingSystem = searchParams.get("existingSystem") || "";
+    const [selectedExistingSystem, setSelectedExistingSystem] = useState(urlExistingSystem);
     const currentStep = searchParams.get("step") || "";
 
     return (
@@ -35,12 +34,8 @@ const ExistingSystem = () => {
                 {existingSystemOptions.map((option) => (
                     <OptionCard
                         key={option.id}
-                        selected={existingSystem === option.id}
-                        onClick={() =>
-                            updateParams({
-                                existingSystem: option.id,
-                            })
-                        }
+                        selected={selectedExistingSystem === option.id}
+                        onClick={() => setSelectedExistingSystem(option.id)}
                         label={option.label}
                     />
                 ))}
@@ -57,7 +52,8 @@ const ExistingSystem = () => {
                 />
                 <ContinueButton
                     target={parseInt(currentStep) + 1}
-                    disabled={!existingSystem}
+                    disabled={!selectedExistingSystem}
+                    params={{ existingSystem: selectedExistingSystem }}
                 />
             </div>
         </section>

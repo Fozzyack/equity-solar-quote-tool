@@ -7,6 +7,7 @@ interface ContinueButtonProps {
     disabled?: boolean;
     label?: string;
     className?: string;
+    params?: Record<string, string | number | undefined>;
 }
 
 export const ContinueButton = ({
@@ -14,13 +15,14 @@ export const ContinueButton = ({
     disabled = false,
     label = "Continue",
     className,
+    params,
 }: ContinueButtonProps) => {
     const updateParams = useUpdateParams();
 
     return (
         <button
             type="button"
-            onClick={() => updateParams({ step: target })}
+            onClick={() => updateParams({ step: target, ...params })}
             disabled={disabled}
             className={
                 className ||

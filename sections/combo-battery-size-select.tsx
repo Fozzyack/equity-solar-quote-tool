@@ -1,11 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
-import { useUpdateParams } from "@/lib/useUpdateParams";
 import { ComboList as ComboData } from "@/constants/ComboList";
 
 const BatteryIcon = () => (
@@ -50,10 +50,10 @@ const getBatterySizeOptions = (brand: string, phase: string) => {
 
 const ComboBatterySizeSelect = () => {
     const searchParams = useSearchParams();
-    const updateParams = useUpdateParams();
     const phase = searchParams.get("phase") || "";
     const brand = searchParams.get("brand") || "";
-    const batterySize = searchParams.get("batterySize") || "";
+    const urlBatterySize = searchParams.get("batterySize") || "";
+    const [selectedBatterySize, setSelectedBatterySize] = useState(urlBatterySize);
     const currentStep = searchParams.get("step") || "";
 
     const batterySizeOptions = getBatterySizeOptions(brand, phase);
@@ -68,8 +68,8 @@ const ComboBatterySizeSelect = () => {
                 {batterySizeOptions.map((option) => (
                     <OptionCard
                         key={option.id}
-                        selected={batterySize === option.id}
-                        onClick={() => updateParams({ batterySize: option.id })}
+                        selected={selectedBatterySize === option.id}
+                        onClick={() => setSelectedBatterySize(option.id)}
                         icon={<BatteryIcon />}
                         label={option.label}
                         description={option.description}
@@ -83,7 +83,8 @@ const ComboBatterySizeSelect = () => {
                 />
                 <ContinueButton
                     target={parseInt(currentStep) + 1}
-                    disabled={!batterySize}
+                    disabled={!selectedBatterySize}
+                    params={{ batterySize: selectedBatterySize }}
                 />
             </div>
         </section>

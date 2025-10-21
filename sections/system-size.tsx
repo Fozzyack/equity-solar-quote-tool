@@ -1,16 +1,16 @@
 "use client";
+import { useState } from "react";
 import { OptionCard } from "@/components/OptionCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
 import { useSearchParams } from "next/navigation";
-import { useUpdateParams } from "@/lib/useUpdateParams";
 import { systemSizeOptions } from "@/constants/Common";
 
 const SystemSize = () => {
     const searchParams = useSearchParams();
-    const updateParams = useUpdateParams();
-    const systemSize = searchParams.get("systemSize") || "";
+    const urlSystemSize = searchParams.get("systemSize") || "";
+    const [selectedSystemSize, setSelectedSystemSize] = useState(urlSystemSize);
     const currentStep = searchParams.get("step") || "3";
 
     return (
@@ -23,12 +23,8 @@ const SystemSize = () => {
                 {systemSizeOptions.map((option) => (
                     <OptionCard
                         key={option.id}
-                        selected={systemSize === option.id}
-                        onClick={() =>
-                            updateParams({
-                                systemSize: option.id,
-                            })
-                        }
+                        selected={selectedSystemSize === option.id}
+                        onClick={() => setSelectedSystemSize(option.id)}
                         label={option.label}
                         description={
                             option.id !== "unknown"
@@ -45,7 +41,8 @@ const SystemSize = () => {
                 />
                 <ContinueButton
                     target={parseInt(currentStep) + 1}
-                    disabled={!systemSize}
+                    disabled={!selectedSystemSize}
+                    params={{ systemSize: selectedSystemSize }}
                 />
             </div>
         </section>
