@@ -37,7 +37,7 @@ const brandOptions = [
     {
         id: "Bluetti",
         label: "Bluetti",
-        image: "/brand_images/goodwe.png",
+        image: "/brand_images/bluetti.jpg",
     },
 ];
 
@@ -49,13 +49,11 @@ const BatteryBrandSelect = () => {
     const tier = searchParams.get("tier") || "";
 
     const uniqueBrands = Array.from(
-        new Set(
-            BatteryList.filter((b) => b.tier === tier).map((b) => b.brand)
-        )
+        new Set(BatteryList.filter((b) => b.tier === tier).map((b) => b.brand)),
     );
 
     const filteredBrands = brandOptions.filter((option) =>
-        uniqueBrands.includes(option.id)
+        uniqueBrands.includes(option.id),
     );
 
     return (
@@ -64,7 +62,9 @@ const BatteryBrandSelect = () => {
                 title="Select your preferred brand"
                 description="Choose the battery brand that best fits your needs."
             />
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            <div
+                className={`grid gap-4 sm:grid-cols-2 sm:grid-cols-1 lg:grid-cols-${filteredBrands.length}`}
+            >
                 {filteredBrands.map((option) => (
                     <OptionCard
                         key={option.id}
