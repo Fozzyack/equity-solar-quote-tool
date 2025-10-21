@@ -12,6 +12,7 @@ const ComboList = () => {
     const updateParams = useUpdateParams();
     const phase = searchParams.get("phase") || "";
     const brand = searchParams.get("brand") || "";
+    const batterySize = searchParams.get("batterySize") || "";
     const comboId = searchParams.get("combo") || "";
     const currentStep = searchParams.get("step") || "";
 
@@ -21,9 +22,16 @@ const ComboList = () => {
 
     const phaseNumber = phase === "single" ? 1 : phase === "three" ? 3 : 0;
 
-    const filteredCombos = ComboData.filter(
+    // Filter combos by brand, phase, and battery size range
+    let filteredCombos = ComboData.filter(
         (combo) => combo.phase === phaseNumber && combo.brand === brand,
     );
+
+    // Apply battery size filtering if selected
+    if (batterySize) {
+        const selectedSize = parseFloat(batterySize);
+        filteredCombos = filteredCombos.filter(combo => combo.batterySizeKwh === selectedSize);
+    }
 
     const handleContinue = () => {
         if (selectedCombo) {
@@ -48,7 +56,7 @@ const ComboList = () => {
                     </div>
                 </div>
             ) : (
-                <div className="mb-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+                <div className="mb-20 grid gap-6 sm:grid-cols-1 md:grid-cols-2">
                     {filteredCombos.map((item) => (
                         <ComboCard
                             key={item.id}

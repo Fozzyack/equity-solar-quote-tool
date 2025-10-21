@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
+import { ComboList as ComboData } from "@/constants/ComboList";
 
 const SinglePhaseIcon = () => (
     <svg
@@ -64,7 +65,16 @@ const PhaseSelect = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
     const phase = searchParams.get("phase") || "";
+    const brand = searchParams.get("brand") || "";
     const currentStep = searchParams.get("step") || "";
+
+    // Check which phases have available combos for the selected brand
+    const hasSinglePhaseCombos = ComboData.some(
+        (combo) => combo.brand === brand && combo.phase === 1
+    );
+    const hasThreePhaseCombos = ComboData.some(
+        (combo) => combo.brand === brand && combo.phase === 3
+    );
 
     return (
         <section className="space-y-8">
@@ -73,15 +83,20 @@ const PhaseSelect = () => {
                 description="Choose whether your home has single phase or 3 phase power."
             />
             <div className="grid gap-4 sm:grid-cols-2">
-                {phaseOptions.map((option) => (
-                    <OptionCard
-                        key={option.id}
-                        selected={phase === option.id}
-                        onClick={() => updateParams({ phase: option.id })}
-                        icon={option.icon}
-                        label={option.label}
-                    />
-                ))}
+                {phaseOptions.map((option) => {
+                    const isDisabled = option.id === "single" ? !hasSinglePhaseCombos : !hasThreePhaseCombos;
+                    return (
+                        <OptionCard
+                            key={option.id}
+                            selected={phase === option.id}
+                            onClick={() => !isDisabled && updateParams({ phase: option.id })}
+                            icon={option.icon}
+                            label={option.label}
+                            disabled={isDisabled}
+                            description={isDisabled ? "No options available" : undefined}
+                        />
+                    );
+                })}
             </div>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <BackButton
@@ -90,7 +105,7 @@ const PhaseSelect = () => {
                 />
                 <ContinueButton
                     target={parseInt(currentStep) + 1}
-                    disabled={!phase}
+                    disabled={!phase || (phase === "single" && !hasSinglePhaseCombos) || (phase === "three" && !hasThreePhaseCombos)}
                 />
             </div>
         </section>

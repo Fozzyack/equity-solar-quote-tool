@@ -50,7 +50,7 @@ export const ComboCard = ({ combo, selected, onClick }: ComboCardProps) => {
                 <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 space-y-2">
                         <h2 className="text-xl font-extrabold leading-tight">
-                            {combo.batteryModule}
+                            {combo.brand}
                         </h2>
                     </div>
                     {brandImages[combo.brand] && (
@@ -68,7 +68,7 @@ export const ComboCard = ({ combo, selected, onClick }: ComboCardProps) => {
                         <span className="text-sm font-semibold text-slate-600">
                             Battery Size
                         </span>
-                        <span className="text-base font-extrabold text-slate-900">
+                        <span className="text-base text-slate-900">
                             {combo.batterySizeKwh} kWh
                         </span>
                     </div>
@@ -77,7 +77,7 @@ export const ComboCard = ({ combo, selected, onClick }: ComboCardProps) => {
                         <span className="text-sm font-semibold text-slate-600">
                             Solar System
                         </span>
-                        <span className="text-base font-extrabold text-slate-900">
+                        <span className="text-base text-slate-900">
                             {combo.solarSizeKw} kW
                         </span>
                     </div>
@@ -86,7 +86,7 @@ export const ComboCard = ({ combo, selected, onClick }: ComboCardProps) => {
                         <span className="text-sm font-semibold text-slate-600">
                             Inverter
                         </span>
-                        <span className="text-right text-sm font-bold text-slate-900">
+                        <span className="text-right text-sm text-slate-900">
                             {combo.inverter}
                         </span>
                     </div>
