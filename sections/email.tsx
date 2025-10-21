@@ -160,7 +160,7 @@ const Email = ({
                                 className="mt-1 h-4 w-4 rounded border-slate-700 text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/40"
                             />
                             <span>
-                                I agree to Equity Solar’s terms and understand
+                                I agree and understand
                                 that I may receive follow-up updates, offers, or
                                 educational materials about solar solutions. I
                                 can opt out of marketing at any time.
