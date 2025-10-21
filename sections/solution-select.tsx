@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { SystemCard } from "@/components/SystemCard";
 import { ContinueButton } from "@/components/ContinueButton";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -9,17 +10,9 @@ import { solutions } from "@/constants/Common";
 const SolutionSelect = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
-    const solution = searchParams.get("solution") || "";
-    const handleSelectSolution = (id: string) => {
-        updateParams({
-            solution: id,
-            tier: "",
-            battery: "",
-            existingSystem: "",
-            panelBrand: "",
-            systemSize: "",
-        });
-    };
+    const urlSolution = searchParams.get("solution") || "";
+    const [selectedSolution, setSelectedSolution] = useState(urlSolution);
+
     return (
         <section className="space-y-6">
             <SectionHeader title="Choose your system" />
@@ -29,8 +22,8 @@ const SolutionSelect = () => {
                         key={item.id}
                         title={item.title}
                         icon={item.icon}
-                        selected={solution === item.id}
-                        onClick={() => handleSelectSolution(item.id)}
+                        selected={selectedSolution === item.id}
+                        onClick={() => setSelectedSolution(item.id)}
                     />
                 ))}
             </div>
@@ -38,6 +31,7 @@ const SolutionSelect = () => {
                 <button
                     type="button"
                     onClick={() => {
+                        setSelectedSolution("");
                         updateParams({
                             solution: "",
                             tier: "",
@@ -51,7 +45,11 @@ const SolutionSelect = () => {
                 >
                     Reset
                 </button>
-                <ContinueButton target={1} disabled={!solution} />
+                <ContinueButton
+                    target={1}
+                    disabled={!selectedSolution}
+                    params={{ solution: selectedSolution }}
+                />
             </div>
         </section>
     );

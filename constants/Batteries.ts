@@ -169,7 +169,7 @@ const batteryData: BatteryProductBase[] = [
         price: 15870,
         rebate: 4950,
         notes: "Upgrade to 3p: +$1000",
-        tier: "medium",
+        tier: "premium",
         image: "/Sungrow/SungrowsSBH.webp",
     },
     {
