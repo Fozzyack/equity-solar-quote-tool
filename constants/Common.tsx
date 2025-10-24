@@ -7,7 +7,7 @@ export const stepNumber = [
     },
     {
         id: "combo",
-        steps: 6,
+        steps: 7,
     },
     {
         id: "battery",

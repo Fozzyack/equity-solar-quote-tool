@@ -26,9 +26,9 @@ const BatteryIcon = () => (
 );
 
 // Get unique battery sizes for the selected brand and phase
-const getBatterySizeOptions = (brand: string, phase: string) => {
+const getBatterySizeOptions = (brand: string, size: string, phase: string) => {
     // Filter combos by brand and phase
-    const filteredCombos = ComboData.filter((combo) => combo.brand === brand);
+    const filteredCombos = ComboData.filter((combo) => combo.brand === brand && combo.solarSizeKw === parseInt(size));
 
     // Extract unique battery sizes and count occurrences
     const sizeCounts: { [key: number]: number } = {};
@@ -53,10 +53,11 @@ const ComboBatterySizeSelect = () => {
     const phase = searchParams.get("phase") || "";
     const brand = searchParams.get("brand") || "";
     const urlBatterySize = searchParams.get("batterySize") || "";
+    const solarSize = searchParams.get("solarSize") || "";
     const [selectedBatterySize, setSelectedBatterySize] = useState(urlBatterySize);
     const currentStep = searchParams.get("step") || "";
 
-    const batterySizeOptions = getBatterySizeOptions(brand, phase);
+    const batterySizeOptions = getBatterySizeOptions(brand, solarSize, phase);
 
     return (
         <section className="space-y-8">
