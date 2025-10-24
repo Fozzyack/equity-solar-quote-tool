@@ -16,26 +16,35 @@ const ComboList = () => {
     const comboId = searchParams.get("combo") || "";
     const currentStep = searchParams.get("step") || "";
 
-    const [selectedCombo, setSelectedCombo] = useState<ComboProduct | undefined>(
-        comboId ? ComboData.find((c) => c.id === comboId) : undefined,
-    );
+    const [selectedCombo, setSelectedCombo] = useState<
+        ComboProduct | undefined
+    >(comboId ? ComboData.find((c) => c.id === comboId) : undefined);
 
     const phaseNumber = phase === "single" ? 1 : phase === "three" ? 3 : 0;
 
     // Filter combos by brand, phase, and battery size range
     let filteredCombos = ComboData.filter(
-        (combo) => combo.phase === phaseNumber && combo.brand === brand,
+        (combo) =>
+            (phase === "unknown" ? true : combo.phase === phaseNumber) &&
+            combo.brand === brand,
     );
 
     // Apply battery size filtering if selected
     if (batterySize) {
         const selectedSize = parseFloat(batterySize);
-        filteredCombos = filteredCombos.filter(combo => combo.batterySizeKwh === selectedSize);
+        filteredCombos = filteredCombos.filter(
+            (combo) => combo.batterySizeKwh === selectedSize,
+        );
     }
+
+    filteredCombos = filteredCombos.slice(0,1);
 
     const handleContinue = () => {
         if (selectedCombo) {
-            updateParams({ combo: selectedCombo.id, step: parseInt(currentStep) + 1 });
+            updateParams({
+                combo: selectedCombo.id,
+                step: parseInt(currentStep) + 1,
+            });
         }
     };
 
@@ -50,13 +59,14 @@ const ComboList = () => {
                             No combo systems available
                         </p>
                         <p className="text-sm font-medium text-slate-600">
-                            There are no batteries for {phaseLabel} systems with {brand}.
-                            Please go back and select a different phase or brand.
+                            There are no batteries for {phaseLabel} systems with{" "}
+                            {brand}. Please go back and select a different phase
+                            or brand.
                         </p>
                     </div>
                 </div>
             ) : (
-                <div className="mb-20 grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+                <div className="mb-20 gap-6 flex items-center justify-center">
                     {filteredCombos.map((item) => (
                         <ComboCard
                             key={item.id}

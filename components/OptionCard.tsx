@@ -22,7 +22,7 @@ export const OptionCard = ({
             type="button"
             onClick={disabled ? undefined : onClick}
             disabled={disabled}
-            className={`relative flex h-full w-full flex-col items-center gap-4 rounded-3xl border-2 px-6 py-7 text-sm font-bold uppercase tracking-wide transition ${
+            className={`relative flex h-full w-full flex-col items-center justify-center gap-4 rounded-3xl border-2 px-6 py-7 text-sm font-bold uppercase tracking-wide transition ${
                 selected
                     ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
                     : disabled
