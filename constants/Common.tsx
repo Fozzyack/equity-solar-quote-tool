@@ -1,5 +1,20 @@
 import { BatteryIcon, ComboIcon, SolarPanelsIcon } from "./Icons";
 
+export const stepNumber = [
+    {
+        id: "solar-panels",
+        steps: 5,
+    },
+    {
+        id: "combo",
+        steps: 6,
+    },
+    {
+        id: "battery",
+        steps: 4,
+    },
+]
+
 export const systemSizeOptions = [
     {
         id: "6.6",
