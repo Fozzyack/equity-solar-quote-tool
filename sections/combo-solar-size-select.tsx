@@ -25,11 +25,10 @@ const SolarIcon = () => (
     </svg>
 );
 
-const getSolarSizeOptions = (brand: string, batterySize: string) => {
-    const batterySizeKwh = parseFloat(batterySize);
+const getSolarSizeOptions = (brand: string) => {
     const filteredCombos = ComboData.filter(
         (combo) =>
-            combo.brand === brand && combo.batterySizeKwh === batterySizeKwh,
+            combo.brand === brand
     );
 
     const sizeCounts: { [key: number]: number } = {};
@@ -50,12 +49,11 @@ const getSolarSizeOptions = (brand: string, batterySize: string) => {
 const ComboSolarSizeSelect = () => {
     const searchParams = useSearchParams();
     const brand = searchParams.get("brand") || "";
-    const batterySize = searchParams.get("batterySize") || "";
     const urlSolarSize = searchParams.get("solarSize") || "";
     const [selectedSolarSize, setSelectedSolarSize] = useState(urlSolarSize);
     const currentStep = searchParams.get("step") || "";
 
-    const solarSizeOptions = getSolarSizeOptions(brand, batterySize);
+    const solarSizeOptions = getSolarSizeOptions(brand);
 
     return (
         <section className="space-y-8">
