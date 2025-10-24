@@ -14,10 +14,9 @@ import LoadingEmail from "@/components/LoadingEmail";
 const ComboFinal = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
+    const currentStep = searchParams.get("step") || "";
     const comboId = searchParams.get("combo") || "";
-    const combo = comboId
-        ? ComboList.find((c) => c.id === comboId)
-        : undefined;
+    const combo = comboId ? ComboList.find((c) => c.id === comboId) : undefined;
     const [emailLoading, setEmailLoading] = useState(false);
     const [emailSubmitted, setEmailSubmitted] = useState(false);
 
@@ -32,7 +31,10 @@ const ComboFinal = () => {
             { label: "Solar Size", value: `${combo.solarSizeKw} kW` },
             { label: "Solar Panel", value: combo.solarPanel },
             { label: "Inverter", value: combo.inverter },
-            { label: "Phase", value: combo.phase === 1 ? "Single Phase" : "Three Phase" },
+            {
+                label: "Phase",
+                value: combo.phase === 1 ? "Single Phase" : "Three Phase",
+            },
             {
                 label: "Retail Price",
                 value: formatCurrency(combo.retailPrice),
@@ -77,7 +79,7 @@ const ComboFinal = () => {
 
                 <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                     <BackButton
-                        target={3}
+                        target={parseInt(currentStep) - 1}
                         label="Back to combos"
                         clearParams={["combo"]}
                     />
@@ -100,7 +102,8 @@ const ComboFinal = () => {
                             {combo.batteryModule}
                         </h3>
                         <p className="text-sm font-semibold text-slate-500">
-                            {combo.brand} • {combo.batterySizeKwh} kWh Battery + {combo.solarSizeKw} kW Solar
+                            {combo.brand} • {combo.batterySizeKwh} kWh Battery +{" "}
+                            {combo.solarSizeKw} kW Solar
                         </p>
                     </div>
                 </div>
@@ -123,14 +126,19 @@ const ComboFinal = () => {
 
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <BackButton
-                    target={3}
+                    target={parseInt(currentStep) - 1}
                     label="Back to combos"
                     clearParams={["combo"]}
                 />
                 <button
                     type="button"
                     onClick={() => {
-                        updateParams({ combo: "", brand: "", phase: "", step: 0 });
+                        updateParams({
+                            combo: "",
+                            brand: "",
+                            phase: "",
+                            step: 0,
+                        });
                     }}
                     className="inline-flex items-center justify-center rounded-full bg-slate-900 px-9 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-slate-700"
                 >

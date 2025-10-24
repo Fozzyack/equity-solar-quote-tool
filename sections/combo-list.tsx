@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ComboList as ComboData, ComboProduct } from "@/constants/ComboList";
 import { ComboCard } from "@/components/ComboCard";
 import { NavigationButtons } from "@/components/NavigationButtons";
+import { SectionHeader } from "@/components/SectionHeader";
 import { useUpdateParams } from "@/lib/useUpdateParams";
 import { useSearchParams } from "next/navigation";
 
@@ -51,7 +52,12 @@ const ComboList = () => {
     const phaseLabel = phase === "single" ? "single phase" : "three phase";
 
     return (
-        <div>
+        <div className="space-y-6">
+            <SectionHeader 
+                title="Review Your System for Your Cost Estimate" 
+                description="This is the solar and battery combination that best fits your needs"
+            />
+
             {filteredCombos.length === 0 ? (
                 <div className="mb-20 flex min-h-[400px] items-center justify-center">
                     <div className="max-w-md space-y-4 text-center">
