@@ -1,13 +1,13 @@
 # Agentic Coding Guidelines
 
 ## Build & Lint Commands
-- `npm run dev` - Turbopack dev server (Next.js 15 App Router)
-- `npm run build` - Production build (must succeed before PRs)
-- `npm run start` - Serve built app for smoke testing
-- `npx prettier --write .` - Format all files with 4-space indentation & semicolons
+- `bun run dev` - Turbopack dev server (Next.js 15 App Router)
+- `bun run build` - Production build (must succeed before PRs)
+- `bun run start` - Serve built app for smoke testing
+- `bunx prettier --write .` - Format all files with 4-space indentation & semicolons
 - **No automated tests**; manual QA via wizard on desktop + mobile
 - When tests added: use Playwright/React Testing Library in `__tests__/<Component>.test.tsx`
-- Run single test: `npx playwright test <test-file>` (when tests exist)
+- Run single test: `bunx playwright test <test-file>` (when tests exist)
 
 ## Code Style
 - **Indentation**: 4 spaces (Prettier enforces via `.prettierrc`)
