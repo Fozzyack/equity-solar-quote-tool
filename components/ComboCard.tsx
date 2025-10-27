@@ -3,10 +3,11 @@ import { ComboProduct } from "@/constants/ComboList";
 interface ComboCardProps {
     combo: ComboProduct;
     selected: boolean;
+    phase: string;
     onClick: () => void;
 }
 
-export const ComboCard = ({ combo, selected, onClick }: ComboCardProps) => {
+export const ComboCard = ({ combo, selected, phase, onClick }: ComboCardProps) => {
     const brandImages: Record<string, string> = {
         Sungrow: "/brand_images/sungrow.webp",
         GoodWe: "/brand_images/goodwe.png",
@@ -88,6 +89,15 @@ export const ComboCard = ({ combo, selected, onClick }: ComboCardProps) => {
                         </span>
                         <span className="text-right text-sm text-slate-900">
                             {combo.inverter}
+                        </span>
+                    </div>
+                    <div className="h-px bg-slate-200"></div>
+                    <div className="flex items-start justify-between gap-2">
+                        <span className="text-sm font-semibold text-slate-600">
+                            Phase
+                        </span>
+                        <span className="text-right text-sm text-slate-900">
+                            {phase}
                         </span>
                     </div>
                 </div>

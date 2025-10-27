@@ -49,7 +49,7 @@ const ComboList = () => {
         }
     };
 
-    const phaseLabel = phase === "single" ? "single phase" : "three phase";
+    const phaseLabel = phase === "Single" ? "Single phase" : "3 phase";
 
     return (
         <div className="space-y-6">
@@ -79,6 +79,7 @@ const ComboList = () => {
                             combo={item}
                             selected={selectedCombo?.id === item.id}
                             onClick={() => setSelectedCombo(item)}
+                            phase={phaseLabel}
                         />
                     ))}
                 </div>
