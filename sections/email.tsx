@@ -108,9 +108,7 @@ const Email = ({
                     Unlock your System Price
                 </h3>
                 <p className="text-sm font-medium text-slate-900/85">
-                    Share your contact info so we can send full pricing, specs,
-                    and installation guidance for your chosen system. It’s
-                    absolutely free.
+                    Share your contact info so we can send price guidance and specs for your chosen system. It’s absolutely free
                 </p>
             </header>
             <div className="mt-2 flex-1">
