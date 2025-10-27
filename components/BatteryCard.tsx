@@ -55,7 +55,7 @@ export const BatteryCard = ({ battery, selected, onClick }: BatteryCardProps) =>
                 <p
                     className={`text-xs font-semibold uppercase tracking-[0.3em] ${selected ? "text-black" : "text-slate-400"}`}
                 >
-                    {battery.module}
+                    {battery.inverter}
                 </p>
                 <h2 className="text-lg font-bold leading-tight">
                     {battery.brand}

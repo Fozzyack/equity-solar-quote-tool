@@ -40,7 +40,7 @@ const Batteries = () => {
                 title="Choose your battery system"
                 description="Select the battery capacity and configuration that best matches your energy storage needs."
             />
-            <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                 {filteredBatteries.map((item) => (
                     <BatteryCard
                         key={item.id}
