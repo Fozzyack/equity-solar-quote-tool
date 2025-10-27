@@ -31,6 +31,7 @@ const Email = ({
     finishLoadingState,
 }: EmailProps) => {
     const [email, setEmail] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [message, setMessage] = useState("");
     const [submitted, setSubmitted] = useState(false);
     const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -85,10 +86,12 @@ const Email = ({
         }
         console.log(lookingAt);
 
-        sendEmail(email, message, lookingAt);
+        const info = email + " " + phoneNumber;
+        sendEmail(info, message, lookingAt);
         setSubmitted(true);
         setEmail("");
         setMessage("");
+        setPhoneNumber("");
         setAcceptedTerms(false);
         setShowTermsError(false);
 
@@ -132,6 +135,18 @@ const Email = ({
                                     setEmail(event.target.value)
                                 }
                                 placeholder="you@example.com"
+                                className="w-full rounded-2xl border border-transparent bg-white/90 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-200"
+                            />
+                        </label>
+                        <label className="flex flex-col gap-2 text-left text-sm font-bold uppercase tracking-wide">
+                            Phone Number (optional)
+                            <input
+                                required
+                                value={phoneNumber}
+                                onChange={(event) =>
+                                    setPhoneNumber(event.target.value)
+                                }
+                                placeholder="0412345678"
                                 className="w-full rounded-2xl border border-transparent bg-white/90 px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-200"
                             />
                         </label>
@@ -186,8 +201,7 @@ const Email = ({
                                 </button>
                             )}
                             <p className="text-center text-xs font-semibold text-slate-900/75">
-                                Your quote stays private and always costs $0. No
-                                obligation.
+                                Your information stays private. No obligation and always costs $0.
                             </p>
                         </div>
                     </form>
