@@ -105,11 +105,11 @@ const Email = ({
                     Equity Solar
                 </p>
                 <h3 className="text-2xl font-extrabold leading-tight">
-                    Unlock your detailed quote
+                    Unlock your System Price
                 </h3>
                 <p className="text-sm font-medium text-slate-900/85">
                     Share your contact info so we can send full pricing, specs,
-                    and installation guidance for your chosen battery. It’s
+                    and installation guidance for your chosen system. It’s
                     absolutely free.
                 </p>
             </header>
