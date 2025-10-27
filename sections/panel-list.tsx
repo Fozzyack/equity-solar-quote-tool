@@ -44,7 +44,7 @@ const PanelSelect = () => {
                 title="Select Your Panels"
                 description="Have a look at the panels we are currently installing"
             />
-            <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="mb-20 grid gap-4 sm:flex sm:items-center sm:justify-center">
                 {panels.map((item) => (
                     <ProductCard
                         key={item.id}

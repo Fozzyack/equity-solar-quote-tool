@@ -36,7 +36,7 @@ const InverterSelect = () => {
 
     return (
         <div>
-            <div className="mb-20 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="mb-20 grid gap-4 sm:flex sm:items-center sm:justify-center">
                 {inverters.map((item) => (
                     <ProductCard
                         key={item.id}

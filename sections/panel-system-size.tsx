@@ -19,7 +19,7 @@ const SystemSize = () => {
                 title="Which system size are you looking for?"
                 description="Pick the array that best matches your household usage. Not sure is okay too."
             />
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid sm:flex sm:items-center sm:justify-center gap-4">
                 {systemSizeOptions.map((option) => (
                     <OptionCard
                         key={option.id}

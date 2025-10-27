@@ -12,11 +12,11 @@ export const ProductCard = ({
     onClick,
 }: ProductCardProps) => {
     return (
-        <div className="group relative h-full">
+        <div className="group relative h-full w-[250px]">
             <button
                 type="button"
                 aria-pressed={selected}
-                className={`relative flex h-full w-full flex-col gap-4 rounded-2xl border-2 p-4 text-left transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400 ${
+                className={`relative flex h-full w-full flex-col gap-4 rounded-2xl border-2 p-4 text-left transition focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-yellow-400 ${
                     selected
                         ? "border-yellow-400 bg-yellow-400 text-slate-900 shadow-lg"
                         : "border-slate-200 bg-slate-50 text-slate-900 hover:border-yellow-300 hover:bg-yellow-50"
