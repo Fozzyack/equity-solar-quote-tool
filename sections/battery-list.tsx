@@ -26,7 +26,7 @@ const Batteries = () => {
 
     const handleContinue = () => {
         if (selectedBattery) {
-            updateParams({ battery: selectedBattery.id, step: 4 });
+            updateParams({ battery: selectedBattery.id, step: parseInt(currentStep) + 1 });
         }
     };
 

@@ -7,6 +7,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { BackButton } from "@/components/BackButton";
 import { useSearchParams } from "next/navigation";
 import { ComboList as ComboData } from "@/constants/ComboList";
+import { BatteryList } from "@/constants/Batteries";
 
 const SinglePhaseIcon = () => (
     <svg
@@ -85,23 +86,43 @@ const phaseOptions = [
     {
         id: "unknown",
         label: "Not Sure",
-        icon: <NotSureIcon />
+        icon: <NotSureIcon />,
     },
 ];
 
 const PhaseSelect = () => {
     const searchParams = useSearchParams();
     const urlPhase = searchParams.get("phase") || "";
+    const solution = searchParams.get("solution") || "";
     const [selectedPhase, setSelectedPhase] = useState(urlPhase);
     const brand = searchParams.get("brand") || "";
+    const tier = searchParams.get("tier") || "";
     const currentStep = searchParams.get("step") || "";
 
-    const hasSinglePhaseCombos = ComboData.some(
-        (combo) => combo.brand === brand && combo.phase === 1,
-    );
-    const hasThreePhaseCombos = ComboData.some(
-        (combo) => combo.brand === brand && combo.phase === 3,
-    );
+    let hasSinglePhase = false;
+    let hasThreePhase = false;
+
+    if (solution === "combo") {
+        hasSinglePhase = ComboData.some(
+            (combo) => combo.brand === brand && combo.phase === 1,
+        );
+        hasThreePhase = ComboData.some(
+            (combo) => combo.brand === brand && combo.phase === 3,
+        );
+    } else if (solution === "battery") {
+        hasSinglePhase = BatteryList.some(
+            (battery) =>
+                battery.brand === brand &&
+                battery.tier === tier &&
+                battery.phase === 1,
+        );
+        hasThreePhase = BatteryList.some(
+            (battery) =>
+                battery.brand === brand &&
+                battery.tier === tier &&
+                battery.phase === 3,
+        );
+    }
 
     return (
         <section className="space-y-8">
@@ -112,9 +133,9 @@ const PhaseSelect = () => {
             <div className="grid gap-4 sm:grid-cols-3">
                 {phaseOptions.map((option) => {
                     let isDisabled = true;
-                    if (option.id === "single" && hasSinglePhaseCombos)
+                    if (option.id === "single" && hasSinglePhase)
                         isDisabled = false;
-                    else if (option.id === "three" && hasThreePhaseCombos)
+                    else if (option.id === "three" && hasThreePhase)
                         isDisabled = false;
                     else if (option.id === "unknown") isDisabled = false;
 
@@ -144,8 +165,8 @@ const PhaseSelect = () => {
                     target={parseInt(currentStep) + 1}
                     disabled={
                         !selectedPhase ||
-                        (selectedPhase === "single" && !hasSinglePhaseCombos) ||
-                        (selectedPhase === "three" && !hasThreePhaseCombos)
+                        (selectedPhase === "single" && !hasSinglePhase) ||
+                        (selectedPhase === "three" && !hasThreePhase)
                     }
                     params={{ phase: selectedPhase }}
                 />

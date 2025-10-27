@@ -34,7 +34,10 @@ const BatteryFinal = () => {
             { label: "Capacity", value: `${battery.sizeKwh} kWh` },
             { label: "Inverter", value: battery.inverter },
             { label: "System Type", value: battery.systemType },
-            { label: "Phase", value: battery.phase },
+            {
+                label: "Phase",
+                value: battery.phase === 1 ? "Single Phase" : "Three Phase",
+            },
             {
                 label: "Estimated Retail Price",
                 value: formatCurrency(battery.price),

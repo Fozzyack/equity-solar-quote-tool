@@ -79,9 +79,10 @@ function HomeContent() {
                     {/* BATTERY SECTION */}
                     {step === 1 && solution === "battery" && <PriceRange />}
                     {step === 2 && solution === "battery" && <BatteryBrandSelect />}
-                    {step === 3 && solution === "battery" && <Batteries />}
-                    {step === 4 && solution === "battery" && <BatteryFinal />}
-                    {step >= 5 && solution === "battery" && <ComingSoon />}
+                    {step === 3 && solution === "battery" && <PhaseSelect />}
+                    {step === 4 && solution === "battery" && <Batteries />}
+                    {step === 5 && solution === "battery" && <BatteryFinal />}
+                    {step >= 6 && solution === "battery" && <ComingSoon />}
                 </main>
                  { step == 0 && <EquitySolarButton /> }
             </div>
