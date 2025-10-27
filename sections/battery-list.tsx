@@ -12,6 +12,8 @@ const Batteries = () => {
     const searchParams = useSearchParams();
     const updateParams = useUpdateParams();
     const tier = searchParams.get("tier") || "";
+    const phase = searchParams.get("phase") || "";
+    const phaseSelect = phase === "three" ? 3 : 1;
     const brand = searchParams.get("brand") || "";
     const batteryId = searchParams.get("battery") || "";
     const currentStep = searchParams.get("step") || "";
@@ -21,8 +23,10 @@ const Batteries = () => {
     >(batteryId ? BatteryList.find((b) => b.id === batteryId) : undefined);
 
     const filteredBatteries = BatteryList.filter(
-        (batteryItem) => batteryItem.tier === tier && batteryItem.brand === brand,
+        (batteryItem) => batteryItem.tier === tier && batteryItem.brand === brand && batteryItem.phase === phaseSelect,
     );
+
+    console.log(filteredBatteries)
 
     const handleContinue = () => {
         if (selectedBattery) {
