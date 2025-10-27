@@ -21,6 +21,7 @@ import BatteryBrandSelect from "@/sections/battery-brand-select";
 import ComboFinal from "@/sections/combo-final";
 import ComboBatterySizeSelect from "@/sections/combo-battery-size-select";
 import ComboSolarSizeSelect from "@/sections/combo-solar-size-select";
+import EquitySolarButton from "@/components/EquitySolarButton";
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -83,6 +84,7 @@ function HomeContent() {
                     {step === 4 && solution === "battery" && <BatteryFinal />}
                     {step >= 5 && solution === "battery" && <ComingSoon />}
                 </main>
+                 { step == 0 && <EquitySolarButton /> }
             </div>
         </div>
     );

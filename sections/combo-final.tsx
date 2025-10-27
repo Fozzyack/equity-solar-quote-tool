@@ -10,6 +10,7 @@ import { useSearchParams } from "next/navigation";
 import Email from "@sections/email";
 import { formatCurrency } from "@/lib/currency";
 import LoadingEmail from "@/components/LoadingEmail";
+import EquitySolarButton from "@/components/EquitySolarButton";
 
 const ComboFinal = () => {
     const searchParams = useSearchParams();
@@ -145,6 +146,7 @@ const ComboFinal = () => {
                     Start over
                 </button>
             </div>
+            <EquitySolarButton />
         </section>
     );
 };

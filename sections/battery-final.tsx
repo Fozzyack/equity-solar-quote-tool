@@ -10,6 +10,7 @@ import { useSearchParams } from "next/navigation";
 import Email from "@sections/email";
 import { formatCurrency } from "@/lib/currency";
 import LoadingEmail from "@/components/LoadingEmail";
+import EquitySolarButton from "@/components/EquitySolarButton";
 
 const BatteryFinal = () => {
     const searchParams = useSearchParams();
@@ -160,6 +161,7 @@ const BatteryFinal = () => {
                     Start over
                 </button>
             </div>
+            <EquitySolarButton />
         </section>
     );
 };
