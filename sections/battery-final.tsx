@@ -36,7 +36,7 @@ const BatteryFinal = () => {
             { label: "System Type", value: battery.systemType },
             { label: "Phase", value: battery.phase },
             {
-                label: "Retail Price",
+                label: "Estimated Retail Price",
                 value: formatCurrency(battery.price),
             },
             {

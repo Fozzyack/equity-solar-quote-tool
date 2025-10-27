@@ -50,7 +50,7 @@ const PanelFinal = () => {
             { label: "Inverter Model", value: inverter.modelRange },
             price
                 ? {
-                      label: "Retail Price",
+                      label: "Estimated Retail Price",
                       value: formatCurrency(price),
                   }
                 : undefined,

@@ -37,7 +37,7 @@ const ComboFinal = () => {
                 value: combo.phase === 1 ? "Single Phase" : "Three Phase",
             },
             {
-                label: "Retail Price",
+                label: "Estimated Retail Price",
                 value: formatCurrency(combo.retailPrice),
             },
         ];
