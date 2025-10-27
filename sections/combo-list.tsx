@@ -49,7 +49,7 @@ const ComboList = () => {
         }
     };
 
-    const phaseLabel = phase === "Single" ? "Single phase" : "3 phase";
+    const phaseLabel = phase ==="single" ? "Single Phase" : "3 Phase";
 
     return (
         <div className="space-y-6">
