@@ -5,7 +5,7 @@ interface InTouchHeaderProps {
 
 export const InTouchHeader = ({
     title = "We'll be in touch soon",
-    description = "A specialist from Equity Solar will reach out with a detailed quote and answer any questions you have about this battery system."
+    description = "A specialist from Equity Solar will reach out with a detailed quote and answer any questions you have about your selected system."
 }: InTouchHeaderProps) => {
     return (
         <div className="space-y-2">
