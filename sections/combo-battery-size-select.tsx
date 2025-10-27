@@ -43,7 +43,6 @@ const getBatterySizeOptions = (brand: string, size: string) => {
         .map(([size, count]) => ({
             id: size.toString(),
             label: `${size} kWh`,
-            description: `${count} option${count > 1 ? "s" : ""} available`,
             size: parseFloat(size),
         }));
 };
@@ -64,7 +63,7 @@ const ComboBatterySizeSelect = () => {
                 title="Select battery size"
                 description="Choose the battery capacity that best fits your energy needs."
             />
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+            <div className="grid gap-4 sm:flex sm:items-center sm:justify-center">
                 {batterySizeOptions.map((option) => (
                     <OptionCard
                         key={option.id}
@@ -72,7 +71,6 @@ const ComboBatterySizeSelect = () => {
                         onClick={() => setSelectedBatterySize(option.id)}
                         icon={<BatteryIcon />}
                         label={option.label}
-                        description={option.description}
                     />
                 ))}
             </div>

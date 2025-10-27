@@ -41,7 +41,6 @@ const getSolarSizeOptions = (brand: string) => {
         .map(([size, count]) => ({
             id: size.toString(),
             label: `${size} kW`,
-            description: `${count} option${count > 1 ? "s" : ""} available`,
             size: parseFloat(size),
         }));
 };
@@ -61,7 +60,7 @@ const ComboSolarSizeSelect = () => {
                 title="Select solar system size"
                 description="Choose the solar panel capacity that best fits your energy needs."
             />
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+            <div className="grid gap-4 sm:flex sm:items-center sm:justify-center">
                 {solarSizeOptions.map((option) => (
                     <OptionCard
                         key={option.id}
@@ -69,7 +68,6 @@ const ComboSolarSizeSelect = () => {
                         onClick={() => setSelectedSolarSize(option.id)}
                         icon={<SolarIcon />}
                         label={option.label}
-                        description={option.description}
                     />
                 ))}
             </div>

@@ -129,7 +129,7 @@ const PhaseSelect = () => {
                             label={option.label}
                             disabled={isDisabled}
                             description={
-                                isDisabled ? "No options available" : undefined
+                                isDisabled ? "No options available" : ""
                             }
                         />
                     );
