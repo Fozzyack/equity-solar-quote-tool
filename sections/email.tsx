@@ -47,13 +47,16 @@ const Email = ({
 
         let lookingAt = "";
         if (battery) {
+            const netPrice = battery.price - battery.rebate;
             lookingAt =
                 "Battery: " +
                 battery.brand +
                 " " +
                 battery.sizeKwh +
                 "kWh " +
-                battery.module;
+                battery.module +
+                " - Estimated Net Price (after rebate): $" +
+                netPrice.toLocaleString();
         } else if (combo) {
             lookingAt =
                 "Combo System: " +

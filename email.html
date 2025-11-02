@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Equity Solar Quote Request</title>
+    <title>Your Equity Solar Quote Request</title>
     <style>
         :root {
             color-scheme: light;
@@ -23,7 +23,7 @@
         }
 
         .email-wrapper {
-            padding: 32px 0;
+            padding: 32px 16px;
             width: 100%;
         }
 
@@ -46,9 +46,16 @@
 
         .header h1 {
             margin: 0;
-            font-size: 24px;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 700;
             letter-spacing: 0.4px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.85;
         }
 
         .body {
@@ -58,40 +65,169 @@
 
         .body p {
             margin: 0;
-            line-height: 1.6;
+            line-height: 1.7;
             font-size: 16px;
+            color: #1f1b16;
         }
 
         .body p + p {
             margin-top: 16px;
         }
 
-        .message-card {
-            margin-top: 24px;
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d1600;
+            margin-bottom: 8px;
+        }
+
+        .product-card {
+            margin-top: 28px;
             padding: 24px;
-            background-color: #ffffff;
-            border: 1px solid #fbbf24;
+            background: linear-gradient(to bottom, #fffbeb, #ffffff);
+            border: 2px solid #fbbf24;
             border-radius: 12px;
         }
 
-        .message-card h2 {
+        .product-card h2 {
+            margin: 0 0 16px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d1600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-details {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #fcd34d;
+        }
+
+        .product-details p {
+            margin: 0;
+            padding: 10px 0;
+            font-size: 15px;
+            border-bottom: 1px solid #fef3c7;
+        }
+
+        .product-details p:last-child {
+            border-bottom: none;
+        }
+
+        .product-details strong {
+            color: #2d1600;
+            font-weight: 700;
+        }
+
+        .message-card {
+            margin-top: 24px;
+            padding: 20px;
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            border-radius: 8px;
+        }
+
+        .message-card h3 {
+            margin: 0 0 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #78350f;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .message-card p {
+            color: #1f1b16;
+            font-style: italic;
+        }
+
+        .next-steps {
+            margin-top: 28px;
+            padding: 24px;
+            background-color: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 12px;
+        }
+
+        .next-steps h2 {
             margin: 0 0 12px;
             font-size: 18px;
+            font-weight: 700;
+            color: #14532d;
+        }
+
+        .next-steps ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .next-steps li {
+            margin: 8px 0;
+            line-height: 1.6;
+            color: #1f1b16;
+        }
+
+        .contact-info {
+            margin-top: 24px;
+            padding: 20px;
+            background-color: #fef3c7;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .contact-info p {
+            font-size: 15px;
             font-weight: 600;
             color: #2d1600;
         }
 
-        .footer {
-            padding: 24px 32px 32px;
-            text-align: center;
+        .contact-info a {
+            color: #ea580c;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .divider {
+            margin: 32px 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #fcd34d, transparent);
+        }
+
+        .team-section {
+            margin-top: 24px;
+            padding: 20px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            border-left: 4px solid #64748b;
+        }
+
+        .team-section h3 {
+            margin: 0 0 12px;
             font-size: 14px;
+            font-weight: 700;
+            color: #334155;
+            text-transform: uppercase;
+        }
+
+        .team-section p {
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .footer {
+            padding: 24px 32px;
+            text-align: center;
+            font-size: 13px;
             color: #854d0e;
-            background-color: #fff5d5;
+            background-color: #fffbeb;
+            line-height: 1.6;
         }
 
         @media (max-width: 600px) {
             .email-wrapper {
-                padding: 16px;
+                padding: 16px 8px;
             }
 
             .header,
@@ -102,34 +238,80 @@
             }
 
             .header h1 {
-                font-size: 20px;
+                font-size: 22px;
+            }
+
+            .product-card,
+            .next-steps {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <table role="presentation" class="email-wrapper" width="100%" cellspacing="0" cellpadding="0" style="background-color: #fff7d6;">
+    <table role="presentation" class="email-wrapper" width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td align="center">
                 <table role="presentation" class="email-container" width="100%" cellspacing="0" cellpadding="0">
+                    <!-- Header -->
                     <tr>
                         <td class="header">
-                            <h1>New Equity Solar Quote Request</h1>
+                            <h1>Thank You for Your Interest!</h1>
+                            <p>Your Equity Solar quote request has been received</p>
                         </td>
                     </tr>
+
+                    <!-- Body -->
                     <tr>
                         <td class="body">
-                            <p>Hello Equity Solar team,</p>
-                            <p>A new customer inquiry just arrived through the Equity Solar Quote Tool. Review the note below and continue the follow-up process.</p>
-                            <div class="message-card">
-                                <h2>Message from {{name}}</h2>
-                                <p>{{submatter}}</p>
+                            <p class="greeting">Hello,</p>
+                            <p>Thank you for using our Equity Solar Quote Tool! We're excited to help you explore solar and battery solutions for your home or business.</p>
+                            <p>A specialist from our team will review your request and reach out to you within 24 hours with personalized pricing, detailed specifications, and answers to any questions you may have.</p>
+
+                            <!-- Product Details -->
+                            <div class="product-card">
+                                <h2>Your Selected System</h2>
+                                <div class="product-details">
+                                    <p><strong>System Configuration:</strong><br/>{{lookingAt}}</p>
+                                </div>
                             </div>
+
+                            <!-- Customer Message -->
+                            <div class="message-card">
+                                <h3>Your Message to Us</h3>
+                                <p>{{note}}</p>
+                            </div>
+
+                            <!-- Next Steps -->
+                            <div class="next-steps">
+                                <h2>What Happens Next?</h2>
+                                <ul>
+                                    <li><strong>Within 24 hours:</strong> An Equity Solar specialist will contact you to discuss your system and provide detailed pricing</li>
+                                    <li><strong>Free consultation:</strong> We'll answer all your questions and help you understand your solar options</li>
+                                    <li><strong>Custom proposal:</strong> Receive a tailored quote designed for your specific energy needs</li>
+                                    <li><strong>No obligation:</strong> There's absolutely no pressure or commitment required</li>
+                                </ul>
+                            </div>
+
+                            <!-- Contact Info -->
+                            <div class="contact-info">
+                                <p>Questions? Reach out to us anytime:</p>
+                                <p>
+                                    Email: <a href="mailto:info@equitysolar.com.au">info@equitysolar.com.au</a><br/>
+                                    Phone: <a href="tel:+6113007275046">+61 1300 727 506</a>
+                                </p>
+                            </div>
+
+                            <div class="divider"></div>
+
                         </td>
                     </tr>
+
+                    <!-- Footer -->
                     <tr>
                         <td class="footer">
-                            This automated email was sent by Equity Solar's Quote Tool. Reply directly to connect with the requester.
+                            <p>This email was sent by Equity Solar's Quote Tool.</p>
+                            <p>You're receiving this because you requested a quote through our website.</p>
                         </td>
                     </tr>
                 </table>
