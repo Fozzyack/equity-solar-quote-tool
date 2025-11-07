@@ -44,3 +44,6 @@ next-env.d.ts
 # Custom
 other/
 .private/
+CLAUDE.md
+AGENTS.md
+Agents.md
