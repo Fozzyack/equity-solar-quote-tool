@@ -144,7 +144,6 @@ const Email = ({
                         <label className="flex flex-col gap-2 text-left text-sm font-bold uppercase tracking-wide">
                             Phone Number (optional)
                             <input
-                                required
                                 value={phoneNumber}
                                 onChange={(event) =>
                                     setPhoneNumber(event.target.value)
