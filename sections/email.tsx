@@ -89,8 +89,7 @@ const Email = ({
         }
         console.log(lookingAt);
 
-        const info = email + " " + phoneNumber;
-        sendEmail(info, message, lookingAt);
+        sendEmail(email, phoneNumber, message, lookingAt);
         setSubmitted(true);
         setEmail("");
         setMessage("");

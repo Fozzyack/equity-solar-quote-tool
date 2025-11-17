@@ -1,9 +1,8 @@
-import emailjs from "@emailjs/browser";
-
 const emailJsPublicKey = process.env.NEXT_PUBLIC_EMAILJS_API_KEY;
 
-export const sendEmail = (
+export const sendEmail = async (
     email: string,
+    phone: string,
     message: string,
     lookingAt: string,
 ) => {
@@ -11,8 +10,18 @@ export const sendEmail = (
         throw new Error("NEXT_PUBLIC_EMAILJS_API_KEY has not been set");
     }
 
+    // Having Issues running emailjs even on client
+    // Only import emailjs on the client side
+    if (typeof window === "undefined") {
+        console.error("sendEmail should only be called on the client side");
+        return;
+    }
+
+    const emailjs = (await import("@emailjs/browser")).default;
+
     const templateParams = {
         senderEmail: email,
+        senderPhone: phone,
         lookingAt: lookingAt,
         note: message || "No additional message provided",
         to_email: email,
