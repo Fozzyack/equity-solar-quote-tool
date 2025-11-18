@@ -683,7 +683,7 @@ const batteryData: BatteryProductBase[] = [
         systemType: "AC-coupled 11 kW - 1p",
         module: "Powerwall 3 (13.5kWh)",
         phase: 1,
-        price: 15050,
+        price: 15550,
         rebate: 4455,
         tier: "premium",
         image: "/Tesla/TeslaPowerwall.webp",
